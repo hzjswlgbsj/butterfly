@@ -1,2 +1,3 @@
-# butterfly
-An Online Collaborative Documentation Project
+## 关于
+
+这是一个在线协同文档项目，基于 CRDT 方案来实现协同，使用了社区比较好的 Yjs[]。

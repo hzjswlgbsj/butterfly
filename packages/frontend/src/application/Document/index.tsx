@@ -5,7 +5,7 @@ import {
   getRemoteCursorsOnLeaf,
   useDecorateRemoteCursors,
 } from '@slate-yjs/react';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+// import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createEditor, Descendant, Text } from 'slate';
 import { RenderLeafProps, Slate, withReact } from 'slate-react';
 import * as Y from 'yjs';

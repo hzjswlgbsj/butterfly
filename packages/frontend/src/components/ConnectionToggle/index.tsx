@@ -1,6 +1,6 @@
 import React from 'react';
-import ConnectedIcon from '../../../assets/connected.svg';
-import DisconnectedIcon from '../../../assets/disconnected.svg';
+import ConnectedIcon from '../../assets/connected.svg';
+import DisconnectedIcon from '../../assets/disconnected.svg';
 
 type ConnectionToggleProps = {
   connected: boolean;

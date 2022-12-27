@@ -5,7 +5,7 @@ import {
   getRemoteCursorsOnLeaf,
   useDecorateRemoteCursors,
 } from '@slate-yjs/react';
-// import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createEditor, Descendant, Text } from 'slate';
 import { RenderLeafProps, Slate, withReact } from 'slate-react';
 import * as Y from 'yjs';
@@ -69,7 +69,7 @@ function DecoratedEditable() {
   );
 }
 
-export function RemoteCursorDecorations() {
+export default function RemoteCursorDecorations() {
   const [value, setValue] = useState<Descendant[]>([]);
   const [connected, setConnected] = useState(false);
 
@@ -95,7 +95,6 @@ export function RemoteCursorDecorations() {
 
   const editor = useMemo(() => {
     const sharedType = provider.document.get('content', Y.XmlText) as Y.XmlText;
-
     return withMarkdown(
       withNormalize(
         withReact(

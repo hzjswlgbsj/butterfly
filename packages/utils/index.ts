@@ -2,16 +2,9 @@ import { CursorData } from "./types";
 
 export function getRandomColor() {
   return (
-    "#" +
-    (function (color) {
-      return (color += "0123456789abcdef"[Math.floor(Math.random() * 16)]) &&
-        color.length == 6
-        ? color
-        : arguments.callee(color);
-    })("")
+    "#" + ("00000" + ((Math.random() * 0x1000000) << 0).toString(16)).substr(-6)
   );
 }
-
 export function getUUID() {
   const s = [];
   const hexDigits = "0123456789abcdef";

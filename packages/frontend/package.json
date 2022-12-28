@@ -33,9 +33,12 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^3.0.0",
+    "autoprefixer": "^10.4.13",
     "axios": "^1.2.1",
+    "babel-plugin-styled-windicss": "^1.0.1",
     "immer": "^9.0.16",
     "immutable": "^4.1.0",
+    "postcss": "^8.4.20",
     "prop-types": "^15.8.1",
     "react-lazyload": "^3.2.0",
     "react-redux": "^8.0.5",
@@ -43,6 +46,7 @@
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
     "styled-components": "^5.3.6",
+    "tailwindcss": "^3.2.4",
     "typescript": "^4.9.3",
     "vite": "^4.0.0"
   }

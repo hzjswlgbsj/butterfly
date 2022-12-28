@@ -18,6 +18,7 @@ import { withMarkdown } from '../../plugins/withMarkdown';
 import { withNormalize } from '../../plugins/withNormalize';
 import { CursorData } from '../../types';
 import { addAlpha, randomCursorData } from '@butterfly/utils';
+import { Content, AuthorWrapper, AuthorBefore, Author } from './style';
 
 function renderDecoratedLeaf(props: RenderLeafProps) {
   getRemoteCursorsOnLeaf<CursorData, Text>(props.leaf).forEach((cursor) => {
@@ -33,24 +34,23 @@ function renderDecoratedLeaf(props: RenderLeafProps) {
   getRemoteCaretsOnLeaf<CursorData, Text>(props.leaf).forEach((caret) => {
     if (caret.data) {
       props.children = (
-        <span className="relative">
-          <span
+        <AuthorWrapper>
+          <AuthorBefore
             contentEditable={false}
             className="absolute top-0 bottom-0 w-0.5 left-[-1px]"
             style={{ backgroundColor: caret.data.color }}
           />
-          <span
+          <Author
             contentEditable={false}
-            className="absolute text-xs text-white left-[-1px] top-0 whitespace-nowrap rounded rounded-bl-none px-1.5 py-0.5 select-none"
             style={{
               backgroundColor: caret.data.color,
               transform: 'translateY(-100%)',
             }}
           >
             {caret.data.name}
-          </span>
+          </Author>
           {props.children}
-        </span>
+        </AuthorWrapper>
       );
     }
   });
@@ -124,12 +124,12 @@ export default function RemoteCursorDecorations() {
   }, [editor]);
 
   return (
-    <div className="flex justify-center my-32 mx-10">
+    <Content>
       <Slate value={value} onChange={setValue} editor={editor}>
         <FormatToolbar />
         <DecoratedEditable />
       </Slate>
       <ConnectionToggle connected={connected} onClick={toggleConnection} />
-    </div>
+    </Content>
   );
 }

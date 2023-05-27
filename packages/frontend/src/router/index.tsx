@@ -4,7 +4,7 @@ import { useRoutes } from "react-router-dom";
 import Layout from '../application/Layout';
 import Document from '../application/Document';
 
-export const routes =[
+export const routes = [
   {
     path: "/",
     element: <Layout />,

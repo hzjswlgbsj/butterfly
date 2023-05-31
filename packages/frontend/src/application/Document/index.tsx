@@ -1,181 +1,128 @@
-import { FC, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { customAlphabet } from 'nanoid';
-import { WebsocketProvider, TodoAwareness, TodoItem } from '@butterfly/collaborate';
-import { IconCursor } from '../../components/IconCursor';
-
+import { withCursors, withYHistory, withYjs, YjsEditor } from '@slate-yjs/core';
+import {
+  getRemoteCaretsOnLeaf,
+  getRemoteCursorsOnLeaf,
+  useDecorateRemoteCursors,
+} from '@slate-yjs/react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { createEditor, Descendant, Text } from 'slate';
+import { RenderLeafProps, Slate, withReact } from 'slate-react';
 import * as Y from 'yjs';
+import { CustomEditable } from '../../components/CustomEditable';
+import { FormatToolbar } from '../../components/FormatToolbar/FormatToolbar';
+import { Leaf } from '../../components/Leaf';
+import { withMarkdown } from '../../plugins/withMarkdown';
+import { withNormalize } from '../../plugins/withNormalize';
+import { CursorData } from '../../types';
+import { addAlpha, randomCursorData } from '@butterfly/utils';
+import { WebsocketProvider } from '@butterfly/collaborate';
+import { customAlphabet } from 'nanoid';
+import { useParams } from 'react-router-dom';
 
+function renderDecoratedLeaf(props: RenderLeafProps) {
+  getRemoteCursorsOnLeaf<CursorData, Text>(props.leaf).forEach((cursor) => {
+    if (cursor.data) {
+      props.children = (
+        <span style={{ backgroundColor: addAlpha(cursor.data.color, 0.5) }}>
+          {props.children}
+        </span>
+      );
+    }
+  });
 
-const Document: FC<any> = () => {
+  getRemoteCaretsOnLeaf<CursorData, Text>(props.leaf).forEach((caret) => {
+    if (caret.data) {
+      props.children = (
+        <span className="relative">
+          <span
+            contentEditable={false}
+            className="absolute top-0 bottom-0 w-0.5 left-[-1px]"
+            style={{ backgroundColor: caret.data.color }}
+          />
+          <span
+            contentEditable={false}
+            className="absolute text-xs text-white left-[-1px] top-0 whitespace-nowrap rounded rounded-bl-none px-1.5 py-0.5 select-none"
+            style={{
+              backgroundColor: caret.data.color,
+              transform: 'translateY(-100%)',
+            }}
+          >
+            {caret.data.name}
+          </span>
+          {props.children}
+        </span>
+      );
+    }
+  });
+
+  return <Leaf {...props} />;
+}
+
+function DecoratedEditable() {
+  const decorate = useDecorateRemoteCursors();
+  return (
+    <CustomEditable
+      className="max-w-4xl w-full flex-col break-words"
+      decorate={decorate}
+      renderLeaf={renderDecoratedLeaf}
+    />
+  );
+}
+
+export default function RemoteCursorDecorations() {
   const params = useParams();
+  const [value, setValue] = useState<Descendant[]>([]);
 
-  const [awareness, setAwareness] = useState<TodoAwareness>(new Map());
-  const [todoText, setTodoText] = useState('');
-  const [todoItems, setTodoItems] = useState<TodoItem[]>([]);
+  // 创建一个房间
+  const roomId = params.roomId;
+  if (!roomId) {
+    alert('没有房间号！');
+    return;
+  }
 
-  const yjsClientRef = useRef<WebsocketProvider | null>(null);
+  const username = customAlphabet('abcdefghijklmn', 6)();
 
+  // 连接 ws
+  const provider = new WebsocketProvider(roomId, username);
+
+
+  const editor = useMemo(() => {
+    const sharedType = provider.operations;
+
+    return withMarkdown(
+      withNormalize(
+        withReact(
+          withCursors(
+            withYHistory(
+              withYjs(createEditor(), sharedType, { autoConnect: false })
+            ),
+            provider.awareness,
+            {
+              data: randomCursorData(),
+            }
+          )
+        )
+      )
+    );
+  }, [provider.awareness, provider.doc]);
+
+  // Connect editor and provider in useEffect to comply with concurrent mode
+  // requirements.
   useEffect(() => {
-    // 创建一个房间
-    const roomId = params.roomId;
-    if (!roomId) {
-      alert('没有房间号！');
-      return;
-    }
-
-    const username =
-      localStorage.getItem('yjs-react-todo-app-username') ||
-      customAlphabet('abcdefghijklmn', 6)();
-
-    // 连接 ws
-    const provider = new WebsocketProvider(roomId, username);
-    (window as any).provider = provider; // 方便 debug
-    yjsClientRef.current = provider;
-
-    // 监听 todoItems 数据的变化
-    provider.onTodoItemsChange((event: Y.YArrayEvent<TodoItem>,
-      transaction: Y.Transaction,) => {
-      console.log('数据发生改变', event, event.target.toArray());
-
-      setTodoItems(event.target.toArray());
-    });
-
-    // 监听光标位置变化，同步到 awareness
-    const handleMousemove = (e: MouseEvent) => {
-      yjsClientRef.current?.updateCursor(e.clientX, e.clientY);
-    };
-    window.addEventListener('mousemove', handleMousemove);
-    // 跑到页面外的时候，清空光标位置
-    const handleMouseout = () => {
-      yjsClientRef.current?.updateCursor(undefined, undefined);
-    };
-    window.addEventListener('mouseout', handleMouseout);
-
-    // 监听 awareness 的变化
-    provider.onAwarenessChange((state) => {
-      setAwareness(new Map([...state]));
-    });
-
-    return () => {
-      provider.destroy();
-      yjsClientRef.current = null;
-      window.removeEventListener('mousemove', handleMousemove);
-      window.removeEventListener('mouseout', handleMouseout);
-    };
-  }, [params.roomId]);
-
-  const addTodo = () => {
-    if (!todoText) {
-      return;
-    }
-
-    yjsClientRef.current?.addTodoItem(todoText);
-  };
-
-  const deleteTodo = (index: number) => {
-    yjsClientRef.current?.deleteTodoItem(index);
-  };
-
-  const toggleTodoItemDone = (index: number) => {
-    yjsClientRef.current?.toggleTodoItemDone(index);
-  };
-
-  const undo = () => {
-    yjsClientRef.current?.undo();
-  };
-  const redo = () => {
-    yjsClientRef.current?.redo();
-  };
-
-  const deleteAll = () => {
-    yjsClientRef.current?.deleteAllTodoItems();
-  };
+    provider.connect();
+    return () => provider.disconnect();
+  }, [provider]);
+  useEffect(() => {
+    YjsEditor.connect(editor);
+    return () => YjsEditor.disconnect(editor);
+  }, [editor]);
 
   return (
-    <div>
-      <div>房间号：{params.roomId}</div>
-      <div>
-        <button onClick={undo}>撤销</button>
-        <button onClick={redo}>重做</button>
-        <button onClick={deleteAll}>清空所有</button>
-      </div>
-
-      <div>
-        <input
-          value={todoText}
-          placeholder="新建待办"
-          onInput={(e) => {
-            const target = e.target as HTMLInputElement;
-            setTodoText(target.value);
-          }}
-        ></input>
-        <button
-          onClick={() => {
-            addTodo();
-            setTodoText('');
-          }}
-        >
-          添加
-        </button>
-      </div>
-
-      <div>
-        {todoItems.map((item, index) => {
-          return (
-            <div key={item.id}>
-              <input
-                type="checkbox"
-                checked={item.done}
-                onChange={() => {
-                  toggleTodoItemDone(index);
-                }}
-              ></input>
-              <span
-                style={{
-                  textDecoration: item.done ? 'line-through' : undefined,
-                }}
-              >
-                {item.text}
-              </span>
-              <button
-                style={{ marginLeft: 16 }}
-                onClick={() => deleteTodo(index)}
-              >
-                删除
-              </button>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* 光标 */}
-      {Array.from(awareness)
-        .filter(([id]) => {
-          return id !== yjsClientRef.current?.ydoc.clientID;
-        }) // 过滤掉自己
-        .filter(([, state]) => {
-          return state.cursor && state.cursor.x !== undefined;
-        }) // 过滤跑出网页的用户
-        .map(([id, state]) => {
-          return (
-            <div
-              key={id}
-              style={{
-                position: 'fixed',
-                left: state.cursor.x,
-                top: state.cursor.y,
-                color: state.user.color,
-                pointerEvents: 'none',
-              }}
-            >
-              <IconCursor />
-              {state.user.name}
-            </div>
-          );
-        })}
+    <div className="flex justify-center my-32 mx-10">
+      <Slate value={value} onChange={setValue} editor={editor}>
+        <FormatToolbar />
+        <DecoratedEditable />
+      </Slate>
     </div>
   );
-};
-
-export default Document
+}

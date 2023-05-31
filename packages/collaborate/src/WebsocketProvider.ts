@@ -8,20 +8,20 @@ import { generateRandomColor } from "@butterfly/utils";
 
 export class WebsocketProvider {
   roomId: string;
-  ydoc: Y.Doc;
+  doc: Y.Doc;
   provider: YWebsocketProvider;
-  yTodoItems: Y.Array<TodoItem>;
+  operations: Y.Array<TodoItem>;
   todoUndoManager: Y.UndoManager;
   awareness: Awareness;
 
   constructor(roomId: string, username: string) {
     this.roomId = roomId;
-    this.ydoc = new Y.Doc();
+    this.doc = new Y.Doc();
 
     this.provider = new YWebsocketProvider(
       WEBSOCKET_URL,
       this.roomId,
-      this.ydoc
+      this.doc
     );
 
     this.awareness = this.provider.awareness;
@@ -36,8 +36,8 @@ export class WebsocketProvider {
       },
     });
 
-    this.yTodoItems = this.ydoc.getArray("doc-operations");
-    this.todoUndoManager = new Y.UndoManager(this.yTodoItems);
+    this.operations = this.doc.getArray("doc-operations");
+    this.todoUndoManager = new Y.UndoManager(this.operations);
   }
 
   // 更新光标位置信息
@@ -47,23 +47,24 @@ export class WebsocketProvider {
 
   onAwarenessChange(callback: (state: TodoAwareness) => void) {
     this.awareness.on("change", (changed: any, origin: any) => {
+      console.log(1111111111, changed, origin);
       if (origin === "local") return; // 自己的操作不触发回调
-      callback(this.awareness.getStates() as TodoAwareness);
+      // callback(this.awareness.getStates() as TodoAwareness);
     });
   }
 
   // 监听 todoItems 变化
-  onTodoItemsChange(
+  onChange(
     callback: (
       event: Y.YArrayEvent<TodoItem>,
       transaction: Y.Transaction
     ) => void
   ) {
-    this.yTodoItems.observe(callback);
+    this.operations.observe(callback);
   }
 
   addTodoItem(text: string) {
-    this.yTodoItems.unshift([
+    this.operations.unshift([
       {
         id: nanoid(),
         text,
@@ -73,18 +74,18 @@ export class WebsocketProvider {
   }
 
   deleteTodoItem(index: number) {
-    this.yTodoItems.delete(index, 1);
+    this.operations.delete(index, 1);
   }
 
   toggleTodoItemDone(index: number) {
     // 下面的写法无法触发 observe
-    // const item = this.yTodoItems.get(index);
+    // const item = this.operations.get(index);
     // item.done = !item.done;
 
     // 下面的写法可以触发 observe
-    const item = this.yTodoItems.get(index);
-    this.yTodoItems.delete(index, 1);
-    this.yTodoItems.insert(index, [
+    const item = this.operations.get(index);
+    this.operations.delete(index, 1);
+    this.operations.insert(index, [
       {
         id: item.id,
         text: item.text,
@@ -92,10 +93,6 @@ export class WebsocketProvider {
       },
     ]);
     // 或者可以用嵌套 Map 的写法
-  }
-
-  deleteAllTodoItems() {
-    this.yTodoItems.delete(0, this.yTodoItems.length);
   }
 
   undo() {
@@ -106,10 +103,14 @@ export class WebsocketProvider {
     this.todoUndoManager.redo();
   }
   // getTodoItems() {
-  //   return this.yTodoItems.toArray();
+  //   return this.operations.toArray();
   // }
 
-  destroy() {
+  disconnect() {
     this.provider.disconnect();
+  }
+
+  connect() {
+    this.provider.connect();
   }
 }

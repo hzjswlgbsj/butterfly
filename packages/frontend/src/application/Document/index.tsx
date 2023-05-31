@@ -69,10 +69,10 @@ export default function RemoteCursorDecorations() {
   const [value, setValue] = useState<Descendant[]>([]);
   const [connected, setConnected] = useState(false);
   const ydoc: Y.Doc = new Y.Doc();
-  const yArray = ydoc.getArray('test-doc1')
+  const yArray = ydoc.getArray('doc-operations')
 
   const provider = useMemo(() => {
-    const wsProvider = new WebsocketProvider(WEBSOCKET_URL, 'slate-demo-room1', ydoc);
+    const wsProvider = new WebsocketProvider(WEBSOCKET_URL, 'gay42g6xx2f528nx4c', ydoc);
     // 注册连接状态变化的事件处理程序
     wsProvider.on('status', (event: any) => {
       if (event.status === 'connected') {
@@ -89,7 +89,7 @@ export default function RemoteCursorDecorations() {
     // 在连接建立后，可以对文档进行操作
     wsProvider.on('synced', () => {
       // 执行与文档同步后的操作
-      yArray.insert(0, ['初始文案']);
+      yArray.insert(0, ['客户端初始文案']);
       console.log('链接成功！');
     });
 

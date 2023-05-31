@@ -14,7 +14,7 @@ export const routes = [
         element: <Document />
       },
       {
-        path: 'doc',
+        path: 'doc/:roomId',
         element: <Document />,
         // children: [
         //   {

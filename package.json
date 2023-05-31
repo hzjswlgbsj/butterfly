@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "workspaces": [
+    "packages/*",
+    "tests"
+  ],
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,5 +16,11 @@
   "license": "ISC",
   "devDependencies": {
     "vitest": "^0.29.7"
+  },
+  "dependencies": {
+    "@butterfly/utils": "workspace:^1.0.0",
+    "y-protocols": "^1.0.5",
+    "y-websocket": "^1.5.0",
+    "yjs": "^13.5.43"
   }
 }

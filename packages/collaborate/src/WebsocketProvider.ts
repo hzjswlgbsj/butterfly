@@ -47,9 +47,8 @@ export class WebsocketProvider {
 
   onAwarenessChange(callback: (state: TodoAwareness) => void) {
     this.awareness.on("change", (changed: any, origin: any) => {
-      console.log(1111111111, changed, origin);
       if (origin === "local") return; // 自己的操作不触发回调
-      // callback(this.awareness.getStates() as TodoAwareness);
+      callback(this.awareness.getStates() as TodoAwareness);
     });
   }
 
@@ -93,6 +92,9 @@ export class WebsocketProvider {
       },
     ]);
     // 或者可以用嵌套 Map 的写法
+  }
+  deleteAllTodoItems() {
+    this.operations.delete(0, this.operations.length);
   }
 
   undo() {

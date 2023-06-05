@@ -54,22 +54,19 @@ export class WebsocketProvider {
 
   // 监听 todoItems 变化
   onChange(
-    callback: (
-      event: Y.YArrayEvent<SyncElement>,
-      transaction: Y.Transaction
-    ) => void
+    callback: (event: Y.YEvent<any>[], transaction: Y.Transaction) => void
   ) {
-    this.operations.observe(callback);
+    this.operations.observeDeep(callback);
   }
 
   update(text: string) {
-    this.operations.unshift([
-      {
-        id: nanoid(),
-        text,
-        done: false,
-      },
-    ]);
+    // this.operations.unshift([
+    //   {
+    //     id: nanoid(),
+    //     text,
+    //     done: false,
+    //   },
+    // ]);
   }
 
   deleteTodoItem(index: number) {

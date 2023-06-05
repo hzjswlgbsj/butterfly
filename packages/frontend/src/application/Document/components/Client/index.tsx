@@ -58,9 +58,9 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   }, [provider]);
 
   useEffect(() => {
-    provider.onChange((event: Y.YArrayEvent<SyncElement>,
+    provider.onChange((event: Y.YEvent<any>[],
       transaction: Y.Transaction,) => {
-      console.log('数据发生改变', event, event.target.toArray());
+      console.log('数据发生改变', event, event);
 
       // setTodoItems(event.target.toArray());
     });

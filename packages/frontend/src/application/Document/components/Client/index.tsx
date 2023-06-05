@@ -9,44 +9,27 @@ import {
   withCursor,
   withYjs,
 } from "slate-yjs";
-import { WebsocketProvider } from "y-websocket";
-import * as Y from "yjs";
+
+import { WebsocketProvider } from "@butterfly/collaborate";
 import { Button, Head, Instance, Title } from "./style";
 import EditorFrame from "../EditorFrame";
 import { withLinks } from "../../plugins/link";
-import { getRandomColor } from "@butterfly/utils";
-
-const WEBSOCKET_ENDPOINT =
-  process.env.NODE_ENV === "production"
-    ? "wss://demos.yjs.dev/slate-demo"
-    : "ws://localhost:1234";
+import * as Y from "yjs";
 
 interface ClientProps {
   name: string;
-  id: string;
-  slug: string;
-  removeUser: (id: any) => void;
+  roomId: string;
 }
 
-const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
+const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   const [value, setValue] = useState<Node[]>([]);
   const [isOnline, setOnlineState] = useState<boolean>(false);
-
-  const color = useMemo(
-    () =>
-      getRandomColor(),
-    []
-  );
-
   const [sharedType, provider] = useMemo(() => {
-    const doc = new Y.Doc();
-    const sharedType = doc.getArray<SyncElement>("content");
-    const provider = new WebsocketProvider(WEBSOCKET_ENDPOINT, slug, doc, {
-      connect: false,
-    });
+    const provider = new WebsocketProvider(roomId, name);
+    const sharedType = provider.operations as Y.Array<SyncElement>;
 
     return [sharedType, provider];
-  }, [id]);
+  }, [roomId]);
 
   const editor = useMemo(() => {
     const editor = withCursor(
@@ -58,39 +41,47 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
   }, [sharedType, provider]);
 
   useEffect(() => {
-    provider.on("status", ({ status }: { status: string }) => {
-      setOnlineState(status === "connected");
-    });
-
-    provider.awareness.setLocalState({
-      alphaColor: color.slice(0, -2) + "0.2)",
-      color,
-      name,
-    });
-
-    // Super hacky way to provide a initial value from the client, if
-    // you plan to use y-websocket in prod you probably should provide the
-    // initial state from the server.
-    provider.on("sync", (isSynced: boolean) => {
+    provider.onSync((isSynced: boolean) => {
       if (isSynced && sharedType.length === 0) {
         toSharedType(sharedType, [
           { type: "paragraph", children: [{ text: "Hello world!" }] },
         ]);
       }
-    });
+    })
 
     provider.connect();
+    setOnlineState(true)
+    // return () => {
+    //   console.log(1111111111111)
+    //   provider.disconnect();
+    // };
+  }, [provider]);
 
-    return () => {
-      provider.disconnect();
-    };
+  useEffect(() => {
+    provider.onChange((event: Y.YArrayEvent<SyncElement>,
+      transaction: Y.Transaction,) => {
+      console.log('数据发生改变', event, event.target.toArray());
+
+      // setTodoItems(event.target.toArray());
+    });
   }, [provider]);
 
   const { decorate } = useCursors(editor);
 
   const toggleOnline = () => {
-    isOnline ? provider.disconnect() : provider.connect();
+    if (isOnline) {
+      provider.disconnect()
+      setOnlineState(false)
+    } else {
+      provider.connect()
+      setOnlineState(true)
+    }
   };
+
+  const handleChange = (value: Node[]) => {
+    console.log('编辑器数据发生改变', value)
+    // setValue(value)
+  }
 
   return (
     <Instance online={isOnline}>
@@ -100,9 +91,6 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
           <Button type="button" onClick={toggleOnline}>
             Go {isOnline ? "offline" : "online"}
           </Button>
-          <Button type="button" onClick={() => removeUser(id)}>
-            Remove
-          </Button>
         </div>
       </Title>
 
@@ -110,7 +98,7 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
         editor={editor}
         value={value}
         decorate={decorate}
-        onChange={(value: Node[]) => setValue(value)}
+        onChange={handleChange}
       />
     </Instance>
   );

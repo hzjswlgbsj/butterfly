@@ -14,5 +14,8 @@
     "dist"
   ],
   "author": "sixty",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "slate-yjs": "^3.2.0"
+  }
 }

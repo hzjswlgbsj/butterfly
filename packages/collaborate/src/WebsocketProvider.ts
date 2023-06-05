@@ -3,18 +3,18 @@ import { WebsocketProvider as YWebsocketProvider } from "y-websocket"; // 这个
 import { WEBSOCKET_URL } from "../config";
 import { nanoid } from "nanoid";
 import { Awareness } from "y-protocols/awareness.js";
-import { TodoAwareness, TodoItem } from "./types";
-import { generateRandomColor } from "@butterfly/utils";
-
+import { TodoAwareness } from "./types";
+import { generateRandomColor, getRandomColor } from "@butterfly/utils";
+import { SyncElement } from "slate-yjs";
 export class WebsocketProvider {
   roomId: string;
   doc: Y.Doc;
   provider: YWebsocketProvider;
-  operations: Y.Array<TodoItem>;
+  operations: Y.Array<SyncElement>;
   todoUndoManager: Y.UndoManager;
   awareness: Awareness;
 
-  constructor(roomId: string, username: string) {
+  constructor(roomId: string, name: string) {
     this.roomId = roomId;
     this.doc = new Y.Doc();
 
@@ -26,17 +26,12 @@ export class WebsocketProvider {
 
     this.awareness = this.provider.awareness;
     this.awareness.setLocalState({
-      user: {
-        name: username,
-        color: generateRandomColor(),
-      },
-      cursor: {
-        x: undefined,
-        y: undefined,
-      },
+      alphaColor: getRandomColor().slice(0, -2) + "0.2)",
+      color: getRandomColor(),
+      name,
     });
 
-    this.operations = this.doc.getArray("doc-operations");
+    this.operations = this.doc.getArray("operations");
     this.todoUndoManager = new Y.UndoManager(this.operations);
   }
 
@@ -51,18 +46,23 @@ export class WebsocketProvider {
       callback(this.awareness.getStates() as TodoAwareness);
     });
   }
+  onSync(callback: (isSynced: boolean) => void) {
+    this.provider.on("sync", (isSynced: boolean) => {
+      callback(isSynced);
+    });
+  }
 
   // 监听 todoItems 变化
   onChange(
     callback: (
-      event: Y.YArrayEvent<TodoItem>,
+      event: Y.YArrayEvent<SyncElement>,
       transaction: Y.Transaction
     ) => void
   ) {
     this.operations.observe(callback);
   }
 
-  addTodoItem(text: string) {
+  update(text: string) {
     this.operations.unshift([
       {
         id: nanoid(),
@@ -84,13 +84,13 @@ export class WebsocketProvider {
     // 下面的写法可以触发 observe
     const item = this.operations.get(index);
     this.operations.delete(index, 1);
-    this.operations.insert(index, [
-      {
-        id: item.id,
-        text: item.text,
-        done: !item.done,
-      },
-    ]);
+    // this.operations.insert(index, [
+    //   {
+    //     id: item.id,
+    //     text: item.text,
+    //     done: !item.done,
+    //   },
+    // ]);
     // 或者可以用嵌套 Map 的写法
   }
   deleteAllTodoItems() {

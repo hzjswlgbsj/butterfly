@@ -1,28 +1,24 @@
 import { customAlphabet, nanoid } from 'nanoid';
 import debounce from "lodash/debounce";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import Client from "./components/Client";
 import { Grid, H4, Input, RoomWrapper, Title } from "./style";
-import { Button } from '../../baseUI/baseStyled';
+import { useParams } from 'react-router-dom';
 
 interface User {
-  id: string;
+  roomId: string;
   name: string;
 }
 
-interface RoomProps {
-  slug: string;
-  removeRoom: () => void;
-}
 
-const createUser = (): User => ({
-  id: nanoid(32),
-  name: customAlphabet('abcdefghijklmn', 6)(),
-});
 
-const Room: React.FC<RoomProps> = ({ slug, removeRoom }) => {
-  const [users, setUsers] = useState<User[]>([createUser(), createUser()]);
-  const [roomSlug, setRoomSlug] = useState<string>(slug);
+const Room: React.FC<any> = () => {
+  const params = useParams()
+  const createUser = (): User => ({
+    roomId: params.roomId || '',
+    name: customAlphabet('abcdefghijklmn', 6)(),
+  });
+  const [users, setUsers] = useState<User[]>([createUser()]);
   const [isRemounted, setRemountState] = useState(false);
 
   const remount = debounce(() => {
@@ -30,36 +26,14 @@ const Room: React.FC<RoomProps> = ({ slug, removeRoom }) => {
     setTimeout(setRemountState, 50, false);
   }, 300);
 
-  const changeSlug = (e: ChangeEvent<HTMLInputElement>) => {
-    setRoomSlug(e.target.value);
-    remount();
-  };
-
-  const addUser = () => setUsers((users) => users.concat(createUser()));
-
-  const removeUser = (userId: string) =>
-    setUsers((users) => users.filter((u: User) => u.id !== userId));
-
   return (
     <RoomWrapper>
-      <Title>
-        <H4>Document slug:</H4>
-        <Input type="text" value={roomSlug} onChange={changeSlug} />
-        <Button type="button" onClick={addUser}>
-          Add random user
-        </Button>
-        <Button type="button" onClick={removeRoom}>
-          Remove Room
-        </Button>
-      </Title>
       <Grid>
         {users.map((user: User) =>
           isRemounted ? null : (
             <Client
               {...user}
-              slug={roomSlug}
-              key={user.id}
-              removeUser={removeUser}
+              key={user.roomId}
             />
           )
         )}

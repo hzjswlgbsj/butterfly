@@ -23,9 +23,9 @@ importers:
 
   packages/collaborate:
     specifiers:
-      '@butterfly/utils': workspace:^1.0.0
+      slate-yjs: ^3.2.0
     dependencies:
-      '@butterfly/utils': link:../utils
+      slate-yjs: 3.2.0
 
   packages/frontend:
     specifiers:
@@ -2165,6 +2165,18 @@ packages:
       scroll-into-view-if-needed: 2.2.31
       slate: 0.87.0
       tiny-invariant: 1.0.6
+    dev: false
+
+  /slate-yjs/3.2.0:
+    resolution: {integrity: sha512-QOukd38jBmXeaSoudoBl97GakIU5rOEiqX5Cob4RUSutSX8gca67LaRyqtOxXHhN40/lKtwAAYnKm+nZDAtE+w==}
+    engines: {node: '>=6.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
+      slate: ^0.59.0
+      yjs: ^13.5.4
+    dependencies:
+      tiny-invariant: 1.1.0
+      y-protocols: 1.0.5
     dev: false
 
   /slate-yjs/3.2.0_rcc7vwfrm6bjwhetxvzybwl6ze:

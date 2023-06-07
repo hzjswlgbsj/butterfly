@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { createEditor, Node } from "slate";
+import { createEditor, Descendant } from "slate";
 import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
 import {
@@ -11,10 +11,13 @@ import {
 } from "slate-yjs";
 
 import { WebsocketProvider } from "@butterfly/collaborate";
-import { Button, Head, Instance, Title } from "./style";
+import { Instance } from "./style";
 import EditorFrame from "../EditorFrame";
 import { withLinks } from "../../plugins/link";
 import * as Y from "yjs";
+import { useParams } from "react-router-dom";
+import Toolbar from "../Toolbar";
+import Topbar from "../Topbar";
 
 interface ClientProps {
   name: string;
@@ -22,7 +25,8 @@ interface ClientProps {
 }
 
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
-  const [value, setValue] = useState<Node[]>([]);
+  const params = useParams()
+  const [value, setValue] = useState<Descendant[]>([]);
   const [isOnline, setOnlineState] = useState<boolean>(false);
   const [sharedType, provider] = useMemo(() => {
     const provider = new WebsocketProvider(roomId, name);
@@ -68,7 +72,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
 
   const { decorate } = useCursors(editor);
 
-  const toggleOnline = () => {
+  const toggleOnline = (isOnline: boolean) => {
     if (isOnline) {
       provider.disconnect()
       setOnlineState(false)
@@ -78,21 +82,16 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     }
   };
 
-  const handleChange = (value: Node[]) => {
+  const handleChange = (value: Descendant[]) => {
     console.log('编辑器数据发生改变', value)
     // setValue(value)
   }
 
   return (
-    <Instance online={isOnline}>
-      <Title>
-        <Head>Editor: {name}</Head>
-        <div style={{ display: "flex", marginTop: 10, marginBottom: 10 }}>
-          <Button type="button" onClick={toggleOnline}>
-            Go {isOnline ? "offline" : "online"}
-          </Button>
-        </div>
-      </Title>
+    <Instance>
+      <Topbar toggleOnline={toggleOnline} roomId={params.roomId as string} isOnline={isOnline} />
+
+      <Toolbar editor={editor} />
 
       <EditorFrame
         editor={editor}

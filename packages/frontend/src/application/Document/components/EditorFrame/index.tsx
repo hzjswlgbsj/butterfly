@@ -1,23 +1,18 @@
 import Caret from "../Caret";
 import React, { useCallback } from "react";
-import { Node } from "slate";
+import { Descendant } from "slate";
 import {
   Editable,
   ReactEditor,
   RenderLeafProps,
   Slate,
-  useSlate,
 } from "slate-react";
-import { ClientFrame } from "./style";
-import { Icon, IconButton } from '../../../../baseUI/baseStyled';
-import { isBlockActive, toggleBlock } from "../../plugins/block";
-import { insertLink, isLinkActive, unwrapLink } from "../../plugins/link";
-import { isMarkActive, toggleMark } from "../../plugins/mark";
+import { ClientFrame, EditorWrapper } from "./style";
 
 export interface EditorFrame {
   editor: ReactEditor;
-  value: Node[];
-  onChange: (value: Node[]) => void;
+  value: Descendant[];
+  onChange: (value: Descendant[]) => void;
   decorate: any;
 }
 
@@ -35,38 +30,17 @@ const EditorFrame: React.FC<EditorFrame> = ({
 
   return (
     <ClientFrame>
-      <Slate editor={editor} value={value} onChange={onChange}>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            position: "sticky",
-            top: 0,
-            backgroundColor: "white",
-            zIndex: 1,
-          }}
-        >
-          <MarkButton format="bold" icon="format_bold" />
-          <MarkButton format="italic" icon="format_italic" />
-          <MarkButton format="underline" icon="format_underlined" />
-          <MarkButton format="code" icon="code" />
+      <EditorWrapper>
+        <Slate editor={editor} value={value} onChange={onChange}>
 
-          <BlockButton format="heading-one" icon="looks_one" />
-          <BlockButton format="heading-two" icon="looks_two" />
-          <BlockButton format="block-quote" icon="format_quote" />
+          <Editable
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+            decorate={decorate}
+          />
+        </Slate>
+      </EditorWrapper>
 
-          <BlockButton format="numbered-list" icon="format_list_numbered" />
-          <BlockButton format="bulleted-list" icon="format_list_bulleted" />
-
-          <LinkButton />
-        </div>
-
-        <Editable
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          decorate={decorate}
-        />
-      </Slate>
     </ClientFrame>
   );
 };
@@ -130,58 +104,5 @@ const Leaf: React.FC<RenderLeafProps> = ({ attributes, children, leaf }) => {
       {leaf.isCaret ? <Caret {...(leaf as any)} /> : null}
       {children}
     </span>
-  );
-};
-
-const BlockButton: React.FC<any> = ({ format, icon }) => {
-  const editor = useSlate();
-  return (
-    <IconButton
-      active={isBlockActive(editor, format)}
-      onMouseDown={(event: React.MouseEvent) => {
-        event.preventDefault();
-        toggleBlock(editor, format);
-      }}
-    >
-      <Icon className="material-icons">{icon}</Icon>
-    </IconButton>
-  );
-};
-
-const MarkButton: React.FC<any> = ({ format, icon }) => {
-  const editor = useSlate();
-  return (
-    <IconButton
-      active={isMarkActive(editor, format)}
-      onMouseDown={(event: React.MouseEvent) => {
-        event.preventDefault();
-        toggleMark(editor, format);
-      }}
-    >
-      <Icon className="material-icons">{icon}</Icon>
-    </IconButton>
-  );
-};
-
-const LinkButton = () => {
-  const editor = useSlate();
-
-  const isActive = isLinkActive(editor);
-
-  return (
-    <IconButton
-      active={isActive}
-      onMouseDown={(event: React.MouseEvent) => {
-        event.preventDefault();
-
-        if (isActive) return unwrapLink(editor);
-
-        const url = window.prompt("Enter the URL of the link:");
-
-        url && insertLink(editor, url);
-      }}
-    >
-      <Icon className="material-icons">link</Icon>
-    </IconButton>
   );
 };

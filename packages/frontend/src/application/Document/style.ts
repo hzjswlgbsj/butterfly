@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-export const RoomWrapper = styled.div`
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e8e8e8;
+export const Documentrapper = styled.div`
+  height: 100%;
 `;
 
 export const H4 = styled.h4`
@@ -19,15 +18,6 @@ export const Input = styled.input`
   outline: none;
   border: 2px solid palevioletred;
   margin-right: auto;
-`;
-
-export const Grid = styled.div`
-  display: grid;
-  grid-gap: 1vw;
-  grid-template-columns: 1fr 1fr;
-  @media (max-width: 767px) {
-    grid-template-columns: 1fr;
-  }
 `;
 
 export const Title = styled.div`

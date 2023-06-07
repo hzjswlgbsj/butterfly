@@ -1,6 +1,6 @@
-import { CursorEditor, YHistoryEditor, YjsEditor } from '@slate-yjs/core';
-import { Descendant } from 'slate';
-import { ReactEditor } from 'slate-react';
+import { CursorEditor, YHistoryEditor, YjsEditor } from "@slate-yjs/core";
+import { Descendant } from "slate";
+import { ReactEditor } from "slate-react";
 
 export type CursorData = {
   name: string;
@@ -16,27 +16,27 @@ export type CustomText = {
 };
 
 export type Paragraph = {
-  type: 'paragraph';
+  type: "paragraph";
   children: Descendant[];
 };
 
 export type InlineCode = {
-  type: 'inline-code';
+  type: "inline-code";
   children: Descendant[];
 };
 
 export type HeadingOne = {
-  type: 'heading-one';
+  type: "heading-one";
   children: Descendant[];
 };
 
 export type HeadingTwo = {
-  type: 'heading-two';
+  type: "heading-two";
   children: Descendant[];
 };
 
 export type BlockQuote = {
-  type: 'block-quote';
+  type: "block-quote";
   children: Descendant[];
 };
 
@@ -52,7 +52,7 @@ export type CustomEditor = ReactEditor &
   YHistoryEditor &
   CursorEditor<CursorData>;
 
-declare module 'slate' {
+declare module "slate" {
   interface CustomTypes {
     Editor: CustomEditor;
     Element: CustomElement;

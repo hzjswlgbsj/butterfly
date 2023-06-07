@@ -18,7 +18,7 @@ export const Button = styled.button`
 `;
 
 export const IconButton = styled(Button)((props: any) => ({
-  color: props.active ? "mediumvioletred" : "lightpink",
+  color: props.active ? "rgba(0,0,0,0.9)" : "rgba(0,0,0,0.5)",
   border: "none",
   padding: 0,
 }));

@@ -2,7 +2,7 @@
 import React from 'react';
 import { useRoutes } from "react-router-dom";
 import Layout from '../application/Layout';
-import Document from '../application/Document/index';
+import Document from '../application/Document';
 
 export const routes = [
   {

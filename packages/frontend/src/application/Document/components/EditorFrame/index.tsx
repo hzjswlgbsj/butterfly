@@ -7,7 +7,7 @@ import {
   RenderLeafProps,
   Slate,
 } from "slate-react";
-import { ClientFrame, EditorWrapper } from "./style";
+import { ClientFrame, Code, EditorWrapper } from "./style";
 
 export interface EditorFrame {
   editor: ReactEditor;
@@ -16,7 +16,13 @@ export interface EditorFrame {
   decorate: any;
 }
 
-const renderElement = (props: any) => <Element {...props} />;
+const renderElement = (props: any) => {
+  return <Element {...props} />
+};
+
+const renderLeaf = (props: any) => {
+  return <Leaf {...props} />
+};
 
 const EditorFrame: React.FC<EditorFrame> = ({
   editor,
@@ -24,9 +30,10 @@ const EditorFrame: React.FC<EditorFrame> = ({
   onChange,
   decorate,
 }) => {
-  const renderLeaf = useCallback((props: any) => <Leaf {...props} />, [
-    decorate,
-  ]);
+
+
+
+
 
   return (
     <ClientFrame>
@@ -48,6 +55,7 @@ const EditorFrame: React.FC<EditorFrame> = ({
 export default EditorFrame;
 
 const Element: React.FC<any> = ({ attributes, children, element }) => {
+
   switch (element.type) {
     case "link":
       return (
@@ -73,12 +81,13 @@ const Element: React.FC<any> = ({ attributes, children, element }) => {
 };
 
 const Leaf: React.FC<RenderLeafProps> = ({ attributes, children, leaf }) => {
+
   if (leaf.bold) {
     children = <strong>{children}</strong>;
   }
 
   if (leaf.code) {
-    children = <code>{children}</code>;
+    children = <Code>{children}</Code>;
   }
 
   if (leaf.italic) {

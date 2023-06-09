@@ -32,3 +32,6 @@ export const EditorWrapper = styled.div`
     color: darkmagenta;
   }
 `;
+export const Code = styled.span`
+  background-color: #ccc;
+`;

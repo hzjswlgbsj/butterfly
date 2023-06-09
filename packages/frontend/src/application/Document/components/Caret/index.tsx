@@ -15,6 +15,7 @@ const Caret: React.FC<Caret> = ({ data, isForward }) => {
     ...caretStyleBase,
     background: data.color,
     left: isForward ? "100%" : "0%",
+    width: '2px'
   };
 
   caretStyles[isForward ? "bottom" : "top"] = 0;
@@ -40,7 +41,7 @@ const cursorStyleBase = {
   pointerEvents: "none",
   userSelect: "none",
   transform: "translateY(-100%)",
-  fontSize: 10,
+  fontSize: 20,
   color: "white",
   background: "palevioletred",
   whiteSpace: "nowrap",

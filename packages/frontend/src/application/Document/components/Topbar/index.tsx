@@ -15,10 +15,11 @@ interface TopbarProps {
 const Topbar: React.FC<TopbarProps> = ({ isOnline, toggleOnline, roomId }) => {
   return (
     <Title>
-      <Head>Room: {roomId}</Head>
+      <Head>文章唯一标识: {roomId}</Head>
       <div style={{ display: "flex", marginTop: 10, marginBottom: 10 }}>
+        <div style={{ display: "flex", marginTop: 10, marginBottom: 10, marginRight: 10 }}>{isOnline ? "在线中" : "下线中"}</div>
         <Button type="button" onClick={() => toggleOnline(!isOnline)}>
-          Go {isOnline ? "offline" : "online"}
+          {isOnline ? "下线" : "上线"}
         </Button>
       </div>
     </Title>

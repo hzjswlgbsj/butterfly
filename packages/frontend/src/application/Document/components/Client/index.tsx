@@ -73,6 +73,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   const { decorate } = useCursors(editor);
 
   const toggleOnline = (isOnline: boolean) => {
+    console.log('开始执行在线状态改变', isOnline)
     if (isOnline) {
       provider.disconnect()
       setOnlineState(false)

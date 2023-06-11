@@ -7,8 +7,6 @@ importers:
       '@butterfly/utils': workspace:^1.0.0
       '@types/lodash': ^4.14.195
       lodash: ^4.17.21
-      slate: ^0.87.0
-      slate-react: ^0.87.1
       vitest: ^0.29.7
       y-protocols: ^1.0.5
       y-websocket: ^1.5.0
@@ -17,8 +15,6 @@ importers:
       '@butterfly/utils': link:packages/utils
       '@types/lodash': 4.14.195
       lodash: 4.17.21
-      slate: 0.87.0
-      slate-react: 0.87.1_slate@0.87.0
       y-protocols: 1.0.5
       y-websocket: 1.5.0_yjs@13.5.43
       yjs: 13.5.43
@@ -119,12 +115,6 @@ importers:
       tailwindcss: 3.2.4_postcss@8.4.20
       typescript: 4.9.4
       vite: 4.0.1
-
-  packages/plate:
-    specifiers:
-      plate: ^1.4.4
-    dependencies:
-      plate: 1.4.4
 
   packages/utils:
     specifiers: {}
@@ -1304,17 +1294,13 @@ packages:
     dev: true
 
   /direction/1.0.4:
-    resolution: {integrity: sha512-GYqKi1aH7PJXxdhTeZBFrg8vUBeKXi+cNprXsC1kpJcbcVnV9wBsrOu1cQEdG0WeQwlfHiy3XvnKfIrJ2R0NzQ==}
+    resolution: {integrity: sha1-K4b7aGln6YcIjK+LiQWTcNSDdEI=}
     hasBin: true
     dev: false
 
   /dlv/1.1.3:
     resolution: {integrity: sha1-XBmKihFFNZbnUUlNSYdLx3MvLnk=}
     dev: true
-
-  /dst/0.0.4:
-    resolution: {integrity: sha512-SYo50JgqdpooSLyl+ZhvWZrLK7cZ0cyPmAo2MIoEPOOlpyXr32n7dKRbotqJEwY1JR+sX3ToSbRcHeQaAU/03w==}
-    dev: false
 
   /eastasianwidth/0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -1545,7 +1531,7 @@ packages:
     dev: true
 
   /is-hotkey/0.1.8:
-    resolution: {integrity: sha512-qs3NZ1INIS+H+yeo7cD9pDfwYV/jqRh1JG9S9zYrNudkoUQg7OL7ziXqRKu+InFjUIDoP2o6HIkLYMh1pcWgyQ==}
+    resolution: {integrity: sha1-ax9LLQ5WOZNOIMBe0k1iOiHTbSU=}
     dev: false
 
   /is-number/7.0.0:
@@ -1554,7 +1540,7 @@ packages:
     dev: true
 
   /is-plain-object/5.0.0:
-    resolution: {integrity: sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==}
+    resolution: {integrity: sha1-RCf1CrNCnpAl6n1S6QQ6nvQVk0Q=}
     engines: {node: '>=0.10.0'}
     dev: false
 
@@ -1852,13 +1838,6 @@ packages:
       mlly: 1.2.0
       pathe: 1.1.0
     dev: true
-
-  /plate/1.4.4:
-    resolution: {integrity: sha512-4J7F+0u+rRiD7Y4Fa4vxFzDyZF6V8Dua6T/J6tnO0mcgJvP/hyD0cjGJEqewDHjFVCfEhsgU9JlpZrZyado+7Q==}
-    dependencies:
-      dst: 0.0.4
-      tz: 0.1.1
-    dev: false
 
   /postcss-import/14.1.0_postcss@8.4.20:
     resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
@@ -2188,24 +2167,6 @@ packages:
       tiny-invariant: 1.0.6
     dev: false
 
-  /slate-react/0.87.1_slate@0.87.0:
-    resolution: {integrity: sha512-ubVKLZ6UVdZEZrvdJbqR9V5bITn7lcn2g6oJ7TtBDGRea19G/Lqtzp2srPm9fxus0EqMBExNCqA/LZlVW4Y+hg==}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-      slate: '>=0.65.3'
-    dependencies:
-      '@types/is-hotkey': 0.1.7
-      '@types/lodash': 4.14.195
-      direction: 1.0.4
-      is-hotkey: 0.1.8
-      is-plain-object: 5.0.0
-      lodash: 4.17.21
-      scroll-into-view-if-needed: 2.2.31
-      slate: 0.87.0
-      tiny-invariant: 1.0.6
-    dev: false
-
   /slate-yjs/3.2.0:
     resolution: {integrity: sha512-QOukd38jBmXeaSoudoBl97GakIU5rOEiqX5Cob4RUSutSX8gca67LaRyqtOxXHhN40/lKtwAAYnKm+nZDAtE+w==}
     engines: {node: '>=6.0.0'}
@@ -2367,7 +2328,7 @@ packages:
     dev: true
 
   /tiny-invariant/1.0.6:
-    resolution: {integrity: sha512-FOyLWWVjG+aC0UqG76V53yAWdXfH8bO6FNmyZOuUrzDzK8DI3/JRY25UD7+g49JWM1LXwymsKERB+DzI0dTEQA==}
+    resolution: {integrity: sha1-s/mziDXjakHIQ6OwkHpaezdV3nM=}
     dev: false
 
   /tiny-invariant/1.1.0:
@@ -2375,7 +2336,7 @@ packages:
     dev: false
 
   /tiny-warning/1.0.3:
-    resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
+    resolution: {integrity: sha1-lKMNtFPfTGQ9D9VmBg1gqHXYR1Q=}
     dev: false
 
   /tinybench/2.4.0:
@@ -2414,12 +2375,6 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
-
-  /tz/0.1.1:
-    resolution: {integrity: sha512-ioWQEhvsjjl3ZB241xYxTAg2olatI2nK5GfsVs7lKje2BgKuhzNdr2/0dH9W9AoL8XyDiUAqBttFcdx4ILdzHg==}
-    dependencies:
-      dst: 0.0.4
-    dev: false
 
   /ufo/1.1.1:
     resolution: {integrity: sha512-MvlCc4GHrmZdAllBc0iUDowff36Q9Ndw/UzqmEKyrfSzokTd9ZCy1i+IIk5hrYKkjoYVQyNbrw7/F8XJ2rEwTg==}

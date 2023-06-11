@@ -21,8 +21,6 @@
     "@butterfly/utils": "workspace:^1.0.0",
     "@types/lodash": "^4.14.195",
     "lodash": "^4.17.21",
-    "slate": "^0.87.0",
-    "slate-react": "^0.87.1",
     "y-protocols": "^1.0.5",
     "y-websocket": "^1.5.0",
     "yjs": "^13.5.43"

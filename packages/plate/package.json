@@ -1,0 +1,19 @@
+{
+  "name": "@butterfly/plate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "plate": "^1.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "plate",
+    "slate"
+  ],
+  "author": "sixty",
+  "license": "ISC"
+}

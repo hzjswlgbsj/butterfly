@@ -116,6 +116,12 @@ importers:
       typescript: 4.9.4
       vite: 4.0.1
 
+  packages/plate:
+    specifiers:
+      plate: ^1.4.4
+    dependencies:
+      plate: 1.4.4
+
   packages/utils:
     specifiers: {}
 
@@ -1302,6 +1308,10 @@ packages:
     resolution: {integrity: sha1-XBmKihFFNZbnUUlNSYdLx3MvLnk=}
     dev: true
 
+  /dst/0.0.4:
+    resolution: {integrity: sha512-SYo50JgqdpooSLyl+ZhvWZrLK7cZ0cyPmAo2MIoEPOOlpyXr32n7dKRbotqJEwY1JR+sX3ToSbRcHeQaAU/03w==}
+    dev: false
+
   /eastasianwidth/0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
@@ -1839,6 +1849,13 @@ packages:
       pathe: 1.1.0
     dev: true
 
+  /plate/1.4.4:
+    resolution: {integrity: sha512-4J7F+0u+rRiD7Y4Fa4vxFzDyZF6V8Dua6T/J6tnO0mcgJvP/hyD0cjGJEqewDHjFVCfEhsgU9JlpZrZyado+7Q==}
+    dependencies:
+      dst: 0.0.4
+      tz: 0.1.1
+    dev: false
+
   /postcss-import/14.1.0_postcss@8.4.20:
     resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
     engines: {node: '>=10.0.0'}
@@ -2375,6 +2392,12 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /tz/0.1.1:
+    resolution: {integrity: sha512-ioWQEhvsjjl3ZB241xYxTAg2olatI2nK5GfsVs7lKje2BgKuhzNdr2/0dH9W9AoL8XyDiUAqBttFcdx4ILdzHg==}
+    dependencies:
+      dst: 0.0.4
+    dev: false
 
   /ufo/1.1.1:
     resolution: {integrity: sha512-MvlCc4GHrmZdAllBc0iUDowff36Q9Ndw/UzqmEKyrfSzokTd9ZCy1i+IIk5hrYKkjoYVQyNbrw7/F8XJ2rEwTg==}

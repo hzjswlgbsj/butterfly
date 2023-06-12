@@ -30,11 +30,6 @@ const EditorFrame: React.FC<EditorFrame> = ({
   onChange,
   decorate,
 }) => {
-
-
-
-
-
   return (
     <ClientFrame>
       <EditorWrapper>

@@ -4,9 +4,28 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "plate": "^1.4.4"
+    "@styled-icons/boxicons-regular": "^10.47.0",
+    "@styled-icons/foundation": "^10.46.0",
+    "@styled-icons/material": "^10.47.0",
+    "@tippyjs/react": "^4.2.6",
+    "@udecode/plate": "^21.3.4",
+    "@udecode/plate-dnd": "^21.3.2",
+    "@udecode/plate-juice": "^21.3.2",
+    "@udecode/plate-selection": "^21.3.2",
+    "@udecode/plate-ui-excalidraw": "^21.3.2",
+    "plate": "^1.4.4",
+    "react": "17.0.2",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "17.0.2",
+    "react-is": "^18.2.0",
+    "scheduler": "^0.23.0",
+    "slate": "0.94.0",
+    "slate-history": "^0.93.0",
+    "slate-hyperscript": "^0.77.0",
+    "slate-react": "0.94.0",
+    "styled-components": "^5.3.6"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

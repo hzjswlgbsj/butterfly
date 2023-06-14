@@ -1,6 +1,7 @@
 // 路由配置
 import React from 'react';
 import { useRoutes } from "react-router-dom";
+import Plate from '../application/Plate';
 import Layout from '../application/Layout';
 import Document from '../application/Document';
 
@@ -22,6 +23,10 @@ export const routes = [
         //     element: <Album />
         //   }
         // ]
+      },
+      {
+        path: 'editor',
+        element: <Plate />,
       },
     ]
   }

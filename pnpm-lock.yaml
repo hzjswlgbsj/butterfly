@@ -6,9 +6,10 @@ importers:
     specifiers:
       '@butterfly/utils': workspace:^1.0.0
       '@types/lodash': ^4.14.195
+      '@types/react': ^18.0.26
       lodash: ^4.17.21
-      react: '17'
-      react-dom: '17'
+      react: ^17.0.2
+      react-dom: ^17.0.2
       react-is: ^18.2.0
       styled-components: ^5.3.6
       vitest: ^0.29.7
@@ -27,6 +28,7 @@ importers:
       y-websocket: 1.5.0_yjs@13.5.43
       yjs: 13.5.43
     devDependencies:
+      '@types/react': 18.0.26
       vitest: 0.29.7
 
   packages/collaborate:
@@ -38,6 +40,7 @@ importers:
   packages/frontend:
     specifiers:
       '@butterfly/collaborate': workspace:^1.0.0
+      '@butterfly/plate': workspace:^1.0.0
       '@butterfly/utils': workspace:^1.0.0
       '@fortawesome/fontawesome-svg-core': ^6.2.1
       '@fortawesome/free-regular-svg-icons': ^6.2.1
@@ -81,6 +84,7 @@ importers:
       yjs: ^13.5.43
     dependencies:
       '@butterfly/collaborate': link:../collaborate
+      '@butterfly/plate': link:../plate
       '@butterfly/utils': link:../utils
       '@fortawesome/fontawesome-svg-core': 6.2.1
       '@fortawesome/free-regular-svg-icons': 6.2.1
@@ -134,6 +138,8 @@ importers:
       '@udecode/plate-dnd': ^21.3.2
       '@udecode/plate-juice': ^21.3.2
       '@udecode/plate-selection': ^21.3.2
+      '@udecode/plate-test-utils': ^13.4.0
+      '@udecode/plate-ui-dnd': ^21.3.2
       '@udecode/plate-ui-excalidraw': ^21.3.2
       plate: ^1.4.4
       react: 17.0.2
@@ -156,6 +162,8 @@ importers:
       '@udecode/plate-dnd': 21.3.2_tg5q5xud6lmmnzmlbqs3jguj5a
       '@udecode/plate-juice': 21.3.2_kyzbmptk5xl5hsa37dcg72ctdy
       '@udecode/plate-selection': 21.3.2_kyzbmptk5xl5hsa37dcg72ctdy
+      '@udecode/plate-test-utils': 13.4.0_p63j5wrek77ocz6ktdnvy57xfu
+      '@udecode/plate-ui-dnd': 21.3.2_i5g6j53aglqffgq6co5j4yx6su
       '@udecode/plate-ui-excalidraw': 21.3.2_hubjtldhfnwh2wnpd25geyneca
       plate: 1.4.4
       react: 17.0.2
@@ -1430,7 +1438,7 @@ packages:
     dev: true
 
   /@types/scheduler/0.16.2:
-    resolution: {integrity: sha1-GmL4lSVyPd4kuhsBsJK/XfitTTk=}
+    resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
     dev: true
 
   /@types/styled-components/5.1.26:
@@ -2980,6 +2988,16 @@ packages:
       - scheduler
     dev: false
 
+  /@udecode/plate-test-utils/13.4.0_p63j5wrek77ocz6ktdnvy57xfu:
+    resolution: {integrity: sha512-k/DTt+fv6i5ZXkOC/bZmAA7gwOW1vOuXvk6SCInweNxjS+jxUtszXj/Bw5SBD//Gm/KY00/Gd6elrfIUpT0ccQ==}
+    peerDependencies:
+      slate: '>=0.66.1'
+      slate-hyperscript: '>=0.66.0'
+    dependencies:
+      slate: 0.94.0
+      slate-hyperscript: 0.77.0_slate@0.94.0
+    dev: false
+
   /@udecode/plate-trailing-block/21.3.2_kyzbmptk5xl5hsa37dcg72ctdy:
     resolution: {integrity: sha512-FGU0HFJowCtEghWZxJuUYRQy5PNVoPq+DO41Qgc87OCi3cKGGMs85zRxan9WG3AbzK3Cn9LZBORS6mUaNnn/DQ==}
     peerDependencies:
@@ -3256,6 +3274,48 @@ packages:
       '@udecode/plate-common': 21.3.2_kyzbmptk5xl5hsa37dcg72ctdy
       '@udecode/plate-styled-components': 21.3.2_hubjtldhfnwh2wnpd25geyneca
       react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      slate: 0.94.0
+      slate-history: 0.93.0_slate@0.94.0
+      slate-react: 0.94.0_rsdltle7w4jnlpj65vjvnekzyq
+      styled-components: 5.3.6_v5ja746gkdtknuc6tj46sve3be
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@babel/template'
+      - '@types/react'
+      - jotai-devtools
+      - jotai-immer
+      - jotai-optics
+      - jotai-redux
+      - jotai-tanstack-query
+      - jotai-urql
+      - jotai-valtio
+      - jotai-xstate
+      - jotai-zustand
+      - react-is
+      - react-native
+      - scheduler
+    dev: false
+
+  /@udecode/plate-ui-dnd/21.3.2_i5g6j53aglqffgq6co5j4yx6su:
+    resolution: {integrity: sha512-C6De+ShLuxdW6XT3OVvFLnk05uHh7qtezIWsq+mk3moXlowQ/AV+aQMOeDVVmMK8SLHkl+FmuUmt8ieUkWDr5w==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dnd: '>=14.0.0'
+      react-dnd-html5-backend: '>=14.0.0'
+      react-dom: '>=16.8.0'
+      slate: '>=0.94.0'
+      slate-history: '>=0.93.0'
+      slate-react: '>=0.94.0'
+      styled-components: '>=5.0.0'
+    dependencies:
+      '@tippyjs/react': 4.2.6_sfoxds7t5ydpegc3knd667wn6m
+      '@udecode/plate-common': 21.3.2_kyzbmptk5xl5hsa37dcg72ctdy
+      '@udecode/plate-dnd': 21.3.2_tg5q5xud6lmmnzmlbqs3jguj5a
+      '@udecode/plate-styled-components': 21.3.2_hubjtldhfnwh2wnpd25geyneca
+      react: 17.0.2
+      react-dnd: 16.0.1_react@17.0.2
+      react-dnd-html5-backend: 16.0.1
       react-dom: 17.0.2_react@17.0.2
       slate: 0.94.0
       slate-history: 0.93.0_slate@0.94.0

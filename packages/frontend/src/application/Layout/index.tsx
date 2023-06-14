@@ -1,9 +1,8 @@
 import React from "react";
-import { Top, Tab, TabItem } from "./style";
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-function Home(props: any) {
+function Layout(props: any) {
   return <Outlet />
 }
 
-export default React.memo(Home);
+export default React.memo(Layout);

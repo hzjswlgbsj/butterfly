@@ -12,6 +12,8 @@
     "@udecode/plate-dnd": "^21.3.2",
     "@udecode/plate-juice": "^21.3.2",
     "@udecode/plate-selection": "^21.3.2",
+    "@udecode/plate-test-utils": "^13.4.0",
+    "@udecode/plate-ui-dnd": "^21.3.2",
     "@udecode/plate-ui-excalidraw": "^21.3.2",
     "plate": "^1.4.4",
     "react": "17.0.2",

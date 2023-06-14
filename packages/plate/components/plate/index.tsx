@@ -103,7 +103,7 @@ const styles: Record<string, CSSProperties> = {
   container: { position: 'relative' },
 };
 
-const App = () => {
+const PlateEditor = () => {
   const containerRef = useRef(null);
 
   const plugins = useMemo(
@@ -192,4 +192,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default PlateEditor;

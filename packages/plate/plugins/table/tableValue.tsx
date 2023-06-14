@@ -1,5 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
+// @ts-ignore
 import { jsx } from '@udecode/plate-test-utils';
 
 jsx;

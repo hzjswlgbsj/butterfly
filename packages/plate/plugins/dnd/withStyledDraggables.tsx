@@ -18,6 +18,7 @@ import {
   ELEMENT_TODO_LI,
   ELEMENT_UL,
 } from '@udecode/plate';
+// @ts-ignore
 import { withPlateDraggables } from '@udecode/plate-ui-dnd';
 
 const styles = {

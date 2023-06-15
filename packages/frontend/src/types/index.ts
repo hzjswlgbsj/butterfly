@@ -1,5 +1,5 @@
 import { CursorEditor, YHistoryEditor, YjsEditor } from "@slate-yjs/core";
-import { Descendant } from "slate";
+import { BaseEditor, Descendant } from "slate";
 import { ReactEditor } from "slate-react";
 
 export type CursorData = {
@@ -50,6 +50,7 @@ export type CustomElement =
 export type CustomEditor = ReactEditor &
   YjsEditor &
   YHistoryEditor &
+  BaseEditor &
   CursorEditor<CursorData>;
 
 declare module "slate" {

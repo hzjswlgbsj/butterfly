@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { BaseEditor, createEditor, Descendant } from "slate";
-import { createPlateEditor } from '@udecode/plate';
+import { createEditor, Descendant } from "slate";
 import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
 import {
@@ -19,9 +18,6 @@ import * as Y from "yjs";
 import { useParams } from "react-router-dom";
 import Toolbar from "../Toolbar";
 import Topbar from "../Topbar";
-import { createPlugins, createHeadingPlugin } from '@udecode/plate';
-import { Plate } from "@butterfly/plate";
-
 
 interface ClientProps {
   name: string;
@@ -32,7 +28,6 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   const params = useParams()
   const [value, setValue] = useState<Descendant[]>([]);
   const [isOnline, setOnlineState] = useState<boolean>(false);
-
   const [sharedType, provider] = useMemo(() => {
     const provider = new WebsocketProvider(roomId, name);
     const sharedType = provider.operations as Y.Array<SyncElement>;
@@ -40,27 +35,11 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     return [sharedType, provider];
   }, [roomId]);
 
-  const plugins = useMemo(
-    () =>
-      createPlugins(
-        [
-          createHeadingPlugin(),
-        ]
-      ),
-    []
-  );
-
   const editor = useMemo(() => {
     const editor = withCursor(
-      withYjs(withLinks(withReact(withHistory(Plate() as any))), sharedType),
+      withYjs(withLinks(withReact(withHistory(createEditor()))), sharedType),
       provider.awareness
     );
-    // const editor = withCursor(
-    //   withYjs(withLinks(withReact(withHistory(createPlateEditor({
-    //     plugins
-    //   }))) as any), sharedType),
-    //   provider.awareness
-    // );
 
     return editor;
   }, [sharedType, provider]);
@@ -93,7 +72,16 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
 
   const { decorate } = useCursors(editor);
 
-
+  const toggleOnline = (isOnline: boolean) => {
+    console.log('开始执行在线状态改变', isOnline)
+    if (isOnline) {
+      provider.disconnect()
+      setOnlineState(false)
+    } else {
+      provider.connect()
+      setOnlineState(true)
+    }
+  };
 
   const handleChange = (value: Descendant[]) => {
     console.log('编辑器数据发生改变', value)
@@ -102,7 +90,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
 
   return (
     <Instance>
-      <Topbar roomId={params.roomId as string} name={name} />
+      <Topbar toggleOnline={toggleOnline} roomId={params.roomId as string} isOnline={isOnline} />
 
       <Toolbar editor={editor} />
 

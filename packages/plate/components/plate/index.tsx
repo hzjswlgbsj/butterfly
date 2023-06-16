@@ -51,17 +51,13 @@ import {
   PlateFloatingComments,
   PlateProvider,
 } from '@udecode/plate';
-// @ts-ignore
 import { createDndPlugin } from '@udecode/plate-dnd';
-// @ts-ignore
 import { createJuicePlugin } from '@udecode/plate-juice';
-// @ts-ignore
 import { createBlockSelectionPlugin } from '@udecode/plate-selection';
 import {
   createExcalidrawPlugin,
   ELEMENT_EXCALIDRAW,
   ExcalidrawElement,
-  // @ts-ignore
 } from '@udecode/plate-ui-excalidraw';
 import { alignPlugin } from '../../plugins/align/alignPlugin';
 import { autoformatPlugin } from '../../plugins/autoformat/autoformatPlugin';
@@ -82,6 +78,7 @@ import { resetBlockTypePlugin } from '../../plugins/reset-node/resetBlockTypePlu
 import { selectOnBackspacePlugin } from '../../plugins/select-on-backspace/selectOnBackspacePlugin';
 import { softBreakPlugin } from '../../plugins/soft-break/softBreakPlugin';
 import { Toolbar } from '../toolbar/Toolbar';
+import { ToolbarButtons } from '../toolbar/ToolbarButtons';
 import { trailingBlockPlugin } from '../../plugins/trailing-block/trailingBlockPlugin';
 import {
   createMyPlugins,
@@ -90,7 +87,6 @@ import {
   MyValue,
 } from '../../types/plateTypes';
 import { playgroundValue } from '../../tests/playgroundValue';
-import { ToolbarButtons } from '../toolbar/ToolbarButtons';
 
 let components = createPlateUI({
   [ELEMENT_CODE_BLOCK]: CodeBlockElement,
@@ -103,7 +99,7 @@ const styles: Record<string, CSSProperties> = {
   container: { position: 'relative' },
 };
 
-const PlateEditor = () => {
+const App = () => {
   const containerRef = useRef(null);
 
   const plugins = useMemo(
@@ -192,4 +188,4 @@ const PlateEditor = () => {
   );
 };
 
-export default PlateEditor;
+export default App;

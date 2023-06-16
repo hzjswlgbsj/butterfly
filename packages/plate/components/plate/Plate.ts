@@ -1,6 +1,3 @@
-import React, { CSSProperties, useMemo, useRef } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import {
   AutoformatPlugin,
   CodeBlockElement,
@@ -98,7 +95,7 @@ let components = createPlateUI({
   // customize your components by plugin key
 });
 components = withStyledPlaceHolders(components);
-const plugins = createMyPlugins(
+export const plugins = createMyPlugins(
   [
     createParagraphPlugin(),
     createBlockquotePlugin(),

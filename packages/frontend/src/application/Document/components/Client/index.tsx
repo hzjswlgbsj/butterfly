@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { BaseEditor, createEditor, Descendant } from "slate";
-import { createPlateEditor } from '@udecode/plate';
+import { Descendant } from "slate";
 import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
 import {
@@ -10,7 +9,7 @@ import {
   withCursor,
   withYjs,
 } from "slate-yjs";
-
+import { PlateProvider } from '@udecode/plate';
 import { WebsocketProvider } from "@butterfly/collaborate";
 import { Instance } from "./style";
 import EditorFrame from "../EditorFrame";
@@ -19,8 +18,9 @@ import * as Y from "yjs";
 import { useParams } from "react-router-dom";
 import Toolbar from "../Toolbar";
 import Topbar from "../Topbar";
-import { createPlugins, createHeadingPlugin } from '@udecode/plate';
-import { Plate } from "@butterfly/plate";
+import { Plate, plugins } from "@butterfly/plate";
+// import { Plate, Toolbar, ToolbarButtons, plugins } from "@butterfly/plate";
+import { MyValue } from "@butterfly/plate/types/plateTypes";
 
 
 interface ClientProps {
@@ -40,27 +40,11 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     return [sharedType, provider];
   }, [roomId]);
 
-  const plugins = useMemo(
-    () =>
-      createPlugins(
-        [
-          createHeadingPlugin(),
-        ]
-      ),
-    []
-  );
-
   const editor = useMemo(() => {
     const editor = withCursor(
       withYjs(withLinks(withReact(withHistory(Plate() as any))), sharedType),
       provider.awareness
     );
-    // const editor = withCursor(
-    //   withYjs(withLinks(withReact(withHistory(createPlateEditor({
-    //     plugins
-    //   }))) as any), sharedType),
-    //   provider.awareness
-    // );
 
     return editor;
   }, [sharedType, provider]);
@@ -105,13 +89,18 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
       <Topbar roomId={params.roomId as string} name={name} />
 
       <Toolbar editor={editor} />
+      <PlateProvider<MyValue> plugins={plugins}>
+        {/* <Toolbar>
+          <ToolbarButtons />
+        </Toolbar> */}
 
-      <EditorFrame
-        editor={editor}
-        value={value}
-        decorate={decorate}
-        onChange={handleChange}
-      />
+        <EditorFrame
+          editor={editor}
+          value={value}
+          decorate={decorate}
+          onChange={handleChange}
+        />
+      </PlateProvider>
     </Instance>
   );
 };

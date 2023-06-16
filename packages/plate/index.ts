@@ -1,5 +1,6 @@
 import PlateEditor from "./components/plate";
-import Plate from "./components/plate/Plate";
-import { Toolbar, ToolbarButtons } from "./components/toolbar";
+import Plate, { plugins } from "./components/plate/Plate";
+import { Toolbar } from "./components/toolbar/Toolbar";
+import { ToolbarButtons } from "./components/toolbar/ToolbarButtons";
 
-export { PlateEditor, Toolbar, ToolbarButtons, Plate };
+export { PlateEditor, Toolbar, ToolbarButtons, Plate, plugins };

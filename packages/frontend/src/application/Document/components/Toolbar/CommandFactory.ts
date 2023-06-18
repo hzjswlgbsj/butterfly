@@ -1,5 +1,7 @@
+import { CustomEditor } from "../../../../types";
+
 class CommandFactory {
-  constructor(editor: ) {
+  constructor(editor: CustomEditor) {
     this.editor = editor;
   }
 

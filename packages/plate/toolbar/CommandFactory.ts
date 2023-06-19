@@ -1,4 +1,5 @@
-import { CustomEditor } from "../../../../types";
+import { CustomEditor } from "../../frontend/src/types";
+import Command from "./Command";
 
 class CommandFactory {
   constructor(editor: CustomEditor) {

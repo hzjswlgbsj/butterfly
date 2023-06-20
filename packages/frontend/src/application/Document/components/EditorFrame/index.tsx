@@ -7,6 +7,7 @@ import {
   RenderLeafProps,
   Slate,
 } from "slate-react";
+import { Plate } from '@udecode/plate';
 import { ClientFrame, Code, EditorWrapper } from "./style";
 
 export interface EditorFrame {

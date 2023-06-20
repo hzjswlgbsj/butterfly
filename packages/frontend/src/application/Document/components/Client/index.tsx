@@ -9,7 +9,7 @@ import {
   withCursor,
   withYjs,
 } from "slate-yjs";
-import { PlateProvider } from '@udecode/plate';
+import { PlateProvider, createPlateEditor } from '@udecode/plate';
 import { WebsocketProvider } from "@butterfly/collaborate";
 import { Instance } from "./style";
 import EditorFrame from "../EditorFrame";
@@ -41,11 +41,19 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   }, [roomId]);
 
   const editor = useMemo(() => {
-    const editor = withCursor(
-      withYjs(withLinks(withReact(withHistory(Plate() as any))), sharedType),
+    const editor: any = withCursor(
+      withYjs(
+        withLinks(
+          withReact(
+            withHistory(
+              createPlateEditor({ plugins: plugins })
+            )
+          )
+        ),
+        sharedType
+      ),
       provider.awareness
     );
-
     return editor;
   }, [sharedType, provider]);
 

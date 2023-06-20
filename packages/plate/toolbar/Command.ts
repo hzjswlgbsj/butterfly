@@ -1,4 +1,4 @@
-import { format } from "./../plugins/autoformat/autoformatUtils";
+import { FormatType } from "../types";
 export default class Command {
   public editor: any;
 
@@ -12,7 +12,7 @@ export default class Command {
     );
   }
 
-  public format() {
+  public format(type: FormatType) {
     // 格式化
   }
   public unformat() {

@@ -4,12 +4,11 @@ import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
 import {
   SyncElement,
-  toSharedType,
   useCursors,
   withCursor,
   withYjs,
 } from "slate-yjs";
-import { PlateProvider, createPlateEditor } from '@udecode/plate';
+import { PlateProvider, createPlateEditor, Plate } from '@udecode/plate';
 import { WebsocketProvider } from "@butterfly/collaborate";
 import { Instance } from "./style";
 import EditorFrame from "../EditorFrame";
@@ -18,8 +17,8 @@ import * as Y from "yjs";
 import { useParams } from "react-router-dom";
 import Toolbar from "../Toolbar";
 import Topbar from "../Topbar";
-import { Plate, plugins } from "@butterfly/plate";
-// import { Plate, Toolbar, ToolbarButtons, plugins } from "@butterfly/plate";
+import { plugins } from "@butterfly/plate";
+// import { Toolbar, ToolbarButtons, plugins } from "@butterfly/plate";
 import { MyValue } from "@butterfly/plate/types/plateTypes";
 
 
@@ -46,7 +45,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
         withLinks(
           withReact(
             withHistory(
-              createPlateEditor({ plugins: plugins })
+              createPlateEditor({ plugins })
             )
           )
         ),
@@ -59,10 +58,12 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
 
   useEffect(() => {
     provider.onSync((isSynced: boolean) => {
+      console.log('链接成功，初始值为', sharedType)
       if (isSynced && sharedType.length === 0) {
-        toSharedType(sharedType, [
-          { type: "paragraph", children: [{ text: "Hello world!" }] },
-        ]);
+        console.log('初始值为空')
+        // toSharedType(sharedType, [
+        //   { type: "paragraph", children: [{ text: "Hello world!" }] },
+        // ]);
       }
     })
 
@@ -97,18 +98,13 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
       <Topbar roomId={params.roomId as string} name={name} />
 
       <Toolbar editor={editor} />
-      <PlateProvider<MyValue> plugins={plugins}>
-        {/* <Toolbar>
-          <ToolbarButtons />
-        </Toolbar> */}
 
-        <EditorFrame
-          editor={editor}
-          value={value}
-          decorate={decorate}
-          onChange={handleChange}
-        />
-      </PlateProvider>
+      <EditorFrame
+        editor={editor}
+        value={value}
+        decorate={decorate}
+        onChange={handleChange}
+      />
     </Instance>
   );
 };

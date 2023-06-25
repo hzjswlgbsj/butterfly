@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Descendant } from "slate";
+import { Descendant, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
 import {
@@ -8,7 +8,6 @@ import {
   withCursor,
   withYjs,
 } from "slate-yjs";
-import { PlateProvider, createPlateEditor, Plate } from '@udecode/plate';
 import { WebsocketProvider } from "@butterfly/collaborate";
 import { Instance } from "./style";
 import EditorFrame from "../EditorFrame";
@@ -17,9 +16,7 @@ import * as Y from "yjs";
 import { useParams } from "react-router-dom";
 import Toolbar from "../Toolbar";
 import Topbar from "../Topbar";
-import { plugins } from "@butterfly/plate";
 // import { Toolbar, ToolbarButtons, plugins } from "@butterfly/plate";
-import { MyValue } from "@butterfly/plate/types/plateTypes";
 
 
 interface ClientProps {
@@ -45,7 +42,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
         withLinks(
           withReact(
             withHistory(
-              createPlateEditor({ plugins })
+              createEditor() as any
             )
           )
         ),

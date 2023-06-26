@@ -7,7 +7,7 @@ import {
   RenderLeafProps,
   Slate,
 } from "slate-react";
-import { ContentWrapper, ScrollShadow, ClientFrame, Code, EditorWrapper } from "./style";
+import { ContentWrapper, ScrollShadow, EditorContainer, ClientFrame, Code, EditorWrapper } from "./style";
 
 export interface EditorFrame {
   editor: ReactEditor;
@@ -38,14 +38,17 @@ const EditorFrame: React.FC<EditorFrame> = ({
 
       <ContentWrapper>
         <EditorWrapper>
-          <Slate editor={editor} value={value} onChange={onChange}>
+          <EditorContainer>
+            <Slate editor={editor} value={value} onChange={onChange}>
 
-            <Editable
-              renderElement={renderElement}
-              renderLeaf={renderLeaf}
-              decorate={decorate}
-            />
-          </Slate>
+              <Editable
+                renderElement={renderElement}
+                renderLeaf={renderLeaf}
+                decorate={decorate}
+              />
+            </Slate>
+          </EditorContainer>
+
         </EditorWrapper>
       </ContentWrapper>
     </ClientFrame>

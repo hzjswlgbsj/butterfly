@@ -34,13 +34,16 @@ export const EditorWrapper = styled.div`
     rgba(0, 0, 0, 0.04) 0px 0px 0px 1px;
   border: 1px solid transparent;
   border-radius: 5px;
-  padding: 100px 60px;
   height: 100%;
-  width: 50%;
+  width: 810px;
   height: 100%;
   min-height: 1200px;
   margin-bottom: 40px;
   background-color: #fff;
+`;
+
+export const EditorContainer = styled.div`
+  margin: 100px 60px;
   blockquote {
     border-left: 2px solid #ddd;
     margin-left: 0;
@@ -57,6 +60,7 @@ export const EditorWrapper = styled.div`
     color: darkmagenta;
   }
 `;
+
 export const Code = styled.span`
   background-color: #ccc;
 `;

@@ -1,5 +1,5 @@
 import Caret from "../Caret";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Descendant } from "slate";
 import {
   Editable,
@@ -7,8 +7,7 @@ import {
   RenderLeafProps,
   Slate,
 } from "slate-react";
-import { Plate } from '@udecode/plate';
-import { ClientFrame, Code, EditorWrapper } from "./style";
+import { ContentWrapper, ScrollShadow, ClientFrame, Code, EditorWrapper } from "./style";
 
 export interface EditorFrame {
   editor: ReactEditor;
@@ -31,19 +30,24 @@ const EditorFrame: React.FC<EditorFrame> = ({
   onChange,
   decorate,
 }) => {
+  const [isTop, setIsTopState] = useState<boolean>(true);
+
   return (
     <ClientFrame>
-      <EditorWrapper>
-        <Slate editor={editor} value={value} onChange={onChange}>
+      <ScrollShadow isTop={isTop} />
 
-          <Editable
-            renderElement={renderElement}
-            renderLeaf={renderLeaf}
-            decorate={decorate}
-          />
-        </Slate>
-      </EditorWrapper>
+      <ContentWrapper>
+        <EditorWrapper>
+          <Slate editor={editor} value={value} onChange={onChange}>
 
+            <Editable
+              renderElement={renderElement}
+              renderLeaf={renderLeaf}
+              decorate={decorate}
+            />
+          </Slate>
+        </EditorWrapper>
+      </ContentWrapper>
     </ClientFrame>
   );
 };

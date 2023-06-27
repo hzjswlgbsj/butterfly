@@ -1,22 +1,12 @@
-import {
-  ACTION_TYPE_BUTTON,
-  ACTION_TYPE_FORMAT_DROPDOWN,
-  ACTION_TYPE_FORMAT_NORMAL,
-} from "../consts";
+export type FormatType = "bold" | "italic" | "underline" | "strikethrough";
 
-export enum FormatType {
-  blod = "blod",
-  italic = "italic",
-  underline = "underline",
-  strikethrough = "strikethrough",
-}
-export type ActionType = "button" | "format-dropdown"| "normal-dropdown",
+export type ActionType = "button" | "format-dropdown" | "normal-dropdown";
 
 export interface ActionElement {
-  type: string;
+  type: FormatType;
   actionType: ActionType;
   label: string;
   tooltip: string;
-  icon: () => Element;
+  icon: () => string;
   options?: any;
 }

@@ -1,5 +1,5 @@
 import { ACTION_TYPE_BUTTON, FORMAT_TYPE_BOLD } from "../../consts";
-import { ActionElement } from "../../types";
+import { ActionElement, FormatType } from "../../types";
 import BoldIcon from "../icons/bold.svg";
 
 class Action {
@@ -23,23 +23,32 @@ class Action {
   /**
    * get
    */
-  public get() {
+  public get(): ActionElement[] {
     return this.actions;
   }
 
   /**
    * createdActionButton
    */
-  public createdActionButton() {}
+  public static createActionButton(
+    type: FormatType,
+    tooltip: string,
+    icon: string
+  ): ActionElement {
+    return {
+      type,
+      actionType: ACTION_TYPE_BUTTON,
+      label: "",
+      tooltip,
+      icon: () => icon,
+    };
+  }
 }
 
 const action = new Action();
 
-action.register({
-  type: FORMAT_TYPE_BOLD,
-  actionType: ACTION_TYPE_BUTTON,
-  label: "加粗（⌘+B）",
-  tooltip: "",
-  icon: () => BoldIcon,
-});
+action.register(
+  Action.createActionButton(FORMAT_TYPE_BOLD, "加粗（⌘+B）", BoldIcon)
+);
+
 export default action;

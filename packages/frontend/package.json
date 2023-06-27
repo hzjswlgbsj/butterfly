@@ -48,6 +48,7 @@
     "react-lazyload": "^3.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.5",
+    "react-textarea-autosize": "^8.5.0",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
     "styled-components": "^5.3.6",

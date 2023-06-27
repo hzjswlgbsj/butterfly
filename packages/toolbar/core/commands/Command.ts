@@ -1,4 +1,4 @@
-import { FormatType } from "../types";
+import { FormatType } from "../../types";
 export default class Command {
   public editor: any;
 
@@ -18,4 +18,6 @@ export default class Command {
   public unformat() {
     // 清除格式
   }
+
+  public isActive() {}
 }

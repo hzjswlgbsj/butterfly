@@ -1,0 +1,18 @@
+{
+  "name": "@butterfly/toolbar",
+  "version": "1.0.0",
+  "description": "slate toolbar",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "slate",
+    "toolbar"
+  ],
+  "author": "sixty <hiliulin@aliyun.com>",
+  "license": "ISC",
+  "dependencies": {
+    "slate": "^0.94.1"
+  }
+}

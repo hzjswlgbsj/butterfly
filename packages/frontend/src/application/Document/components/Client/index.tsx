@@ -14,9 +14,9 @@ import EditorFrame from "../EditorFrame";
 import { withLinks } from "../../plugins/link";
 import * as Y from "yjs";
 import { useParams } from "react-router-dom";
-import Toolbar from "../Toolbar";
+// import Toolbar from "../Toolbar";
 import Topbar from "../Topbar";
-// import { Toolbar, ToolbarButtons, plugins } from "@butterfly/plate";
+import { Toolbar } from "@butterfly/toolbar";
 
 
 interface ClientProps {
@@ -25,6 +25,7 @@ interface ClientProps {
 }
 
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
+  console.log(3333333333333)
   const params = useParams()
   const [value, setValue] = useState<Descendant[]>([]);
   const [isOnline, setOnlineState] = useState<boolean>(false);
@@ -81,7 +82,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     });
   }, [provider]);
 
-  const { decorate } = useCursors(editor);
+  const { decorate } = useCursors(editor)
 
 
 
@@ -90,20 +91,23 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     // setValue(value)
   }
 
-  return (
-    <Instance>
-      <Topbar roomId={params.roomId as string} name={name} />
+  return useMemo(() => {
+    return (
+      <Instance>
+        <Topbar roomId={params.roomId as string} name={name} />
 
-      <Toolbar editor={editor} />
+        <Toolbar editor={editor} />
 
-      <EditorFrame
-        editor={editor}
-        value={value}
-        decorate={decorate}
-        onChange={handleChange}
-      />
-    </Instance>
-  );
+        <EditorFrame
+          editor={editor}
+          value={value}
+          decorate={decorate}
+          onChange={handleChange}
+        />
+      </Instance>
+    );
+  }, [editor])
+
 };
 
 export default Client;

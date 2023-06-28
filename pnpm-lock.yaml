@@ -41,6 +41,7 @@ importers:
     specifiers:
       '@butterfly/collaborate': workspace:^1.0.0
       '@butterfly/plate': workspace:^1.0.0
+      '@butterfly/toolbar': workspace:^1.0.0
       '@butterfly/utils': workspace:^1.0.0
       '@fortawesome/fontawesome-svg-core': ^6.2.1
       '@fortawesome/free-regular-svg-icons': ^6.2.1
@@ -86,6 +87,7 @@ importers:
     dependencies:
       '@butterfly/collaborate': link:../collaborate
       '@butterfly/plate': link:../plate
+      '@butterfly/toolbar': link:../toolbar
       '@butterfly/utils': link:../utils
       '@fortawesome/fontawesome-svg-core': 6.2.1
       '@fortawesome/free-regular-svg-icons': 6.2.1

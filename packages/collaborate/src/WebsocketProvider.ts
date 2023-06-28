@@ -10,7 +10,7 @@ export class WebsocketProvider {
   roomId: string;
   doc: Y.Doc;
   provider: YWebsocketProvider;
-  operations: Y.Array<SyncElement>;
+  operations: any;
   todoUndoManager: Y.UndoManager;
   awareness: Awareness;
 

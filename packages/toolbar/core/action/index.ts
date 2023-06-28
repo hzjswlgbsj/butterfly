@@ -1,22 +1,46 @@
+import { isArray } from "lodash";
 import { ACTION_TYPE_BUTTON, FORMAT_TYPE_BOLD } from "../../consts";
 import { ActionElement, FormatType } from "../../types";
+import BoldCommand from "../commands/BoldCommand";
+import Command from "../commands/Command";
 import BoldIcon from "../icons/bold.svg";
 
 class Action {
-  public actions: ActionElement[] = [];
+  private actions: ActionElement[] = [];
+  public editor: any;
 
+  constructor(editor: any) {
+    this.editor = editor;
+
+    this.register([
+      Action.createActionButton(
+        FORMAT_TYPE_BOLD,
+        "加粗（⌘+B）",
+        BoldIcon,
+        new BoldCommand(this.editor)
+      ),
+    ]);
+  }
   /**
    * register
    */
-  public register(action: ActionElement, index?: number) {
+  public register(action: ActionElement | ActionElement[], index?: number) {
+    if (!isArray(action)) {
+      action = [action];
+    }
+
     if (typeof index !== undefined) {
       if (index! < 0) {
         index = 0;
       }
-
-      this.actions.splice(index!, 0, action);
+      action.map((a: ActionElement) => {
+        this.actions.splice(index!, 0, a);
+        index!++;
+      });
     } else {
-      this.actions.push(action);
+      action.map((a: ActionElement) => {
+        this.actions.push(a);
+      });
     }
   }
 
@@ -33,22 +57,18 @@ class Action {
   public static createActionButton(
     type: FormatType,
     tooltip: string,
-    icon: string
+    icon: string,
+    command: Command
   ): ActionElement {
     return {
       type,
       actionType: ACTION_TYPE_BUTTON,
       label: "",
       tooltip,
+      command,
       icon: () => icon,
     };
   }
 }
 
-const action = new Action();
-
-action.register(
-  Action.createActionButton(FORMAT_TYPE_BOLD, "加粗（⌘+B）", BoldIcon)
-);
-
-export default action;
+export default Action;

@@ -1,72 +1,114 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Descendant, createEditor } from "slate";
-import { withHistory } from "slate-history";
-import { withReact } from "slate-react";
+import { withCursors, withYHistory, withYjs, YjsEditor } from '@slate-yjs/core';
 import {
-  SyncElement,
-  useCursors,
-  withCursor,
-  withYjs,
-} from "slate-yjs";
+  getRemoteCaretsOnLeaf,
+  getRemoteCursorsOnLeaf,
+  useDecorateRemoteCursors,
+} from '@slate-yjs/react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { createEditor, Descendant, Text } from 'slate';
+import { RenderLeafProps, Slate, withReact } from 'slate-react';
+import * as Y from 'yjs';
+import { CustomEditable } from '../../../../components/CustomEditable';
+import { Leaf } from '../../../../components/Leaf';
+import { withMarkdown } from '../../../../plugins/withMarkdown';
+import { withNormalize } from '../../../../plugins/withNormalize';
+import { CursorData } from '../../../../types';
+import { addAlpha, randomCursorData } from '@butterfly/utils';
 import { WebsocketProvider } from "@butterfly/collaborate";
-import { Instance } from "./style";
-import EditorFrame from "../EditorFrame";
-import { withLinks } from "../../plugins/link";
-import * as Y from "yjs";
-import { useParams } from "react-router-dom";
-// import Toolbar from "../Toolbar";
-import Topbar from "../Topbar";
-import { Toolbar } from "@butterfly/toolbar";
-
 
 interface ClientProps {
   name: string;
   roomId: string;
 }
 
+function renderDecoratedLeaf(props: RenderLeafProps) {
+  getRemoteCursorsOnLeaf<CursorData, Text>(props.leaf).forEach((cursor) => {
+    if (cursor.data) {
+      props.children = (
+        <span style={{ backgroundColor: addAlpha(cursor.data.color, 0.5) }}>
+          {props.children}
+        </span>
+      );
+    }
+  });
+
+  getRemoteCaretsOnLeaf<CursorData, Text>(props.leaf).forEach((caret) => {
+    if (caret.data) {
+      props.children = (
+        <span className="relative">
+          <span
+            contentEditable={false}
+            className="absolute top-0 bottom-0 w-0.5 left-[-1px]"
+            style={{ backgroundColor: caret.data.color }}
+          />
+          <span
+            contentEditable={false}
+            className="absolute text-xs text-white left-[-1px] top-0 whitespace-nowrap rounded rounded-bl-none px-1.5 py-0.5 select-none"
+            style={{
+              backgroundColor: caret.data.color,
+              transform: 'translateY(-100%)',
+            }}
+          >
+            {caret.data.name}
+          </span>
+          {props.children}
+        </span>
+      );
+    }
+  });
+
+  return <Leaf {...props} />;
+}
+
+function DecoratedEditable() {
+  const decorate = useDecorateRemoteCursors();
+  return (
+    <CustomEditable
+      className="max-w-4xl w-full flex-col break-words"
+      decorate={decorate}
+      renderLeaf={renderDecoratedLeaf}
+    />
+  );
+}
+
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
-  console.log(3333333333333)
-  const params = useParams()
   const [value, setValue] = useState<Descendant[]>([]);
-  const [isOnline, setOnlineState] = useState<boolean>(false);
 
   const [sharedType, provider] = useMemo(() => {
     const provider = new WebsocketProvider(roomId, name);
-    const sharedType = provider.operations as Y.Array<SyncElement>;
+    const sharedType = provider.operations;
 
     return [sharedType, provider];
   }, [roomId]);
 
+
   const editor = useMemo(() => {
-    const editor: any = withCursor(
-      withYjs(
-        withLinks(
-          withReact(
-            withHistory(
-              createEditor() as any
-            )
+    return withMarkdown(
+      withNormalize(
+        withReact(
+          withCursors(
+            withYHistory(
+              withYjs(createEditor(), sharedType, { autoConnect: false })
+            ),
+            provider.awareness,
+            {
+              data: randomCursorData(),
+            }
           )
-        ),
-        sharedType
-      ),
-      provider.awareness
+        )
+      )
     );
-    return editor;
-  }, [sharedType, provider]);
+  }, [provider]);
 
   useEffect(() => {
     provider.onSync((isSynced: boolean) => {
       console.log('链接成功，初始值为', sharedType)
       if (isSynced && sharedType.length === 0) {
         console.log('初始值为空')
-        // toSharedType(sharedType, [
-        //   { type: "paragraph", children: [{ text: "Hello world!" }] },
-        // ]);
       }
     })
 
     provider.connect();
-    setOnlineState(true)
     // return () => {
     //   console.log(1111111111111)
     //   provider.disconnect();
@@ -82,33 +124,19 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     });
   }, [provider]);
 
-  const { decorate } = useCursors(editor)
-
-
-
   const handleChange = (value: Descendant[]) => {
     console.log('编辑器数据发生改变', value)
-    // setValue(value)
+    setValue(value)
   }
 
-  return useMemo(() => {
-    return (
-      <Instance>
-        <Topbar roomId={params.roomId as string} name={name} />
 
-        <Toolbar editor={editor} />
-
-        <EditorFrame
-          editor={editor}
-          value={value}
-          decorate={decorate}
-          onChange={handleChange}
-        />
-      </Instance>
-    );
-  }, [editor])
-
-};
+  return (
+    <div className="flex justify-center my-32 mx-10">
+      <Slate value={value} onChange={handleChange} editor={editor}>
+        <DecoratedEditable />
+      </Slate>
+    </div>
+  );
+}
 
 export default Client;
-

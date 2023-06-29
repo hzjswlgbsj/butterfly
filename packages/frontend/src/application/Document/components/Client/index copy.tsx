@@ -1,23 +1,24 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { createEditor, Descendant } from "slate";
+import { Descendant, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
 import {
   SyncElement,
-  toSharedType,
   useCursors,
   withCursor,
   withYjs,
+  toSharedType,
 } from "slate-yjs";
-
 import { WebsocketProvider } from "@butterfly/collaborate";
 import { Instance } from "./style";
 import EditorFrame from "../EditorFrame";
 import { withLinks } from "../../plugins/link";
 import * as Y from "yjs";
 import { useParams } from "react-router-dom";
-import Toolbar from "../Toolbar";
+// import Toolbar from "../Toolbar";
 import Topbar from "../Topbar";
+import { Toolbar } from "@butterfly/toolbar";
+
 
 interface ClientProps {
   name: string;
@@ -25,9 +26,11 @@ interface ClientProps {
 }
 
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
+  console.log(3333333333333)
   const params = useParams()
   const [value, setValue] = useState<Descendant[]>([]);
   const [isOnline, setOnlineState] = useState<boolean>(false);
+
   const [sharedType, provider] = useMemo(() => {
     const provider = new WebsocketProvider(roomId, name);
     const sharedType = provider.operations as Y.Array<SyncElement>;
@@ -36,17 +39,27 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   }, [roomId]);
 
   const editor = useMemo(() => {
-    const editor = withCursor(
-      withYjs(withLinks(withReact(withHistory(createEditor()))), sharedType),
+    const editor: any = withCursor(
+      withYjs(
+        withLinks(
+          withReact(
+            withHistory(
+              createEditor() as any
+            )
+          )
+        ),
+        sharedType
+      ),
       provider.awareness
     );
-
     return editor;
   }, [sharedType, provider]);
 
   useEffect(() => {
     provider.onSync((isSynced: boolean) => {
+      console.log('链接成功，初始值为', sharedType)
       if (isSynced && sharedType.length === 0) {
+        console.log('初始值为空')
         toSharedType(sharedType, [
           { type: "paragraph", children: [{ text: "Hello world!" }] },
         ]);
@@ -70,38 +83,32 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     });
   }, [provider]);
 
-  const { decorate } = useCursors(editor);
+  const { decorate } = useCursors(editor)
 
-  const toggleOnline = (isOnline: boolean) => {
-    console.log('开始执行在线状态改变', isOnline)
-    if (isOnline) {
-      provider.disconnect()
-      setOnlineState(false)
-    } else {
-      provider.connect()
-      setOnlineState(true)
-    }
-  };
+
 
   const handleChange = (value: Descendant[]) => {
     console.log('编辑器数据发生改变', value)
     // setValue(value)
   }
 
-  return (
-    <Instance>
-      <Topbar toggleOnline={toggleOnline} roomId={params.roomId as string} isOnline={isOnline} />
+  return useMemo(() => {
+    return (
+      <Instance>
+        <Topbar roomId={params.roomId as string} name={name} />
 
-      <Toolbar editor={editor} />
+        <Toolbar editor={editor} />
 
-      <EditorFrame
-        editor={editor}
-        value={value}
-        decorate={decorate}
-        onChange={handleChange}
-      />
-    </Instance>
-  );
+        <EditorFrame
+          editor={editor}
+          value={value}
+          decorate={decorate}
+          onChange={handleChange}
+        />
+      </Instance>
+    );
+  }, [editor])
+
 };
 
 export default Client;

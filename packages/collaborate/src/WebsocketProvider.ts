@@ -10,7 +10,7 @@ export class WebsocketProvider {
   roomId: string;
   doc: Y.Doc;
   provider: YWebsocketProvider;
-  operations: any;
+  operations: Y.XmlText;
   todoUndoManager: Y.UndoManager;
   awareness: Awareness;
 
@@ -31,7 +31,8 @@ export class WebsocketProvider {
       name,
     });
 
-    this.operations = this.doc.getArray("operations");
+    // this.operations = this.doc.getArray("operations");
+    this.operations = this.doc.get("content", Y.XmlText) as Y.XmlText;
     this.todoUndoManager = new Y.UndoManager(this.operations);
   }
 

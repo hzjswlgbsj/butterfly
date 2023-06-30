@@ -15,6 +15,7 @@ import { withNormalize } from '../../../../plugins/withNormalize';
 import { CursorData } from '../../../../types';
 import { addAlpha, randomCursorData } from '@butterfly/utils';
 import { WebsocketProvider } from "@butterfly/collaborate";
+import { FormatToolbar } from '../../../../components/FormatToolbar/FormatToolbar';
 
 interface ClientProps {
   name: string;
@@ -98,7 +99,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
         )
       )
     );
-  }, [provider]);
+  }, [provider.awareness, provider.doc]);
 
   useEffect(() => {
     provider.onSync((isSynced: boolean) => {
@@ -124,6 +125,11 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     });
   }, [provider]);
 
+  useEffect(() => {
+    YjsEditor.connect(editor);
+    return () => YjsEditor.disconnect(editor);
+  }, [editor]);
+
   const handleChange = (value: Descendant[]) => {
     console.log('编辑器数据发生改变', value)
     setValue(value)
@@ -133,6 +139,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   return (
     <div className="flex justify-center my-32 mx-10">
       <Slate value={value} onChange={handleChange} editor={editor}>
+        <FormatToolbar />
         <DecoratedEditable />
       </Slate>
     </div>

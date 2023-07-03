@@ -1,6 +1,6 @@
 import Caret from "../Caret";
 import React, { useCallback, useState } from "react";
-import { Descendant } from "slate";
+import { Descendant, Text } from "slate";
 import {
   Editable,
   ReactEditor,
@@ -8,27 +8,72 @@ import {
   Slate,
 } from "slate-react";
 import { ContentWrapper, ScrollShadow, EditorContainer, ClientFrame, Code, EditorWrapper } from "./style";
+import { getRemoteCaretsOnLeaf, getRemoteCursorsOnLeaf, useDecorateRemoteCursors } from "@slate-yjs/react";
+import { CustomEditable } from "../../../../components/CustomEditable";
+import { CursorData } from "@butterfly/utils/types";
+import { generateRandomColor } from "@butterfly/utils";
+import { Leaf } from "../../../../components/Leaf";
 
 export interface EditorFrame {
   editor: ReactEditor;
   value: Descendant[];
   onChange: (value: Descendant[]) => void;
-  decorate: any;
 }
 
-const renderElement = (props: any) => {
-  return <Element {...props} />
-};
+function renderDecoratedLeaf(props: RenderLeafProps) {
+  getRemoteCursorsOnLeaf<CursorData, Text>(props.leaf).forEach((cursor) => {
+    if (cursor.data) {
+      props.children = (
+        <span style={{ backgroundColor: generateRandomColor() }}>
+          {props.children}
+        </span>
+      );
+    }
+  });
 
-const renderLeaf = (props: any) => {
-  return <Leaf {...props} />
-};
+  getRemoteCaretsOnLeaf<CursorData, Text>(props.leaf).forEach((caret) => {
+    if (caret.data) {
+      props.children = (
+        <span className="relative">
+          <span
+            contentEditable={false}
+            className="absolute top-0 bottom-0 w-0.5 left-[-1px]"
+            style={{ backgroundColor: caret.data.color }}
+          />
+          <span
+            contentEditable={false}
+            className="absolute text-xs text-white left-[-1px] top-0 whitespace-nowrap rounded rounded-bl-none px-1.5 py-0.5 select-none"
+            style={{
+              backgroundColor: caret.data.color,
+              transform: 'translateY(-100%)',
+            }}
+          >
+            {caret.data.name}
+          </span>
+          {props.children}
+        </span>
+      );
+    }
+  });
+
+  return <Leaf {...props} />;
+}
+
+function DecoratedEditable() {
+  const decorate = useDecorateRemoteCursors();
+  return (
+    <CustomEditable
+      className="max-w-4xl w-full flex-col break-words"
+      decorate={decorate}
+      renderLeaf={renderDecoratedLeaf}
+    />
+  );
+}
 
 const EditorFrame: React.FC<EditorFrame> = ({
   editor,
   value,
   onChange,
-  decorate,
 }) => {
   const [isTop, setIsTopState] = useState<boolean>(true);
 
@@ -40,12 +85,7 @@ const EditorFrame: React.FC<EditorFrame> = ({
         <EditorWrapper>
           <EditorContainer>
             <Slate editor={editor} value={value} onChange={onChange}>
-
-              <Editable
-                renderElement={renderElement}
-                renderLeaf={renderLeaf}
-                decorate={decorate}
-              />
+              <DecoratedEditable />
             </Slate>
           </EditorContainer>
 
@@ -56,65 +96,3 @@ const EditorFrame: React.FC<EditorFrame> = ({
 };
 
 export default EditorFrame;
-
-const Element: React.FC<any> = ({ attributes, children, element }) => {
-
-  switch (element.type) {
-    case "link":
-      return (
-        <a {...attributes} href={element.href}>
-          {children}
-        </a>
-      );
-    case "block-quote":
-      return <blockquote {...attributes}>{children}</blockquote>;
-    case "bulleted-list":
-      return <ul {...attributes}>{children}</ul>;
-    case "heading-one":
-      return <h1 {...attributes}>{children}</h1>;
-    case "heading-two":
-      return <h2 {...attributes}>{children}</h2>;
-    case "list-item":
-      return <li {...attributes}>{children}</li>;
-    case "numbered-list":
-      return <ol {...attributes}>{children}</ol>;
-    default:
-      return <p {...attributes}>{children}</p>;
-  }
-};
-
-const Leaf: React.FC<RenderLeafProps> = ({ attributes, children, leaf }) => {
-
-  if (leaf.bold) {
-    children = <strong>{children}</strong>;
-  }
-
-  if (leaf.code) {
-    children = <Code>{children}</Code>;
-  }
-
-  if (leaf.italic) {
-    children = <em>{children}</em>;
-  }
-
-  if (leaf.underline) {
-    children = <u>{children}</u>;
-  }
-
-  const data = leaf.data as any;
-
-  return (
-    <span
-      {...attributes}
-      style={
-        {
-          position: "relative",
-          backgroundColor: data?.alphaColor,
-        } as any
-      }
-    >
-      {leaf.isCaret ? <Caret {...(leaf as any)} /> : null}
-      {children}
-    </span>
-  );
-};

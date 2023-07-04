@@ -9,7 +9,7 @@ export interface ActionElement {
   actionType: ActionType;
   label: string;
   tooltip: string;
-  icon: () => string;
+  icon: React.FunctionComponent;
   command: Command;
   options?: any;
 }

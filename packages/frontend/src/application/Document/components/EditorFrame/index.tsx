@@ -1,8 +1,7 @@
 import Caret from "../Caret";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Descendant, Text } from "slate";
 import {
-  Editable,
   ReactEditor,
   RenderLeafProps,
   Slate,

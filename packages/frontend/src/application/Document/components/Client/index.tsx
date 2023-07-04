@@ -3,13 +3,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createEditor, Descendant, Text } from 'slate';
 import { RenderLeafProps, Slate, withReact } from 'slate-react';
 import * as Y from 'yjs';
-import { CustomEditable } from '../../../../components/CustomEditable';
 import { withMarkdown } from '../../../../plugins/withMarkdown';
 import { withNormalize } from '../../../../plugins/withNormalize';
-import { CursorData } from '../../../../types';
-import { addAlpha, randomCursorData } from '@butterfly/utils';
+import { randomCursorData } from '@butterfly/utils';
 import { WebsocketProvider } from "@butterfly/collaborate";
-import { FormatToolbar } from '../../../../components/FormatToolbar/FormatToolbar';
 import { Instance } from './style';
 import Topbar from '../Topbar';
 import { Toolbar } from "@butterfly/toolbar";
@@ -22,7 +19,6 @@ interface ClientProps {
 
 
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
-  console.log(11111111111)
   const [value, setValue] = useState<Descendant[]>([]);
 
   const [sharedType, provider] = useMemo(() => {

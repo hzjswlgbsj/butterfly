@@ -11,7 +11,6 @@ interface ToolbarProps {
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
-  console.log(22222222222)
   let action: Action;
   const [actions, setActions] = useState<ActionElement[]>([]);
 
@@ -21,17 +20,18 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
 
   useEffect(() => {
     action = new Action(editor);
-    console.log(111111111111, action)
     setActions(action.get());
   }, [editor])
 
   return (
     <ToolbarWrapper>
-      {actions.map((item: ActionElement) => (
-        <div key={item.type} onClick={() => handleAction(item.command)}>
-          {item.icon()}
-        </div>
-      ))}
+      {
+        actions.map((item: ActionElement) =>
+          <div key={item.type} onClick={() => handleAction(item.command)}>
+            <item.icon />
+          </div>
+        )
+      }
     </ToolbarWrapper>
 
   );

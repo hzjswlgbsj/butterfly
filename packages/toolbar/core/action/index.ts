@@ -3,7 +3,7 @@ import { ACTION_TYPE_BUTTON, FORMAT_TYPE_BOLD } from "../../consts";
 import { ActionElement, FormatType } from "../../types";
 import BoldCommand from "../commands/BoldCommand";
 import Command from "../commands/Command";
-import BoldIcon from "../icons/bold.svg";
+import { BoldIcon } from "../icons/bold";
 
 class Action {
   private actions: ActionElement[] = [];
@@ -57,7 +57,7 @@ class Action {
   public static createActionButton(
     type: FormatType,
     tooltip: string,
-    icon: string,
+    icon: React.FunctionComponent,
     command: Command
   ): ActionElement {
     return {
@@ -66,7 +66,7 @@ class Action {
       label: "",
       tooltip,
       command,
-      icon: () => icon,
+      icon,
     };
   }
 }

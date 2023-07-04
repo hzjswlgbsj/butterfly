@@ -19,6 +19,7 @@ interface ClientProps {
 
 
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
+  console.log('client组件被执行')
   const [value, setValue] = useState<Descendant[]>([]);
 
   const [sharedType, provider] = useMemo(() => {

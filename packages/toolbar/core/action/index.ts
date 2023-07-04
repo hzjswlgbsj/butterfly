@@ -1,9 +1,8 @@
 import { isArray } from "lodash";
-import { ACTION_TYPE_BUTTON, FORMAT_TYPE_BOLD } from "../../consts";
+import { ACTION_TYPE_BUTTON } from "../../consts";
 import { ActionElement, FormatType } from "../../types";
-import BoldCommand from "../commands/BoldCommand";
 import Command from "../commands/Command";
-import { BoldIcon } from "../icons/bold";
+import { register } from "./register";
 
 class Action {
   private actions: ActionElement[] = [];
@@ -12,14 +11,7 @@ class Action {
   constructor(editor: any) {
     this.editor = editor;
 
-    this.register([
-      Action.createActionButton(
-        FORMAT_TYPE_BOLD,
-        "加粗（⌘+B）",
-        BoldIcon,
-        new BoldCommand(this.editor)
-      ),
-    ]);
+    register(this);
   }
   /**
    * register
@@ -29,7 +21,7 @@ class Action {
       action = [action];
     }
 
-    if (typeof index !== undefined) {
+    if (typeof index !== "undefined") {
       if (index! < 0) {
         index = 0;
       }

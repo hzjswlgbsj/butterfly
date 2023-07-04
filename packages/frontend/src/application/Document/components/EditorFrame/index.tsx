@@ -40,15 +40,16 @@ function renderDecoratedLeaf(props: RenderLeafProps) {
             className="absolute top-0 bottom-0 w-0.5 left-[-1px]"
             style={{ backgroundColor: caret.data.color }}
           />
+
           <span
             contentEditable={false}
-            className="absolute text-xs text-white left-[-1px] top-0 whitespace-nowrap rounded rounded-bl-none px-1.5 py-0.5 select-none"
+            {...props}
             style={{
+              position: "relative",
               backgroundColor: caret.data.color,
-              transform: 'translateY(-100%)',
             }}
           >
-            {caret.data.name}
+            <Caret {...(caret as any)} />
           </span>
           {props.children}
         </span>

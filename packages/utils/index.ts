@@ -19,10 +19,10 @@ export function getUUID() {
   return uuid;
 }
 
-export function randomCursorData(): CursorData {
+export function randomCursorData(name?: string): CursorData {
   return {
     color: getRandomColor(),
-    name: getUUID(),
+    name: name ? name : getUUID(),
   };
 }
 

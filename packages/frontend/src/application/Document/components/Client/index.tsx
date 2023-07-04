@@ -43,7 +43,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
             ),
             provider.awareness,
             {
-              data: randomCursorData(),
+              data: randomCursorData(name),
             }
           )
         )

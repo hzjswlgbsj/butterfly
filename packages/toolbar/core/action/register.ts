@@ -13,7 +13,7 @@ import {
   ClearFormatCommand,
   BoldCommand,
 } from "../commands";
-import { Bold, Undo, Redo, FormatPaint, ClearFormat } from "../icons";
+import { Bold, Undo, Redo, FormatPaint, ClearFormat, Divider } from "../icons";
 
 export function register(action: Action) {
   action.register([
@@ -41,6 +41,7 @@ export function register(action: Action) {
       ClearFormat,
       new ClearFormatCommand(action.editor)
     ),
+    Action.createDivider(Divider),
     Action.createActionButton(
       FORMAT_TYPE_BOLD,
       "加粗（⌘+B）",

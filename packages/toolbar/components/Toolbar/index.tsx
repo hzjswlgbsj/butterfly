@@ -15,7 +15,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
   const [actions, setActions] = useState<ActionElement[]>([]);
 
   const handleAction = (command: Command) => {
-    command.execute()
+    command.execute && command.execute()
   }
 
   useEffect(() => {

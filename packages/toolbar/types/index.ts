@@ -8,7 +8,8 @@ export type FormatType =
   | "bold"
   | "italic"
   | "underline"
-  | "strikethrough";
+  | "strikethrough"
+  | "divider";
 
 export type ActionType = "button" | "format-dropdown" | "normal-dropdown";
 
@@ -18,6 +19,6 @@ export interface ActionElement {
   label: string;
   tooltip: string;
   icon: React.FunctionComponent;
-  command: Command;
+  command?: Command;
   options?: any;
 }

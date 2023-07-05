@@ -1,5 +1,5 @@
 import { isArray } from "lodash";
-import { ACTION_TYPE_BUTTON } from "../../consts";
+import { ACTION_TYPE_BUTTON, FORMAT_TYPE_DIVIDE } from "../../consts";
 import { ActionElement, FormatType } from "../../types";
 import Command from "../commands/Command";
 import { register } from "./register";
@@ -58,6 +58,19 @@ class Action {
       label: "",
       tooltip,
       command,
+      icon,
+    };
+  }
+
+  /**
+   * createdActionButton
+   */
+  public static createDivider(icon: React.FunctionComponent): ActionElement {
+    return {
+      type: FORMAT_TYPE_DIVIDE,
+      actionType: ACTION_TYPE_BUTTON,
+      label: "",
+      tooltip: "",
       icon,
     };
   }

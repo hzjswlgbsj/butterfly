@@ -1,11 +1,9 @@
 import * as Y from "yjs";
 import { WebsocketProvider as YWebsocketProvider } from "y-websocket"; // 这个包的类型有问题
 import { WEBSOCKET_URL } from "../config";
-import { nanoid } from "nanoid";
 import { Awareness } from "y-protocols/awareness.js";
 import { TodoAwareness } from "./types";
-import { generateRandomColor, getRandomColor } from "@butterfly/utils";
-import { SyncElement } from "slate-yjs";
+import { getRandomColor } from "@butterfly/utils";
 export class WebsocketProvider {
   roomId: string;
   doc: Y.Doc;

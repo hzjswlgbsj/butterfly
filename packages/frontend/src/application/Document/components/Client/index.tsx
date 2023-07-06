@@ -1,6 +1,6 @@
 import { withCursors, withYHistory, withYjs, YjsEditor } from '@slate-yjs/core';
 import React, { useEffect, useMemo, useState } from 'react';
-import { createEditor, Descendant, Text } from 'slate';
+import { createEditor, Descendant, Node } from 'slate';
 import { RenderLeafProps, Slate, withReact } from 'slate-react';
 import * as Y from 'yjs';
 import { withMarkdown } from '../../../../plugins/withMarkdown';
@@ -51,6 +51,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   useEffect(() => {
     provider.onSync((isSynced: boolean) => {
       console.log('链接成功，初始值为', sharedType)
+
       if (isSynced && sharedType.length === 0) {
         console.log('初始值为空')
       }

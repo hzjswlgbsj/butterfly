@@ -1,5 +1,5 @@
 import Caret from "../Caret";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Descendant, Text } from "slate";
 import {
   ReactEditor,
@@ -75,7 +75,15 @@ const EditorFrame: React.FC<EditorFrame> = ({
   value,
   onChange,
 }) => {
+  console.log(22222222222, value)
   const [isTop, setIsTopState] = useState<boolean>(true);
+  const [oldValue, setOldValue] = useState<Descendant[]>([]);
+  useEffect(() => {
+    // 监听 props 变化
+    if (value !== oldValue) {
+      setOldValue(value);
+    }
+  }, [value]);
 
   return (
     <ClientFrame>
@@ -84,7 +92,7 @@ const EditorFrame: React.FC<EditorFrame> = ({
       <ContentWrapper>
         <EditorWrapper>
           <EditorContainer>
-            <Slate editor={editor} value={value} onChange={onChange}>
+            <Slate editor={editor} value={oldValue} onChange={onChange}>
               <DecoratedEditable />
             </Slate>
           </EditorContainer>

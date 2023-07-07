@@ -5,6 +5,7 @@ import {
   FORMAT_TYPE_BOLD,
   FORMAT_TYPE_FORMAT_PAINT,
   FORMAT_TYPE_CLEAR_FORMAT,
+  FORMAT_TYPE_ITALIC,
 } from "../../consts";
 import {
   UndoCommand,
@@ -12,8 +13,17 @@ import {
   FormatPaintCommand,
   ClearFormatCommand,
   BoldCommand,
+  ItalicCommand,
 } from "../commands";
-import { Bold, Undo, Redo, FormatPaint, ClearFormat, Divider } from "../icons";
+import {
+  Bold,
+  Undo,
+  Redo,
+  FormatPaint,
+  ClearFormat,
+  Divider,
+  Italic,
+} from "../icons";
 
 export function register(action: Action) {
   action.register([
@@ -47,6 +57,12 @@ export function register(action: Action) {
       "加粗（⌘+B）",
       Bold,
       new BoldCommand(action.editor)
+    ),
+    Action.createActionButton(
+      FORMAT_TYPE_ITALIC,
+      "倾斜（⌘+I）",
+      Italic,
+      new ItalicCommand(action.editor)
     ),
   ]);
 }

@@ -75,7 +75,6 @@ const EditorFrame: React.FC<EditorFrame> = ({
   value,
   onChange,
 }) => {
-  console.log(22222222222, value)
   const [isTop, setIsTopState] = useState<boolean>(true);
   const [oldValue, setOldValue] = useState<Descendant[]>([]);
   useEffect(() => {

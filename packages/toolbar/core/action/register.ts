@@ -6,6 +6,7 @@ import {
   FORMAT_TYPE_FORMAT_PAINT,
   FORMAT_TYPE_CLEAR_FORMAT,
   FORMAT_TYPE_ITALIC,
+  FORMAT_TYPE_UNDERLINE,
 } from "../../consts";
 import {
   UndoCommand,
@@ -24,6 +25,8 @@ import {
   Divider,
   Italic,
 } from "../icons";
+import Underline from "../icons/Underline";
+import UnderlineCommand from "../commands/UnderlineCommand";
 
 export function register(action: Action) {
   action.register([
@@ -63,6 +66,12 @@ export function register(action: Action) {
       "倾斜（⌘+I）",
       Italic,
       new ItalicCommand(action.editor)
+    ),
+    Action.createActionButton(
+      FORMAT_TYPE_UNDERLINE,
+      "下划线（⌘+U）",
+      Underline,
+      new UnderlineCommand(action.editor)
     ),
   ]);
 }

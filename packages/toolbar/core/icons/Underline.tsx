@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-const Undo = memo(() => {
+const Underline = memo(() => {
   return (
     <div id='toolbar-button-undo'>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -10,4 +10,4 @@ const Undo = memo(() => {
   )
 })
 
-export default Undo
+export default Underline

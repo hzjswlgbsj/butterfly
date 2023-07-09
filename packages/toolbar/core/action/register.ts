@@ -7,6 +7,7 @@ import {
   FORMAT_TYPE_CLEAR_FORMAT,
   FORMAT_TYPE_ITALIC,
   FORMAT_TYPE_UNDERLINE,
+  FORMAT_TYPE_STRIKE_THROUGH,
 } from "../../consts";
 import {
   UndoCommand,
@@ -27,6 +28,8 @@ import {
 } from "../icons";
 import Underline from "../icons/Underline";
 import UnderlineCommand from "../commands/UnderlineCommand";
+import StrikeThrough from "../icons/StrikeThrough";
+import StrikeThroughCommand from "../commands/StrikeThroughCommand";
 
 export function register(action: Action) {
   action.register([
@@ -72,6 +75,12 @@ export function register(action: Action) {
       "下划线（⌘+U）",
       Underline,
       new UnderlineCommand(action.editor)
+    ),
+    Action.createActionButton(
+      FORMAT_TYPE_STRIKE_THROUGH,
+      "删除线（⌘+⇧+X）",
+      StrikeThrough,
+      new StrikeThroughCommand(action.editor)
     ),
   ]);
 }

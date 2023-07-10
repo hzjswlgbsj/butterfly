@@ -8,6 +8,7 @@ import {
   FORMAT_TYPE_ITALIC,
   FORMAT_TYPE_UNDERLINE,
   FORMAT_TYPE_STRIKE_THROUGH,
+  FORMAT_TYPE_FONT_SIZE_INCREASE,
 } from "../../consts";
 import {
   UndoCommand,
@@ -16,6 +17,9 @@ import {
   ClearFormatCommand,
   BoldCommand,
   ItalicCommand,
+  UnderlineCommand,
+  StrikeThroughCommand,
+  FontSizeIncreaseCommand,
 } from "../commands";
 import {
   Bold,
@@ -25,11 +29,10 @@ import {
   ClearFormat,
   Divider,
   Italic,
+  Underline,
+  StrikeThrough,
+  FontSizeIncrease,
 } from "../icons";
-import Underline from "../icons/Underline";
-import UnderlineCommand from "../commands/UnderlineCommand";
-import StrikeThrough from "../icons/StrikeThrough";
-import StrikeThroughCommand from "../commands/StrikeThroughCommand";
 
 export function register(action: Action) {
   action.register([
@@ -58,6 +61,12 @@ export function register(action: Action) {
       new ClearFormatCommand(action.editor)
     ),
     Action.createDivider(Divider),
+    Action.createActionButton(
+      FORMAT_TYPE_FONT_SIZE_INCREASE,
+      "增大字号（⌥+.）",
+      FontSizeIncrease,
+      new FontSizeIncreaseCommand(action.editor)
+    ),
     Action.createActionButton(
       FORMAT_TYPE_BOLD,
       "加粗（⌘+B）",

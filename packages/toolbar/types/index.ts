@@ -6,6 +6,7 @@ export type FormatType =
   | "format-paint"
   | "clear-format"
   | "bold"
+  | "font-size-increase"
   | "italic"
   | "underline"
   | "strikethrough"

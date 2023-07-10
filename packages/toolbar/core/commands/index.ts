@@ -4,6 +4,9 @@ import FormatPaintCommand from "./FormatPaintCommand";
 import ClearFormatCommand from "./ClearFormatCommand";
 import BoldCommand from "./BoldCommand";
 import ItalicCommand from "./ItalicCommand";
+import UnderlineCommand from "./UnderlineCommand";
+import StrikeThroughCommand from "./StrikeThroughCommand";
+import FontSizeIncreaseCommand from "./FontSizeIncreaseCommand";
 
 export {
   UndoCommand,
@@ -12,4 +15,7 @@ export {
   ClearFormatCommand,
   BoldCommand,
   ItalicCommand,
+  UnderlineCommand,
+  StrikeThroughCommand,
+  FontSizeIncreaseCommand,
 };

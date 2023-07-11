@@ -4,6 +4,7 @@ import { CustomEditor } from "packages/frontend/src/types";
 import { ActionElement } from "../../types";
 import Command from "../../core/commands/Command";
 import Action from "../../core/action";
+import ActionButton from "../ActionButton";
 
 
 interface ToolbarProps {
@@ -28,7 +29,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
       {
         actions.map((item: ActionElement) =>
           <div key={item.type} onClick={() => handleAction(item.command)}>
-            <item.icon />
+            <ActionButton id={`toolbar-button-${item.type}`} type={item.type} />
           </div>
         )
       }

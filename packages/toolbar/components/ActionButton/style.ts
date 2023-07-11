@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import styled from "styled-components";
 
 export const DividerWrapper = styled.div`
@@ -14,14 +13,3 @@ export const DividerWrapper = styled.div`
   display: inline-block;
   flex-shrink: 0;
 `;
-
-
-const Divider = memo(() => {
-  return (
-    <div id='toolbar-button-divider'>
-      <DividerWrapper />
-    </div>
-  )
-})
-
-export default Divider

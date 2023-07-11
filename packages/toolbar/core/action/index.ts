@@ -49,7 +49,6 @@ class Action {
   public static createActionButton(
     type: FormatType,
     tooltip: string,
-    icon: React.FunctionComponent,
     command: Command
   ): ActionElement {
     return {
@@ -58,20 +57,18 @@ class Action {
       label: "",
       tooltip,
       command,
-      icon,
     };
   }
 
   /**
    * createdActionButton
    */
-  public static createDivider(icon: React.FunctionComponent): ActionElement {
+  public static createDivider(): ActionElement {
     return {
       type: FORMAT_TYPE_DIVIDE,
       actionType: ACTION_TYPE_BUTTON,
       label: "",
       tooltip: "",
-      icon,
     };
   }
 }

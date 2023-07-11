@@ -7,6 +7,7 @@ export type FormatType =
   | "clear-format"
   | "bold"
   | "font-size-increase"
+  | "font-size-decrease"
   | "italic"
   | "underline"
   | "strikethrough"
@@ -19,7 +20,6 @@ export interface ActionElement {
   actionType: ActionType;
   label: string;
   tooltip: string;
-  icon: React.FunctionComponent;
   command?: Command;
   options?: any;
 }

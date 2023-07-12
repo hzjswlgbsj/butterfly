@@ -10,6 +10,7 @@ export const FORMAT_TYPE_UNDERLINE = "underline";
 export const FORMAT_TYPE_STRIKE_THROUGH = "strikethrough";
 export const FORMAT_TYPE_DIVIDE = "divider";
 
+export const ACTION_TYPE_DIVIDER = "divider";
 export const ACTION_TYPE_BUTTON = "button";
 export const ACTION_TYPE_FORMAT_DROPDOWN = "format-dropdown";
 export const ACTION_TYPE_FORMAT_NORMAL = "normal-dropdown";

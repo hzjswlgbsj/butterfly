@@ -13,7 +13,11 @@ export type FormatType =
   | "strikethrough"
   | "divider";
 
-export type ActionType = "button" | "format-dropdown" | "normal-dropdown";
+export type ActionType =
+  | "button"
+  | "format-dropdown"
+  | "normal-dropdown"
+  | "divider";
 
 export interface ActionElement {
   type: FormatType;

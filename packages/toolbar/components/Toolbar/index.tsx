@@ -5,7 +5,7 @@ import { ActionElement } from "../../types";
 import Command from "../../core/commands/Command";
 import Action from "../../core/action";
 import ActionButton from "../ActionButton";
-import { FORMAT_TYPE_DIVIDE } from "../../consts";
+import { ACTION_TYPE_BUTTON, ACTION_TYPE_DIVIDER } from "../../consts";
 import { DividerWrapper } from "../ActionButton/style";
 
 
@@ -26,14 +26,33 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
     setActions(action.get());
   }, [editor])
 
+  function renderToolbarIcon(item: ActionElement) {
+    let comp = <div></div>
+    switch (item.actionType) {
+      case ACTION_TYPE_DIVIDER:
+        comp = <DividerWrapper />
+        break;
+      case ACTION_TYPE_BUTTON:
+        comp = <ActionButton
+          id={`toolbar-button-${item.type}`}
+          type={item.type}
+          active={false}
+        />
+        break;
+
+      default:
+        console.log('错误的toolbar按钮类型', item.actionType)
+        break;
+    }
+    return comp;
+  }
+
   return (
     <ToolbarWrapper>
       {
         actions.map((item: ActionElement) =>
           <div key={item.type} onClick={() => handleAction(item.command)}>
-            {
-              item.type === FORMAT_TYPE_DIVIDE ? <DividerWrapper /> : <ActionButton id={`toolbar-button-${item.type}`} type={item.type} />
-            }
+            {renderToolbarIcon(item)}
           </div>
         )
       }

@@ -1,5 +1,9 @@
 import { isArray } from "lodash";
-import { ACTION_TYPE_BUTTON, FORMAT_TYPE_DIVIDE } from "../../consts";
+import {
+  ACTION_TYPE_BUTTON,
+  ACTION_TYPE_DIVIDER,
+  FORMAT_TYPE_DIVIDE,
+} from "../../consts";
 import { ActionElement, FormatType } from "../../types";
 import Command from "../commands/Command";
 import { register } from "./register";
@@ -66,7 +70,7 @@ class Action {
   public static createDivider(): ActionElement {
     return {
       type: FORMAT_TYPE_DIVIDE,
-      actionType: ACTION_TYPE_BUTTON,
+      actionType: ACTION_TYPE_DIVIDER,
       label: "",
       tooltip: "",
     };

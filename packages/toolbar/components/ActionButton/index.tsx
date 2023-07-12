@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { FormatType } from '../../types';
-import { FORMAT_TYPE_UNDO, FORMAT_TYPE_REDO, FORMAT_TYPE_FORMAT_PAINT, FORMAT_TYPE_CLEAR_FORMAT, FORMAT_TYPE_DIVIDE, FORMAT_TYPE_FONT_SIZE_INCREASE, FORMAT_TYPE_FONT_SIZE_DECREASE, FORMAT_TYPE_BOLD, FORMAT_TYPE_ITALIC, FORMAT_TYPE_UNDERLINE, FORMAT_TYPE_STRIKE_THROUGH } from '../../consts';
+import { FORMAT_TYPE_UNDO, FORMAT_TYPE_REDO, FORMAT_TYPE_FORMAT_PAINT, FORMAT_TYPE_CLEAR_FORMAT, FORMAT_TYPE_FONT_SIZE_INCREASE, FORMAT_TYPE_FONT_SIZE_DECREASE, FORMAT_TYPE_BOLD, FORMAT_TYPE_ITALIC, FORMAT_TYPE_UNDERLINE, FORMAT_TYPE_STRIKE_THROUGH } from '../../consts';
 import { IconActive, IconContainer, IconWrapper } from './style';
 
 
@@ -35,19 +35,19 @@ export const ICON_MAP: { [type: string]: JSX.Element } = {
 export interface ActionButtonProps {
   id: string;
   type: FormatType;
+  active: boolean;
 }
 
-const ActionButton: React.FC<ActionButtonProps> = ({ id, type }) => {
+const ActionButton: React.FC<ActionButtonProps> = ({ id, type, active }) => {
   const icon = ICON_MAP[type]
   return (
     <IconContainer>
-      <IconActive active={false}>
+      <IconActive active={active}>
         <IconWrapper id={id}>
           {icon}
         </IconWrapper>
       </IconActive>
     </IconContainer>
-
   )
 };
 

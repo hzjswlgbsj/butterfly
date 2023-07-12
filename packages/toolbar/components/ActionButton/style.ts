@@ -33,10 +33,12 @@ export const IconWrapper = styled.div`
   align-items: center;
 `;
 
-export const IconActive = styled.div<{ active: boolean }>`
+export const IconActive = styled.div<{ active: boolean; disabled?: boolean }>`
+  opacity: ${(props) => (props.disabled ? 0.4 : 1)};
   background-color: ${(props) =>
     props.active ? activeBgColor : defaultBgColor};
   &:hover {
-    background-color: ${activeBgColor};
+    background-color: ${(props) =>
+      !props.disabled ? activeBgColor : defaultBgColor};
   }
 `;

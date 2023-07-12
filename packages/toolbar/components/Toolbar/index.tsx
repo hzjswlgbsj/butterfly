@@ -37,6 +37,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
           id={`toolbar-button-${item.type}`}
           type={item.type}
           active={false}
+          disabled={false}
         />
         break;
 

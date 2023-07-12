@@ -36,13 +36,14 @@ export interface ActionButtonProps {
   id: string;
   type: FormatType;
   active: boolean;
+  disabled?: boolean;
 }
 
-const ActionButton: React.FC<ActionButtonProps> = ({ id, type, active }) => {
+const ActionButton: React.FC<ActionButtonProps> = ({ id, type, active, disabled }) => {
   const icon = ICON_MAP[type]
   return (
     <IconContainer>
-      <IconActive active={active}>
+      <IconActive active={active} disabled={disabled}>
         <IconWrapper id={id}>
           {icon}
         </IconWrapper>

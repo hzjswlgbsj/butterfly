@@ -43,6 +43,7 @@ export const EditorWrapper = styled.div`
 `;
 
 export const EditorContainer = styled.div`
+  line-height: normal;
   margin: 100px 60px;
   blockquote {
     border-left: 2px solid #ddd;

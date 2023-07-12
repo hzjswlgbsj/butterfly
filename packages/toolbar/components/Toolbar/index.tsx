@@ -5,6 +5,8 @@ import { ActionElement } from "../../types";
 import Command from "../../core/commands/Command";
 import Action from "../../core/action";
 import ActionButton from "../ActionButton";
+import { FORMAT_TYPE_DIVIDE } from "../../consts";
+import { DividerWrapper } from "../ActionButton/style";
 
 
 interface ToolbarProps {
@@ -29,7 +31,9 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
       {
         actions.map((item: ActionElement) =>
           <div key={item.type} onClick={() => handleAction(item.command)}>
-            <ActionButton id={`toolbar-button-${item.type}`} type={item.type} />
+            {
+              item.type === FORMAT_TYPE_DIVIDE ? <DividerWrapper /> : <ActionButton id={`toolbar-button-${item.type}`} type={item.type} />
+            }
           </div>
         )
       }

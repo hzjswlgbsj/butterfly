@@ -1,14 +1,13 @@
 import { memo } from 'react';
 import { FormatType } from '../../types';
 import { FORMAT_TYPE_UNDO, FORMAT_TYPE_REDO, FORMAT_TYPE_FORMAT_PAINT, FORMAT_TYPE_CLEAR_FORMAT, FORMAT_TYPE_DIVIDE, FORMAT_TYPE_FONT_SIZE_INCREASE, FORMAT_TYPE_FONT_SIZE_DECREASE, FORMAT_TYPE_BOLD, FORMAT_TYPE_ITALIC, FORMAT_TYPE_UNDERLINE, FORMAT_TYPE_STRIKE_THROUGH } from '../../consts';
-import { DividerWrapper } from './style';
+import { IconActive, IconContainer, IconWrapper } from './style';
 
 
 const undoIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 10.9a.2.2 0 01-.302.173L4.276 8.474a.2.2 0 01-.01-.339l4.423-2.93a.2.2 0 01.31.167v2.252l5 .001c3.149 0 5.626 2.306 5.626 5.375 0 3.033-2.4 5.505-5.404 5.62l-.221.005H7v-1.25h7A4.375 4.375 0 0018.375 13c0-2.289-1.788-4.02-4.158-4.12L14 8.875H9V10.9z" fill="#454D5A"></path></svg>
 const redoIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 10.9a.2.2 0 00.302.173l4.422-2.599a.2.2 0 00.01-.339l-4.423-2.93a.2.2 0 00-.31.167v2.252l-5 .001c-3.149 0-5.626 2.306-5.626 5.375 0 3.033 2.4 5.505 5.404 5.62l.221.005h7v-1.25h-7A4.375 4.375 0 015.625 13c0-2.289 1.788-4.02 4.158-4.12L10 8.875h5V10.9z" fill="#454D5A"></path></svg>
 const formatPaintIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M5.5 5h13a.5.5 0 01.5.5v5a.5.5 0 01-.5.5h-4.23l-1.52 1.489V14h.75v4.078L10.5 20v-6h1v-2h.008l-.001-.001 1.02-.999H5.5a.5.5 0 01-.5-.5v-5a.5.5 0 01.5-.5zm.75 1.25v3.5h11.5v-3.5H6.25z" fill="#454D5A"></path></svg>
 const clearFormatIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 18.25h14v1.25H5v-1.25zM7.167 17l-2.92-2.92a.487.487 0 01.013-.688l8.405-8.405a.487.487 0 01.688-.013l5.4 5.4c.166.166.18.427.045.62l-.058.068L12.802 17h-1.689l2.93-2.93-4.387-4.388-4.028 4.028L8.918 17H7.167z" fill="#454D5A"></path><path fillRule="evenodd" clipRule="evenodd" d="M7 15.75h6L12 17H8l-1-1.25z" fill="#454D5A"></path></svg>
-const dividertIcon = <DividerWrapper />
 const fontSizeIncreaseIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M11.895 5h-1.789L5 19h1.493l1.459-4h6.098l1.459 4h1.493L11.895 5zm1.68 8.7l-2.574-7.06-2.575 7.06h5.15z" fill="#454D5A"></path><path d="M17.351 5.35h1.3v2.5h2.35v1.3h-2.35v2.2h-1.3v-2.2h-2.35v-1.3h2.35v-2.5z" fill="#454D5A"></path></svg>
 const fontSizeDecreaseIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.895 5h-1.789L5 19h1.493l1.459-4h6.098l1.459 4h1.493L11.895 5zm1.68 8.7l-2.574-7.06-2.575 7.06h5.15z" fill="#454D5A"></path><path d="M21.001 7.85h-6v1.3h6v-1.3z" fill="#454D5A"></path></svg>
 const boldIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M8.3 6.8h4.2a2.2 2.2 0 010 4.4H8.3V6.8zM7 5.5h5.5a3.5 3.5 0 012.34 6.103 3.75 3.75 0 01-1.59 7.147H7V5.5zm1.3 7.05h4.95a2.45 2.45 0 110 4.9H8.3v-4.9z" fill="#454D5A"></path></svg>
@@ -25,7 +24,6 @@ export const ICON_MAP: { [type: string]: JSX.Element } = {
   [FORMAT_TYPE_REDO]: redoIcon,
   [FORMAT_TYPE_FORMAT_PAINT]: formatPaintIcon,
   [FORMAT_TYPE_CLEAR_FORMAT]: clearFormatIcon,
-  [FORMAT_TYPE_DIVIDE]: dividertIcon,
   [FORMAT_TYPE_FONT_SIZE_INCREASE]: fontSizeIncreaseIcon,
   [FORMAT_TYPE_FONT_SIZE_DECREASE]: fontSizeDecreaseIcon,
   [FORMAT_TYPE_BOLD]: boldIcon,
@@ -42,9 +40,14 @@ export interface ActionButtonProps {
 const ActionButton: React.FC<ActionButtonProps> = ({ id, type }) => {
   const icon = ICON_MAP[type]
   return (
-    <div id={id}>
-      {icon}
-    </div>
+    <IconContainer>
+      <IconActive active={false}>
+        <IconWrapper id={id}>
+          {icon}
+        </IconWrapper>
+      </IconActive>
+    </IconContainer>
+
   )
 };
 

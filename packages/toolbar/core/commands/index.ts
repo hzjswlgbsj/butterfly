@@ -7,6 +7,7 @@ import ItalicCommand from "./ItalicCommand";
 import UnderlineCommand from "./UnderlineCommand";
 import StrikeThroughCommand from "./StrikeThroughCommand";
 import FontSizeIncreaseCommand from "./FontSizeIncreaseCommand";
+import FontSizeDecreaseCommand from "./FontSizeDecreaseCommand";
 
 export {
   UndoCommand,
@@ -18,4 +19,5 @@ export {
   UnderlineCommand,
   StrikeThroughCommand,
   FontSizeIncreaseCommand,
+  FontSizeDecreaseCommand,
 };

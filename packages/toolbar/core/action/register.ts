@@ -9,6 +9,7 @@ import {
   FORMAT_TYPE_UNDERLINE,
   FORMAT_TYPE_STRIKE_THROUGH,
   FORMAT_TYPE_FONT_SIZE_INCREASE,
+  FORMAT_TYPE_FONT_SIZE_DECREASE,
 } from "../../consts";
 import {
   UndoCommand,
@@ -20,6 +21,7 @@ import {
   UnderlineCommand,
   StrikeThroughCommand,
   FontSizeIncreaseCommand,
+  FontSizeDecreaseCommand,
 } from "../commands";
 
 export function register(action: Action) {
@@ -49,6 +51,11 @@ export function register(action: Action) {
       FORMAT_TYPE_FONT_SIZE_INCREASE,
       "增大字号（⌥+.）",
       new FontSizeIncreaseCommand(action.editor)
+    ),
+    Action.createActionButton(
+      FORMAT_TYPE_FONT_SIZE_DECREASE,
+      "增大字号（⌥+.）",
+      new FontSizeDecreaseCommand(action.editor)
     ),
     Action.createActionButton(
       FORMAT_TYPE_BOLD,

@@ -1,4 +1,4 @@
-import { Editor, Transforms } from 'slate';
+import { Editor, Transforms } from "slate";
 
 export function withNormalize(editor: Editor) {
   const { normalizeNode } = editor;
@@ -10,14 +10,14 @@ export function withNormalize(editor: Editor) {
       return normalizeNode(entry);
     }
 
-    Transforms.insertNodes(
-      editor,
-      {
-        type: 'paragraph',
-        children: [{ text: '' }],
-      },
-      { at: [0] }
-    );
+    // Transforms.insertNodes(
+    //   editor,
+    //   {
+    //     type: 'paragraph',
+    //     children: [{ text: '' }],
+    //   },
+    //   { at: [0] }
+    // );
   };
 
   return editor;

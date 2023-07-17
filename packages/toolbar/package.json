@@ -13,6 +13,7 @@
   "author": "sixty <hiliulin@aliyun.com>",
   "license": "ISC",
   "dependencies": {
+    "@floating-ui/react": "^0.24.8",
     "slate": "^0.94.1"
   }
 }

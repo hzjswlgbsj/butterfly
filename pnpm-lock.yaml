@@ -184,8 +184,10 @@ importers:
 
   packages/toolbar:
     specifiers:
+      '@floating-ui/react': ^0.24.8
       slate: ^0.94.1
     dependencies:
+      '@floating-ui/react': 0.24.8
       slate: 0.94.1
 
   packages/utils:
@@ -693,6 +695,15 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
+  /@floating-ui/react-dom/2.0.1:
+    resolution: {integrity: sha512-rZtAmSht4Lry6gdhAJDrCp/6rKN7++JnL1/Anbr/DdeyYXQPxvg/ivrbYvJulbRf4vL8b212suwMM2lxbv+RQA==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@floating-ui/dom': 1.3.0
+    dev: false
+
   /@floating-ui/react-dom/2.0.1_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-rZtAmSht4Lry6gdhAJDrCp/6rKN7++JnL1/Anbr/DdeyYXQPxvg/ivrbYvJulbRf4vL8b212suwMM2lxbv+RQA==}
     peerDependencies:
@@ -714,6 +725,17 @@ packages:
       aria-hidden: 1.2.3
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+      tabbable: 6.1.2
+    dev: false
+
+  /@floating-ui/react/0.24.8:
+    resolution: {integrity: sha512-AuYeDoaR8jtUlUXtZ1IJ/6jtBkGnSpJXbGNzokBL87VDJ8opMq1Bgrc0szhK482ReQY6KZsMoZCVSb4xwalkBA==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@floating-ui/react-dom': 2.0.1
+      aria-hidden: 1.2.3
       tabbable: 6.1.2
     dev: false
 

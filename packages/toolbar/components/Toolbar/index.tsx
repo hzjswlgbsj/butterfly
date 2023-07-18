@@ -36,6 +36,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
         comp = <ActionButton
           id={`toolbar-button-${item.type}`}
           type={item.type}
+          tooltip={item.tooltip}
           active={false}
           disabled={false}
         />
@@ -50,15 +51,13 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
 
   return (
     <ToolbarWrapper>
-      <Tooltip />
-      {/* 
       {
         actions.map((item: ActionElement) =>
           <div key={item.type} onClick={() => handleAction(item.command)}>
             {renderToolbarIcon(item)}
           </div>
         )
-      } */}
+      }
     </ToolbarWrapper>
 
   );

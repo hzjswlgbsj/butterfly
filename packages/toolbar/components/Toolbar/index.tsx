@@ -7,7 +7,7 @@ import Action from "../../core/action";
 import ActionButton from "../ActionButton";
 import { ACTION_TYPE_BUTTON, ACTION_TYPE_DIVIDER } from "../../consts";
 import { DividerWrapper } from "../ActionButton/style";
-
+import Tooltip from '../Tooltip';
 
 interface ToolbarProps {
   editor: CustomEditor
@@ -50,13 +50,15 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
 
   return (
     <ToolbarWrapper>
+      <Tooltip />
+      {/* 
       {
         actions.map((item: ActionElement) =>
           <div key={item.type} onClick={() => handleAction(item.command)}>
             {renderToolbarIcon(item)}
           </div>
         )
-      }
+      } */}
     </ToolbarWrapper>
 
   );

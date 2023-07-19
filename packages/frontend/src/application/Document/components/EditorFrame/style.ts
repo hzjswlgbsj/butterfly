@@ -45,6 +45,11 @@ export const EditorWrapper = styled.div`
 export const EditorContainer = styled.div`
   line-height: normal;
   margin: 100px 60px;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Microsoft YaHei",
+    "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(0, 0, 0, 0.7);
   blockquote {
     border-left: 2px solid #ddd;
     margin-left: 0;

@@ -7,7 +7,6 @@ import Action from "../../core/action";
 import ActionButton from "../ActionButton";
 import { ACTION_TYPE_BUTTON, ACTION_TYPE_DIVIDER } from "../../consts";
 import { DividerWrapper } from "../ActionButton/style";
-import Tooltip from '../Tooltip';
 
 interface ToolbarProps {
   editor: CustomEditor

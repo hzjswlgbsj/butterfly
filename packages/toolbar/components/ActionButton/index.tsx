@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { FormatType } from '../../types';
 import { FORMAT_TYPE_UNDO, FORMAT_TYPE_REDO, FORMAT_TYPE_FORMAT_PAINT, FORMAT_TYPE_CLEAR_FORMAT, FORMAT_TYPE_FONT_SIZE_INCREASE, FORMAT_TYPE_FONT_SIZE_DECREASE, FORMAT_TYPE_BOLD, FORMAT_TYPE_ITALIC, FORMAT_TYPE_UNDERLINE, FORMAT_TYPE_STRIKE_THROUGH } from '../../consts';
 import { IconActive, IconContainer, IconWrapper } from './style';
-import Tooltip from '../Tooltip';
+import Tooltip from '../../ui/Tooltip';
 
 
 const undoIcon = <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 10.9a.2.2 0 01-.302.173L4.276 8.474a.2.2 0 01-.01-.339l4.423-2.93a.2.2 0 01.31.167v2.252l5 .001c3.149 0 5.626 2.306 5.626 5.375 0 3.033-2.4 5.505-5.404 5.62l-.221.005H7v-1.25h7A4.375 4.375 0 0018.375 13c0-2.289-1.788-4.02-4.158-4.12L14 8.875H9V10.9z" fill="#454D5A"></path></svg>
@@ -54,9 +54,10 @@ const Button: React.FC<ActionButtonProps> = ({ id, type, active, disabled }) => 
   )
 
 };
+
 const ActionButton: React.FC<ActionButtonProps> = (props: ActionButtonProps) => {
   return (
-    <Tooltip floatingElement={props.tooltip} referenceElement={Button(props)} />
+    <Tooltip floatingElement={props.tooltip} referenceElement={Button(props)} placement='bottom' />
   )
 };
 

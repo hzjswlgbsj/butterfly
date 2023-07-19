@@ -27,3 +27,5 @@ export interface ActionElement {
   command?: Command;
   options?: any;
 }
+
+export type TooltipPlacement = "top" | "bottom" | "left" | "right";

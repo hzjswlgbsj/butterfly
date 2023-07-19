@@ -9,9 +9,8 @@ export const FloatingWrapper = styled.div`
   display: flex;
   justify-content: center;
   background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(0, 0, 0, 0.88);
   border-radius: 5px;
-  margin-top: 8px;
   padding: 8px 12px;
   box-shadow: 0 2px 12px 2px rgba(68, 73, 77, 0.16);
   border: 1px solid rgba(0, 0, 0, 0.12);

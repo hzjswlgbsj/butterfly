@@ -15,4 +15,9 @@ export const SelectItemContainerWrapper = styled.ul`
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-color: #fff;
+  overflow-y: "auto";
+  background: "#fff";
+  min-width: 100;
+  border-radius: 8;
+  outline: 0;
 `;

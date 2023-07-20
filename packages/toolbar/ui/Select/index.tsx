@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import * as React from "react";
 import {
   useFloating,
@@ -8,7 +8,6 @@ import {
   useListNavigation,
   useInteractions,
   FloatingFocusManager,
-  useTypeahead,
   offset,
   flip,
   autoUpdate,
@@ -19,28 +18,65 @@ import { SelectItemContainerWrapper } from "./style";
 
 interface SelectProps {
   optionElement: ReactNode;
+  placeholder?: string
+}
+interface OptionItem {
+  value: string;
+  label: string;
 }
 
-const options = [
-  "Red",
-  "Orange",
-  "Yellow",
-  "Green",
-  "Cyan",
-  "Blue",
-  "Purple",
-  "Pink",
-  "Maroon",
-  "Black",
-  "White"
+const options: OptionItem[] = [
+  {
+    value: 'red',
+    label: 'Red',
+  },
+  {
+    value: 'orange',
+    label: 'Orange',
+  },
+  {
+    value: 'yellow',
+    label: 'Yellow',
+  },
+  {
+    value: 'green',
+    label: 'Green',
+  },
+  {
+    value: 'cyan',
+    label: 'Cyan',
+  },
+  {
+    value: 'blue',
+    label: 'Blue',
+  },
+  {
+    value: 'purple',
+    label: 'Purple',
+  },
+  {
+    value: 'pink',
+    label: 'Pink',
+  },
+  {
+    value: 'maroon',
+    label: 'Maroon',
+  },
+  {
+    value: 'white',
+    label: 'White',
+  },
 ];
 
-const Select: React.FC<SelectProps> = () => {
+const Select: React.FC<SelectProps> = ({ placeholder }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [active, setActiveIndex] = React.useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
+  const [selectedValue, setSelectedValue] = React.useState<string | null>('orange');
+  const [selectedItemLabel, setSelectedItemLabel] = React.useState<string>(placeholder ? placeholder : '请选择');
 
   const { refs, floatingStyles, context } = useFloating({
+    placement: "bottom-start",
     open: isOpen,
     onOpenChange: setIsOpen,
     whileElementsMounted: autoUpdate,
@@ -51,111 +87,71 @@ const Select: React.FC<SelectProps> = () => {
   });
 
   const listRef = React.useRef<Array<HTMLElement | null>>([]);
-  const listContentRef = React.useRef(options);
-  const isTypingRef = React.useRef(false);
-
   const click = useClick(context, { event: "mousedown" });
   const dismiss = useDismiss(context);
   const role = useRole(context, { role: "listbox" });
   const listNav = useListNavigation(context, {
     listRef,
-    active,
+    activeIndex,
     selectedIndex,
     onNavigate: setActiveIndex,
-    // This is a large list, allow looping.
     loop: true
-  });
-  const typeahead = useTypeahead(context, {
-    listRef: listContentRef,
-    active,
-    selectedIndex,
-    onMatch: isOpen ? setActiveIndex : setSelectedIndex,
-    onTypingChange(isTyping) {
-      isTypingRef.current = isTyping;
-    }
   });
 
   const {
     getReferenceProps,
     getFloatingProps,
     getItemProps
-  } = useInteractions([dismiss, role, listNav, typeahead, click]);
+  } = useInteractions([dismiss, role, listNav, click]);
 
-  const handleSelect = (index: number) => {
+  const handleSelect = (value: string, index: number) => {
     setSelectedIndex(index);
+    setSelectedValue(value);
     setIsOpen(false);
+
   };
 
-  const selectedItemLabel =
-    selectedIndex !== null ? options[selectedIndex] : undefined;
+  useEffect(() => {
+    const seletedItem = options.find(item => item.value === selectedValue)
+    setSelectedItemLabel(seletedItem!.label)
+  }, [selectedValue]);
+
   return (
     <>
-      <div
-        tabIndex={0}
-        ref={refs.setReference}
-        aria-labelledby="select-label"
-        aria-autocomplete="none"
-        style={{ width: 150, lineHeight: 2, margin: "auto" }}
-        {...getReferenceProps()}
-      >
-        {selectedItemLabel || "Select..."}
+      <div ref={refs.setReference} {...getReferenceProps()}>
+        {selectedItemLabel}
       </div>
-      {isOpen && (
-        <FloatingPortal>
-          <FloatingFocusManager context={context} modal={false}>
-            <SelectItemContainerWrapper
-              ref={refs.setFloating}
-              style={{
-                ...floatingStyles,
-                overflowY: "auto",
-                background: "#fff",
-                minWidth: 100,
-                borderRadius: 8,
-                outline: 0
-              }}
-              {...getFloatingProps()}
-            >
-              {options.map((value, i) => (
-                <div
-                  key={value}
-                  ref={(node) => {
-                    listRef.current[i] = node;
-                  }}
-                  role="option"
-                  tabIndex={i === active ? 0 : -1}
-                  aria-selected={i === selectedIndex && i === active}
-                  style={{
-                    cursor: "default",
-                    background: i === active ? "rgba(51, 77, 102, 0.06)" : ""
-                  }}
-                  {...getItemProps({
-                    // Handle pointer select.
-                    onClick() {
-                      handleSelect(i);
-                    },
-                    // Handle keyboard select.
-                    onKeyDown(event) {
-                      if (event.key === "Enter") {
-                        event.preventDefault();
-                        handleSelect(i);
-                      }
-
-                      if (event.key === " " && !isTypingRef.current) {
-                        event.preventDefault();
-                        handleSelect(i);
-                      }
-                    }
-                  })}
-                >
-                  <Option selected={true} value={value} label={value} handleClick={(val) => {
-                    console.log(3333333333, val)
-                  }} />
-                </div>
-              ))}
-            </SelectItemContainerWrapper>
-          </FloatingFocusManager>
-        </FloatingPortal>
-      )}
+      {
+        isOpen && (
+          <FloatingPortal>
+            <FloatingFocusManager context={context} modal={false}>
+              <SelectItemContainerWrapper
+                ref={refs.setFloating}
+                style={floatingStyles}
+                {...getFloatingProps()}
+              >
+                {
+                  options.map((item, i) => (
+                    <div
+                      key={item.value}
+                      ref={(node) => listRef.current[i] = node}
+                      {...getItemProps()}
+                    >
+                      <Option
+                        selected={item.value === selectedValue}
+                        value={item.value}
+                        label={item.label}
+                        handleClick={(value: string) => handleSelect(value, i)}
+                        handleKeydown={(value: string) => handleSelect(value, i)}
+                      />
+                    </div>
+                  ))
+                }
+              </SelectItemContainerWrapper>
+            </FloatingFocusManager>
+          </FloatingPortal >
+        )
+      }
     </>
   );
 };

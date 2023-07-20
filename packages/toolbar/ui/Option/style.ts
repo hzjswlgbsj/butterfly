@@ -23,9 +23,16 @@ export const SelectedLabelWrapper = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
-export const OptionWrapper = styled.div<{ disabled: boolean }>`
+export const OptionWrapper = styled.div<{
+  disabled: boolean;
+  selected: boolean;
+}>`
   opacity: ${(props) => (props.disabled ? 0.4 : 1)};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
+  &:hover {
+    cursor: default;
+    background-color: rgba(51, 77, 102, 0.06);
+  }
 `;
 
 export const OptionItemContainer = styled.li<{ disabled: boolean }>`

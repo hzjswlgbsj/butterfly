@@ -26,7 +26,6 @@ interface ClientProps {
 }
 
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
-  console.log(3333333333333)
   const params = useParams()
   const [value, setValue] = useState<Descendant[]>([]);
   const [isOnline, setOnlineState] = useState<boolean>(false);

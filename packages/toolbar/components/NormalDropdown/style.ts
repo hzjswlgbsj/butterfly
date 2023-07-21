@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { activeBgColor, defaultBgColor } from "../baseStyle";
+import { activeBgColor, defaultBgColor } from "../../baseStyle";
 
 export const DividerWrapper = styled.div`
   margin-left: 4px;

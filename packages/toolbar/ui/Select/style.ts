@@ -1,4 +1,12 @@
+import { ellipsis } from "../../baseStyle";
 import styled from "styled-components";
+
+export const SelectedLabelWrapper = styled.div<{ width?: number }>`
+  ${ellipsis}
+  width: ${(props) => (props.width ? props.width : "auto")};
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.7);
+`;
 
 export const SelectItemContainerWrapper = styled.ul`
   overflow: auto;

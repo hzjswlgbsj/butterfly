@@ -13,12 +13,13 @@ import {
   autoUpdate,
   FloatingPortal
 } from "@floating-ui/react";
-import Option from '../Option';
-import { SelectItemContainerWrapper } from "./style";
+import Option from '../Tooltip copy';
+import { SelectItemContainerWrapper, SelectedLabelWrapper } from "./style";
 
 interface SelectProps {
   optionElement: ReactNode;
   placeholder?: string
+  labelWidth?: number
 }
 interface OptionItem {
   value: string;
@@ -68,7 +69,7 @@ const options: OptionItem[] = [
   },
 ];
 
-const Select: React.FC<SelectProps> = ({ placeholder }) => {
+const Select: React.FC<SelectProps> = ({ placeholder, labelWidth }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
@@ -118,9 +119,9 @@ const Select: React.FC<SelectProps> = ({ placeholder }) => {
 
   return (
     <>
-      <div ref={refs.setReference} {...getReferenceProps()}>
+      <SelectedLabelWrapper ref={refs.setReference} width={labelWidth} {...getReferenceProps()}>
         {selectedItemLabel}
-      </div>
+      </SelectedLabelWrapper>
       {
         isOpen && (
           <FloatingPortal>

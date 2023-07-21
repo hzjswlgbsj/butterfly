@@ -1,16 +1,9 @@
-import styled, { css } from "styled-components";
-const baseFlexStyle = css`
-  display: flex;
-  align-items: center;
-`;
-const baseFlexCenterStyle = css`
-  ${baseFlexStyle}
-  justify-content: center;
-`;
-const baseFlexStartStyle = css`
-  ${baseFlexStyle}
-  justify-content: start;
-`;
+import {
+  baseFlexCenterStyle,
+  baseFlexStartStyle,
+  ellipsis,
+} from "../../baseStyle";
+import styled from "styled-components";
 
 export const SelectedIconWrapper = styled.div`
   ${baseFlexCenterStyle}
@@ -19,9 +12,7 @@ export const SelectedIconWrapper = styled.div`
   margin-right: 8px;
 `;
 export const SelectedLabelWrapper = styled.div`
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  ${ellipsis}
 `;
 export const OptionWrapper = styled.div<{
   disabled: boolean;

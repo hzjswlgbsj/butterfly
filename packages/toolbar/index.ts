@@ -1,3 +1,2 @@
-import Toolbar from "./components/Toolbar";
-
-export { Toolbar };
+export * from "./ui";
+export * from "./components";

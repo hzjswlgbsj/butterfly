@@ -8,7 +8,8 @@ export const SelectedLabelWrapper = styled.div<{ width?: number }>`
   color: rgba(0, 0, 0, 0.7);
 `;
 
-export const SelectItemContainerWrapper = styled.ul`
+export const SelectItemContainerWrapper = styled.ul<{ transfer?: boolean }>`
+  z-index: ${(props) => (props.transfer ? 999 : "auto")};
   overflow: auto;
   max-height: 1110px;
   box-shadow: 0 2px 12px 2px rgba(68, 73, 77, 0.16);

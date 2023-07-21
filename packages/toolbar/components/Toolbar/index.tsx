@@ -8,6 +8,7 @@ import ActionButton from "../ActionButton";
 import { ACTION_TYPE_BUTTON, ACTION_TYPE_DIVIDER } from "../../consts";
 import { DividerWrapper } from "../ActionButton/style";
 import Select from "../../ui/Select";
+import { Tooltip } from "../../../toolbar/ui";
 
 interface ToolbarProps {
   editor: CustomEditor
@@ -58,7 +59,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
           </div>
         )
       }
-      <Select />
+
+      <Tooltip floatingElement='{props.tooltip}' referenceElement={Select({})} placement='bottom' />
     </ToolbarWrapper>
 
   );

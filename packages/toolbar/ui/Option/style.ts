@@ -35,6 +35,6 @@ export const OptionItemContainer = styled.li<{ disabled: boolean }>`
   transition: background-color 0.1s linear;
   box-sizing: content-box;
   position: relative;
-  padding: 8px 10px;
+  padding: 8px 16px 8px 10px;
   font-size: 12px;
 `;

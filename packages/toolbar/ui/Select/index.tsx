@@ -17,7 +17,7 @@ import Option from '../Option';
 import { SelectItemContainerWrapper, SelectedLabelWrapper } from "./style";
 
 interface SelectProps {
-  optionElement: ReactNode;
+  optionElement?: ReactNode;
   placeholder?: string
   labelWidth?: number
 }
@@ -83,7 +83,7 @@ const Select: React.FC<SelectProps> = ({ placeholder, labelWidth }) => {
     whileElementsMounted: autoUpdate,
     middleware: [
       offset(5),
-      flip({ padding: 10 }),
+      flip({ padding: 5 }),
     ]
   });
 
@@ -128,6 +128,7 @@ const Select: React.FC<SelectProps> = ({ placeholder, labelWidth }) => {
             <FloatingFocusManager context={context} modal={false}>
               <SelectItemContainerWrapper
                 ref={refs.setFloating}
+                transfer={true}
                 style={floatingStyles}
                 {...getFloatingProps()}
               >

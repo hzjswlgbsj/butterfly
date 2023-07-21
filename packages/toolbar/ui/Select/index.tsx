@@ -13,7 +13,7 @@ import {
   autoUpdate,
   FloatingPortal
 } from "@floating-ui/react";
-import Option from '../Tooltip copy';
+import Option from '../Option';
 import { SelectItemContainerWrapper, SelectedLabelWrapper } from "./style";
 
 interface SelectProps {

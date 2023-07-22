@@ -6,6 +6,7 @@ export type FormatType =
   | "format-paint"
   | "clear-format"
   | "bold"
+  | "font-size"
   | "font-size-increase"
   | "font-size-decrease"
   | "italic"
@@ -15,17 +16,33 @@ export type FormatType =
 
 export type ActionType =
   | "button"
+  | "select"
   | "format-dropdown"
   | "normal-dropdown"
   | "divider";
 
+export interface OptionItem {
+  value: number | string;
+  label: string;
+}
 export interface ActionElement {
   type: FormatType;
   actionType: ActionType;
   label: string;
   tooltip: string;
   command?: Command;
-  options?: any;
+  options?: OptionItem[];
 }
-
+export interface ActionProps {
+  tooltip: string;
+  type: FormatType;
+  active: boolean;
+  disabled?: boolean;
+}
+export interface ActionButtonProps extends ActionProps {
+  id: string;
+}
+export interface ActionSelectProps extends ActionProps {
+  id: string;
+}
 export type TooltipPlacement = "top" | "bottom" | "left" | "right";

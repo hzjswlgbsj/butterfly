@@ -5,10 +5,9 @@ import { ActionElement } from "../../types";
 import Command from "../../core/commands/Command";
 import Action from "../../core/action";
 import ActionButton from "../ActionButton";
-import { ACTION_TYPE_BUTTON, ACTION_TYPE_DIVIDER } from "../../consts";
+import { ACTION_TYPE_BUTTON, ACTION_TYPE_DIVIDER, ACTION_TYPE_SELECT } from "../../consts";
 import { DividerWrapper } from "../ActionButton/style";
-import Select from "../../ui/Select";
-import { Tooltip } from "../../../toolbar/ui";
+import ActionSelect from "../ActionSelect";
 
 interface ToolbarProps {
   editor: CustomEditor
@@ -42,6 +41,15 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
           disabled={false}
         />
         break;
+      case ACTION_TYPE_SELECT:
+        comp = <ActionSelect
+          id={`toolbar-button-${item.type}`}
+          type={item.type}
+          tooltip={item.tooltip}
+          active={false}
+          disabled={false}
+        />
+        break;
 
       default:
         console.log('错误的toolbar按钮类型', item.actionType)
@@ -59,8 +67,6 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
           </div>
         )
       }
-
-      <Tooltip floatingElement='{props.tooltip}' referenceElement={Select({})} placement='bottom' />
     </ToolbarWrapper>
 
   );

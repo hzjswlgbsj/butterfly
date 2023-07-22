@@ -15,61 +15,16 @@ import {
 } from "@floating-ui/react";
 import Option from '../Option';
 import { SelectItemContainerWrapper, SelectedLabelWrapper } from "./style";
+import { OptionItem } from '../../types';
 
 interface SelectProps {
+  options: OptionItem[];
   optionElement?: ReactNode;
   placeholder?: string
   labelWidth?: number
 }
-interface OptionItem {
-  value: string;
-  label: string;
-}
 
-const options: OptionItem[] = [
-  {
-    value: 'red',
-    label: 'Red',
-  },
-  {
-    value: 'orange',
-    label: 'Orange',
-  },
-  {
-    value: 'yellow',
-    label: 'Yellow',
-  },
-  {
-    value: 'green',
-    label: 'Green',
-  },
-  {
-    value: 'cyan',
-    label: 'Cyan',
-  },
-  {
-    value: 'blue',
-    label: 'Blue',
-  },
-  {
-    value: 'purple',
-    label: 'Purple',
-  },
-  {
-    value: 'pink',
-    label: 'Pink',
-  },
-  {
-    value: 'maroon',
-    label: 'Maroon',
-  },
-  {
-    value: 'white',
-    label: 'White',
-  },
-];
-
-const Select: React.FC<SelectProps> = ({ placeholder, labelWidth }) => {
+const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);

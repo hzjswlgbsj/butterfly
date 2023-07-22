@@ -10,6 +10,8 @@ import {
   FORMAT_TYPE_STRIKE_THROUGH,
   FORMAT_TYPE_FONT_SIZE_INCREASE,
   FORMAT_TYPE_FONT_SIZE_DECREASE,
+  FONT_SIZE_OPTIONS,
+  FORMAT_TYPE_FONT_SIZE,
 } from "../../consts";
 import {
   UndoCommand,
@@ -47,6 +49,12 @@ export function register(action: Action) {
       new ClearFormatCommand(action.editor)
     ),
     Action.createDivider(),
+    Action.createActionSelect(
+      FORMAT_TYPE_FONT_SIZE,
+      "字号",
+      new FontSizeIncreaseCommand(action.editor),
+      FONT_SIZE_OPTIONS
+    ),
     Action.createActionButton(
       FORMAT_TYPE_FONT_SIZE_INCREASE,
       "增大字号（⌥+.）",

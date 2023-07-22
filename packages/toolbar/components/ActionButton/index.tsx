@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { FormatType } from '../../types';
+import { ActionButtonProps, FormatType } from '../../types';
 import { FORMAT_TYPE_UNDO, FORMAT_TYPE_REDO, FORMAT_TYPE_FORMAT_PAINT, FORMAT_TYPE_CLEAR_FORMAT, FORMAT_TYPE_FONT_SIZE_INCREASE, FORMAT_TYPE_FONT_SIZE_DECREASE, FORMAT_TYPE_BOLD, FORMAT_TYPE_ITALIC, FORMAT_TYPE_UNDERLINE, FORMAT_TYPE_STRIKE_THROUGH } from '../../consts';
 import { IconActive, IconContainer, IconWrapper } from './style';
 import Tooltip from '../../ui/Tooltip';
@@ -33,13 +33,7 @@ export const ICON_MAP: { [type: string]: JSX.Element } = {
   [FORMAT_TYPE_STRIKE_THROUGH]: strikeThroughIcon,
 }
 
-export interface ActionButtonProps {
-  id: string;
-  tooltip: string;
-  type: FormatType;
-  active: boolean;
-  disabled?: boolean;
-}
+
 
 const Button: React.FC<ActionButtonProps> = ({ id, type, active, disabled }) => {
   const icon = ICON_MAP[type]

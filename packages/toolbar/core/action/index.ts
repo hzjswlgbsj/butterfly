@@ -2,9 +2,10 @@ import { isArray } from "lodash";
 import {
   ACTION_TYPE_BUTTON,
   ACTION_TYPE_DIVIDER,
+  ACTION_TYPE_SELECT,
   FORMAT_TYPE_DIVIDE,
 } from "../../consts";
-import { ActionElement, FormatType } from "../../types";
+import { ActionElement, FormatType, OptionItem } from "../../types";
 import Command from "../commands/Command";
 import { register } from "./register";
 
@@ -48,7 +49,11 @@ class Action {
   }
 
   /**
-   * createdActionButton
+   * created action button
+   * @param type 格式类型
+   * @param tooltip 提示
+   * @param command 命令
+   * @returns ActionElement
    */
   public static createActionButton(
     type: FormatType,
@@ -61,6 +66,29 @@ class Action {
       label: "",
       tooltip,
       command,
+    };
+  }
+
+  /**
+   * created action select
+   * @param type 格式类型
+   * @param tooltip 提示
+   * @param command 命令
+   * @returns ActionElement
+   */
+  public static createActionSelect(
+    type: FormatType,
+    tooltip: string,
+    command: Command,
+    options: OptionItem[]
+  ): ActionElement {
+    return {
+      type,
+      actionType: ACTION_TYPE_SELECT,
+      label: "",
+      tooltip,
+      command,
+      options,
     };
   }
 

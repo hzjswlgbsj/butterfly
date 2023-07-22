@@ -2,7 +2,7 @@ import { OptionItemContainer, OptionWrapper, SelectedIconWrapper, SelectedLabelW
 import React, { ReactNode, forwardRef } from 'react';
 
 interface OptionProps extends React.HTMLAttributes<HTMLLIElement> {
-  value: string;
+  value: string | number;
   label: string;
   handleClick: (value: string) => void;
   handleKeydown?: (value: string) => void;

@@ -37,6 +37,7 @@ export interface ActionProps {
   tooltip: string;
   type: FormatType;
   active: boolean;
+  value?: any;
   disabled?: boolean;
 }
 export interface ActionButtonProps extends ActionProps {

@@ -21,43 +21,67 @@ export const ACTION_TYPE_FORMAT_NORMAL = "normal-dropdown";
 
 export const FONT_SIZE_OPTIONS: OptionItem[] = [
   {
-    value: "red",
-    label: "Red",
+    value: "9",
+    label: "9",
   },
   {
-    value: "orange",
-    label: "Orange",
+    value: "10",
+    label: "10",
   },
   {
-    value: "yellow",
-    label: "Yellow",
+    value: "11",
+    label: "11",
   },
   {
-    value: "green",
-    label: "Green",
+    value: "12",
+    label: "12",
   },
   {
-    value: "cyan",
-    label: "Cyan",
+    value: "14",
+    label: "14",
   },
   {
-    value: "blue",
-    label: "Blue",
+    value: "16",
+    label: "16",
   },
   {
-    value: "purple",
-    label: "Purple",
+    value: "18",
+    label: "18",
   },
   {
-    value: "pink",
-    label: "Pink",
+    value: "20",
+    label: "20",
   },
   {
-    value: "maroon",
-    label: "Maroon",
+    value: "22",
+    label: "22",
   },
   {
-    value: "white",
-    label: "White",
+    value: "24",
+    label: "24",
+  },
+  {
+    value: "26",
+    label: "26",
+  },
+  {
+    value: "28",
+    label: "28",
+  },
+  {
+    value: "36",
+    label: "36",
+  },
+  {
+    value: "42",
+    label: "2424",
+  },
+  {
+    value: "48",
+    label: "48",
+  },
+  {
+    value: "72",
+    label: "72",
   },
 ];

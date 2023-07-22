@@ -16,7 +16,7 @@ export const baseFlexStartStyle = css`
   justify-content: start;
 `;
 
-export const ellipsis = styled.div`
+export const ellipsis = css`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

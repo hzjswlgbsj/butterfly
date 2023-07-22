@@ -21,9 +21,8 @@ export const IconContainer = styled.div`
   margin-left: 4px;
   margin-right: 4px;
 `;
-export const IconWrapper = styled.div`
+export const SelectContainer = styled.div`
   height: 24px;
-  width: 24px;
   box-sizing: border-box;
   padding: 2px;
   background: transparent;

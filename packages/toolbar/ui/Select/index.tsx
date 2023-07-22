@@ -14,22 +14,23 @@ import {
   FloatingPortal
 } from "@floating-ui/react";
 import Option from '../Option';
-import { SelectItemContainerWrapper, SelectedLabelWrapper } from "./style";
+import { SelectItemContainerWrapper, SelectedIcon, SelectedIconWrapper, SelectedLabel, SelectedLabelWrapper } from "./style";
 import { OptionItem } from '../../types';
 
 interface SelectProps {
+  value: any;
   options: OptionItem[];
   optionElement?: ReactNode;
   placeholder?: string
   labelWidth?: number
 }
 
-const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth }) => {
+const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth = 46, value }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
-  const [selectedValue, setSelectedValue] = React.useState<string | null>('orange');
-  const [selectedItemLabel, setSelectedItemLabel] = React.useState<string>(placeholder ? placeholder : '请选择');
+  const [selectedValue, setSelectedValue] = React.useState<string | null>(value ? value : '');
+  const [selectedItemLabel, setSelectedItemLabel] = React.useState<string>(placeholder ? placeholder : 'select');
 
   const { refs, floatingStyles, context } = useFloating({
     placement: "bottom-start",
@@ -69,13 +70,18 @@ const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth }) => 
 
   useEffect(() => {
     const seletedItem = options.find(item => item.value === selectedValue)
-    setSelectedItemLabel(seletedItem!.label)
+    if (seletedItem) {
+      setSelectedItemLabel(seletedItem!.label)
+    }
   }, [selectedValue]);
 
   return (
     <>
-      <SelectedLabelWrapper ref={refs.setReference} width={labelWidth} {...getReferenceProps()}>
-        {selectedItemLabel}
+      <SelectedLabelWrapper ref={refs.setReference} width={`${labelWidth}px`} {...getReferenceProps()}>
+        <SelectedLabel>{selectedItemLabel}</SelectedLabel>
+        <SelectedIconWrapper>
+          <svg className="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2283" width="12" height="12"><path d="M232 392L512 672l280-280z" fill="#464d5a" p-id="2284"></path></svg>
+        </SelectedIconWrapper>
       </SelectedLabelWrapper>
       {
         isOpen && (

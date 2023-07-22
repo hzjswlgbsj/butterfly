@@ -44,6 +44,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
       case ACTION_TYPE_SELECT:
         comp = <ActionSelect
           id={`toolbar-button-${item.type}`}
+          value='12'
           type={item.type}
           tooltip={item.tooltip}
           active={false}

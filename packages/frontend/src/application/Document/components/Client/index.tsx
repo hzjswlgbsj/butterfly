@@ -99,7 +99,6 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
       formats = Object.keys(marks);
     }
 
-    console.log('当前格式', marks, formats)
     setFormats(formats)
   }
 

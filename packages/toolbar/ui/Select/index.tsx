@@ -14,7 +14,7 @@ import {
   FloatingPortal
 } from "@floating-ui/react";
 import Option from '../Option';
-import { SelectItemContainerWrapper, SelectedIcon, SelectedIconWrapper, SelectedLabel, SelectedLabelWrapper } from "./style";
+import { SelectItemContainerWrapper, SelectedIconWrapper, SelectedLabel, SelectedLabelWrapper } from "./style";
 import { OptionItem } from '../../types';
 
 interface SelectProps {
@@ -23,9 +23,10 @@ interface SelectProps {
   optionElement?: ReactNode;
   placeholder?: string
   labelWidth?: number
+  onChange?: (value: any) => void
 }
 
-const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth = 46, value }) => {
+const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth = 46, value, onChange }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
@@ -65,7 +66,7 @@ const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth = 46, 
     setSelectedIndex(index);
     setSelectedValue(value);
     setIsOpen(false);
-
+    onChange && onChange(value)
   };
 
   useEffect(() => {

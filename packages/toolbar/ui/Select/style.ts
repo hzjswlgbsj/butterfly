@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export const SelectedLabelWrapper = styled.div<{ width?: string }>`
   width: ${(props) => (props.width ? props.width : "auto")};
-  font-size: 16px;
   color: rgba(0, 0, 0, 0.7);
   cursor: default;
   ${ellipsis};

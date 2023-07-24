@@ -25,6 +25,7 @@ import {
   FontSizeIncreaseCommand,
   FontSizeDecreaseCommand,
 } from "../commands";
+import FontSizeCommand from "../commands/FontSizeCommand";
 
 export function register(action: Action) {
   action.register([
@@ -52,7 +53,7 @@ export function register(action: Action) {
     Action.createActionSelect(
       FORMAT_TYPE_FONT_SIZE,
       "字号",
-      new FontSizeIncreaseCommand(action.editor),
+      new FontSizeCommand(action.editor),
       FONT_SIZE_OPTIONS
     ),
     Action.createActionButton(

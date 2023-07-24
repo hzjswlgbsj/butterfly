@@ -6,7 +6,7 @@ export default class Command {
     this.editor = editor;
   }
 
-  public execute() {
+  public execute(data: any) {
     throw new Error(
       "execute() method must be implemented in concrete command classes."
     );

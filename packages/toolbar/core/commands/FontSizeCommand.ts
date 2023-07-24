@@ -7,10 +7,10 @@ export class FontSizeCommand extends Command {
     this.editor = editor;
   }
 
-  execute() {
+  execute(data: any) {
     const { editor } = this;
     const isActive = this.isActive();
-    console.log("开始执行更改字号的命令", editor, isActive);
+    console.log("开始执行更改字号的命令", editor, data, isActive);
     // if (isActive) {
     //   Editor.removeMark(editor, "bold");
     // } else {

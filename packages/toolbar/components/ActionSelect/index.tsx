@@ -4,7 +4,7 @@ import { FONT_SIZE_OPTIONS } from '../../consts';
 import { IconActive, IconContainer, SelectContainer } from './style';
 import { Select, Tooltip } from '../../ui';
 
-const ActionSelect: React.FC<ActionSelectProps> = ({ id, value, active, disabled, tooltip }) => {
+const ActionSelect: React.FC<ActionSelectProps> = ({ id, value, active, disabled, tooltip, onChange }) => {
   return (
     <IconContainer>
       <IconActive active={active} disabled={disabled}>
@@ -15,6 +15,7 @@ const ActionSelect: React.FC<ActionSelectProps> = ({ id, value, active, disabled
               Select({
                 options: FONT_SIZE_OPTIONS,
                 value,
+                onChange,
               })
             }
             placement='bottom'

@@ -74,7 +74,7 @@ export const FONT_SIZE_OPTIONS: OptionItem[] = [
   },
   {
     value: "42",
-    label: "2424",
+    label: "42",
   },
   {
     value: "48",

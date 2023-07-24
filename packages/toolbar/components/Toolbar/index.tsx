@@ -17,8 +17,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
   let action: Action;
   const [actions, setActions] = useState<ActionElement[]>([]);
 
-  const handleAction = (command?: Command) => {
-    command && command.execute && command.execute()
+  const handleAction = (command?: Command, value?: any) => {
+    command && command.execute && command.execute(value)
   }
 
   useEffect(() => {
@@ -39,6 +39,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
           tooltip={item.tooltip}
           active={false}
           disabled={false}
+          onClick={(value: string) => handleAction(item.command, value)}
         />
         break;
       case ACTION_TYPE_SELECT:
@@ -49,6 +50,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
           tooltip={item.tooltip}
           active={false}
           disabled={false}
+          onChange={(value: string) => handleAction(item.command, value)}
         />
         break;
 
@@ -63,7 +65,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
     <ToolbarWrapper>
       {
         actions.map((item: ActionElement) =>
-          <div key={item.type} onClick={() => handleAction(item.command)}>
+          // <div key={item.type} onClick={() => handleAction(item.command)}>
+          <div key={item.type}>
             {renderToolbarIcon(item)}
           </div>
         )

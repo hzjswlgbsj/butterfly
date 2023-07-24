@@ -35,10 +35,10 @@ export const ICON_MAP: { [type: string]: JSX.Element } = {
 
 
 
-const Button: React.FC<ActionButtonProps> = ({ id, type, active, disabled }) => {
+const Button: React.FC<ActionButtonProps> = ({ id, type, active, disabled, onClick }) => {
   const icon = ICON_MAP[type]
   return (
-    <IconContainer>
+    <IconContainer onClick={onClick}>
       <IconActive active={active} disabled={disabled}>
         <IconWrapper id={id}>
           {icon}

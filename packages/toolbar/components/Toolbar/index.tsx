@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ToolbarWrapper } from "./style";
-import { CustomEditor } from "packages/frontend/src/types";
 import { ActionElement } from "../../types";
 import Command from "../../core/commands/Command";
 import Action from "../../core/action";
@@ -10,10 +9,11 @@ import { DividerWrapper } from "../ActionButton/style";
 import ActionSelect from "../ActionSelect";
 
 interface ToolbarProps {
-  editor: CustomEditor
+  editor: any
+  formats: string[]
 }
 
-const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
+const Toolbar: React.FC<ToolbarProps> = ({ editor, formats }) => {
   let action: Action;
   const [actions, setActions] = useState<ActionElement[]>([]);
 
@@ -37,7 +37,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
           id={`toolbar-button-${item.type}`}
           type={item.type}
           tooltip={item.tooltip}
-          active={false}
+          active={formats.includes(item.type)}
           disabled={false}
           onClick={(value: string) => handleAction(item.command, value)}
         />
@@ -48,7 +48,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
           value='12'
           type={item.type}
           tooltip={item.tooltip}
-          active={false}
+          active={formats.includes(item.type)}
+
           disabled={false}
           onChange={(value: string) => handleAction(item.command, value)}
         />

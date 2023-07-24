@@ -42,7 +42,7 @@ export interface ActionProps {
 }
 export interface ActionButtonProps extends ActionProps {
   id: string;
-  onClick?: (value: any) => void;
+  onClick?: (value?: any) => void;
 }
 export interface ActionSelectProps extends ActionProps {
   id: string;

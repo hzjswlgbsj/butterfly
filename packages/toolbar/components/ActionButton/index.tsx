@@ -38,7 +38,12 @@ export const ICON_MAP: { [type: string]: JSX.Element } = {
 const Button: React.FC<ActionButtonProps> = ({ id, type, active, disabled, onClick }) => {
   const icon = ICON_MAP[type]
   return (
-    <IconContainer onClick={onClick}>
+    <IconContainer
+      onMouseDown={(event: React.MouseEvent) => {
+        event.preventDefault();
+        onClick && onClick();
+      }}
+    >
       <IconActive active={active} disabled={disabled}>
         <IconWrapper id={id}>
           {icon}

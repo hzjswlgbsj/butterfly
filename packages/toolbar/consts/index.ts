@@ -19,6 +19,8 @@ export const ACTION_TYPE_SELECT = "select";
 export const ACTION_TYPE_FORMAT_DROPDOWN = "format-dropdown";
 export const ACTION_TYPE_FORMAT_NORMAL = "normal-dropdown";
 
+export const LIST_TYPES = ["numbered-list", "bulleted-list"];
+
 export const FONT_SIZE_OPTIONS: OptionItem[] = [
   {
     value: "9",

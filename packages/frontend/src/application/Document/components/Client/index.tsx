@@ -1,6 +1,6 @@
 import { withCursors, withYHistory, withYjs, YjsEditor } from '@slate-yjs/core';
 import React, { useEffect, useMemo, useState } from 'react';
-import { createEditor, Descendant, Node } from 'slate';
+import { createEditor, Descendant, Editor, Node } from 'slate';
 import { RenderLeafProps, Slate, withReact } from 'slate-react';
 import * as Y from 'yjs';
 import { withMarkdown } from '../../../../plugins/withMarkdown';
@@ -21,6 +21,7 @@ interface ClientProps {
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   console.log('client组件被执行')
   const [value, setValue] = useState<Descendant[]>([]);
+  const [formats, setFormats] = useState<string[]>([]);
 
   const [sharedType, provider] = useMemo(() => {
     const provider = new WebsocketProvider(roomId, name);
@@ -81,14 +82,32 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   const handleChange = (value: Descendant[]) => {
     console.log('编辑器数据发生改变', value)
     setValue(value)
+    updateActiveFormats()
   }
 
+  const updateActiveFormats = () => {
+    const { selection } = editor;
+    let formats: string[] = []
+
+    if (!selection) {
+      formats = [];
+    }
+
+    const marks = Editor.marks(editor);
+
+    if (marks) {
+      formats = Object.keys(marks);
+    }
+
+    console.log('当前格式', marks, formats)
+    setFormats(formats)
+  }
 
   return (
     <Instance>
       <Topbar roomId={roomId} name={name} />
 
-      <Toolbar editor={editor} />
+      <Toolbar editor={editor} formats={formats} />
 
       <EditorFrame
         editor={editor}

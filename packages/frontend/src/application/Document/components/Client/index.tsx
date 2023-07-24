@@ -60,7 +60,6 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
 
     provider.connect();
     // return () => {
-    //   console.log(1111111111111)
     //   provider.disconnect();
     // };
   }, [provider]);

@@ -1,4 +1,4 @@
-[Plate](https://plate.udecode.io/docs/) 是非常优秀的 [Slate](https://github.com/ianstormtaylor/slate) 扩展，但是因为一些问题导致它很难与 [slate-yjs](https://github.com/BitPhinix/slate-yjs) 一起工作。
+[Plate](https://plate.udecode.io/docs/) 是非常优秀的 [Slate](https://github.com/ianstormtaylor/slate) 扩展，但是因为一些问题导致它很难与 [slate-yjs](https://github.com/BitPhinix/slate-yjs) 一起工作，这个 package 将用于开发更加适合与 `slate-yjs` 结合的 `Slate` 编辑器，它将借鉴 `Plate` 的一些插件。
 
 ## Plate 扩展 Slate 的方式
 
@@ -59,5 +59,7 @@ Plate 是为 Slate 编辑器设计的，它的插件、组件和功能都是在 
 - **渲染逻辑：**Plate 的组件和渲染逻辑可能依赖于特定的样式和渲染方式。在其他上下文中，你可能需要调整渲染逻辑，以适应目标上下文的样式和渲染需求。
 
 这些只是可能遇到的一些兼容性问题，具体情况取决于目标上下文和应用程序的要求。为了解决这些问题，可能需要进行一些适配工作、定制开发和测试验证，以确保 Plate 的功能能够在目标上下文中稳定运行。
+
+## 结论
 
 **因为这些问题所以有了本 package，用于将 plate 的优秀插件方便的集成到 Slate 中并配合 slate-yjs 实现在线协同应用。**

@@ -22,7 +22,7 @@
   },
   "include": [
     "src",
-    "../plate/toolbar/CommandFactory.ts"
+    "../editor/toolbar/CommandFactory.ts"
   ],
   "references": [
     {

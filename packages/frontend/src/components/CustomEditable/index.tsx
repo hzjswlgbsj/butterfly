@@ -1,8 +1,7 @@
 import React, { ComponentProps } from 'react';
 import { Editable, useSlate } from 'slate-react';
-import { Element } from '../Element';
-import { Leaf } from '../Leaf';
 import { Spinner } from '../Spinner';
+import { Element, Leaf } from '@butterfly/editor';
 
 type CustomEditableProps = Omit<
   ComponentProps<typeof Editable>,

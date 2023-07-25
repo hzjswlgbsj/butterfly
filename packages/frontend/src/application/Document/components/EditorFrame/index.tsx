@@ -1,4 +1,3 @@
-import Caret from "../Caret";
 import React, { useEffect, useState } from "react";
 import { Descendant, Text } from "slate";
 import {
@@ -11,7 +10,8 @@ import { getRemoteCaretsOnLeaf, getRemoteCursorsOnLeaf, useDecorateRemoteCursors
 import { CustomEditable } from "../../../../components/CustomEditable";
 import { CursorData } from "@butterfly/utils/types";
 import { generateRandomColor } from "@butterfly/utils";
-import { Leaf } from "../../../../components/Leaf";
+import { Leaf, Caret } from '@butterfly/editor';
+
 
 export interface EditorFrame {
   editor: ReactEditor;

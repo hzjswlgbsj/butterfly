@@ -1,10 +1,9 @@
 import { withCursors, withYHistory, withYjs, YjsEditor } from '@slate-yjs/core';
 import React, { useEffect, useMemo, useState } from 'react';
 import { createEditor, Descendant, Editor, Node } from 'slate';
-import { RenderLeafProps, Slate, withReact } from 'slate-react';
+import { withReact } from 'slate-react';
 import * as Y from 'yjs';
-import { withMarkdown } from '../../../../plugins/withMarkdown';
-import { withNormalize } from '../../../../plugins/withNormalize';
+import { withMarkdown } from '@butterfly/editor';
 import { randomCursorData } from '@butterfly/utils';
 import { WebsocketProvider } from "@butterfly/collaborate";
 import { Instance } from './style';
@@ -17,9 +16,7 @@ interface ClientProps {
   roomId: string;
 }
 
-
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
-  console.log('client组件被执行')
   const [value, setValue] = useState<Descendant[]>([]);
   const [formats, setFormats] = useState<string[]>([]);
 
@@ -30,20 +27,17 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     return [sharedType, provider];
   }, [roomId]);
 
-
   const editor = useMemo(() => {
     return withMarkdown(
-      withNormalize(
-        withReact(
-          withCursors(
-            withYHistory(
-              withYjs(createEditor(), sharedType, { autoConnect: false })
-            ),
-            provider.awareness,
-            {
-              data: randomCursorData(name),
-            }
-          )
+      withReact(
+        withCursors(
+          withYHistory(
+            withYjs(createEditor(), sharedType, { autoConnect: false })
+          ),
+          provider.awareness,
+          {
+            data: randomCursorData(name),
+          }
         )
       )
     );

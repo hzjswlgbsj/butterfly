@@ -15,7 +15,6 @@
   "dependencies": {
     "@floating-ui/react": "^0.24.8",
     "react-textarea-autosize": "^8.5.0",
-    "scriptjs": "^2.5.9",
-    "slate": "^0.94.1"
+    "scriptjs": "^2.5.9"
   }
 }

@@ -16,7 +16,7 @@ import { Leaf, Caret } from '@butterfly/editor';
 export interface EditorFrame {
   editor: ReactEditor;
   value: Descendant[];
-  onChange: (value: Descendant[]) => void;
+  onChange?: ((value: Descendant[]) => void) | undefined;
 }
 
 function renderDecoratedLeaf(props: RenderLeafProps) {
@@ -36,7 +36,6 @@ function renderDecoratedLeaf(props: RenderLeafProps) {
         <span className="relative">
           <span
             contentEditable={false}
-            className="absolute top-0 bottom-0 w-0.5 left-[-1px]"
             style={{ backgroundColor: caret.data.color }}
           />
 
@@ -63,7 +62,6 @@ function DecoratedEditable() {
   const decorate = useDecorateRemoteCursors();
   return (
     <CustomEditable
-      className="max-w-4xl w-full flex-col break-words"
       decorate={decorate}
       renderLeaf={renderDecoratedLeaf}
     />

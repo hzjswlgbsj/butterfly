@@ -16,6 +16,7 @@ import { Leaf, Caret } from '@butterfly/editor';
 export interface EditorFrame {
   editor: ReactEditor;
   value: Descendant[];
+  loading: string;
   onChange?: ((value: Descendant[]) => void) | undefined;
 }
 
@@ -58,10 +59,11 @@ function renderDecoratedLeaf(props: RenderLeafProps) {
   return <Leaf {...props} />;
 }
 
-function DecoratedEditable() {
+const DecoratedEditable: React.FC<{ loading: string }> = ({ loading }) => {
   const decorate = useDecorateRemoteCursors();
   return (
     <CustomEditable
+      loading={loading}
       decorate={decorate}
       renderLeaf={renderDecoratedLeaf}
     />
@@ -72,9 +74,11 @@ const EditorFrame: React.FC<EditorFrame> = ({
   editor,
   value,
   onChange,
+  loading,
 }) => {
   const [isTop, setIsTopState] = useState<boolean>(true);
   const [oldValue, setOldValue] = useState<Descendant[]>([]);
+
   useEffect(() => {
     // 监听 props 变化
     if (value !== oldValue) {
@@ -90,7 +94,7 @@ const EditorFrame: React.FC<EditorFrame> = ({
         <EditorWrapper>
           <EditorContainer>
             <Slate editor={editor} value={oldValue} onChange={onChange}>
-              <DecoratedEditable />
+              <DecoratedEditable loading={loading} />
             </Slate>
           </EditorContainer>
 

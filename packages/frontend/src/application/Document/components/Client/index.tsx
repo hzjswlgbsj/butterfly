@@ -1,6 +1,6 @@
 import { withCursors, withYHistory, withYjs, YjsEditor } from '@slate-yjs/core';
 import React, { useEffect, useMemo, useState } from 'react';
-import { createEditor, Descendant, Editor, Node } from 'slate';
+import { createEditor, Descendant, Editor, Node, Transforms } from 'slate';
 import { withReact } from 'slate-react';
 import * as Y from 'yjs';
 import { withMarkdown } from '@butterfly/editor';
@@ -19,6 +19,7 @@ interface ClientProps {
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   const [value, setValue] = useState<Descendant[]>([]);
   const [formats, setFormats] = useState<string[]>([]);
+  const [loading, setLoading] = useState<string>('true');
 
   const [sharedType, provider] = useMemo(() => {
     const provider = new WebsocketProvider(roomId, name);
@@ -49,7 +50,17 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
 
       if (isSynced && sharedType.length === 0) {
         console.log('初始值为空')
+        Transforms.insertNodes(
+          editor,
+          {
+            type: 'paragraph',
+            children: [{ text: '' }],
+          },
+          { at: [0] }
+        );
       }
+
+      setLoading('false')
     })
 
     provider.connect();
@@ -103,6 +114,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
 
       <EditorFrame
         editor={editor}
+        loading={loading}
         value={value}
         onChange={handleChange}
       />

@@ -3,5 +3,5 @@ type SpinnerProps = {
 };
 
 export function Spinner({ className }: SpinnerProps) {
-  return <div>loading...</div>
+  return <div style={{ margin: 'auto' }}>loading...</div>
 }

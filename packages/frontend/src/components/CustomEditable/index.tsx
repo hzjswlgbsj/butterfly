@@ -3,23 +3,26 @@ import { Editable, useSlate } from 'slate-react';
 import { Spinner } from '../Spinner';
 import { Element, Leaf } from '@butterfly/editor';
 
+interface CustomProps {
+  loading: string
+}
 type CustomEditableProps = Omit<
   ComponentProps<typeof Editable>,
   'renderElement' | 'renderLeaf'
 > &
   Partial<
     Pick<ComponentProps<typeof Editable>, 'renderElement' | 'renderLeaf'>
-  >;
+  > &
+  CustomProps
+  ;
 
 export function CustomEditable({
   renderElement = Element,
   renderLeaf = Leaf,
   ...props
 }: CustomEditableProps) {
-  const editor = useSlate();
-
-  if (editor.sharedRoot.length === 0) {
-    return <Spinner className="m-auto" />;
+  if (props.loading === 'true') {
+    return <Spinner />;
   }
 
   return (

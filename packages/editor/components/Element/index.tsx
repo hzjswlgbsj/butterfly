@@ -1,6 +1,6 @@
 import { RenderElementProps } from 'slate-react';
 import React from 'react';
-import './style.css';
+import { Code, BlockquoteWrapper, Blockquote } from './style';
 
 const Element = ({ element, attributes, children }: RenderElementProps) => {
   switch (element.type) {
@@ -18,15 +18,15 @@ const Element = ({ element, attributes, children }: RenderElementProps) => {
       );
     case 'inline-code':
       return (
-        <code {...attributes} style={{ color: 'red', backgroundColor: 'greenyellow', padding: '2px 4px' }}>
+        <Code {...attributes}>
           {children}
-        </code >
+        </Code>
       );
     case 'block-quote':
       return (
-        <blockquote {...attributes} style={{ color: 'red', backgroundColor: 'greenyellow', padding: '2px 4px' }}>
-          <p className="my-1">{children}</p>
-        </blockquote>
+        <BlockquoteWrapper {...attributes}>
+          <Blockquote>{children}</Blockquote>
+        </BlockquoteWrapper>
       );
     default:
       return (

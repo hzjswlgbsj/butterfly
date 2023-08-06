@@ -58,6 +58,8 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
           },
           { at: [0] }
         );
+      } else {
+
       }
 
       setLoading('false')
@@ -70,8 +72,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   }, [provider]);
 
   useEffect(() => {
-    provider.onChange((event: Y.YEvent<any>[],
-      transaction: Y.Transaction,) => {
+    provider.onChange((event: Y.YEvent<any>[], transaction: Y.Transaction) => {
       console.log('数据发生改变', event);
 
       // setTodoItems(event.target.toArray());

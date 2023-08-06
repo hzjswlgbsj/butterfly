@@ -29,7 +29,6 @@ export class WebsocketProvider {
       name,
     });
 
-    // this.operations = this.doc.getArray("operations");
     this.operations = this.doc.get("content", Y.XmlText) as Y.XmlText;
     this.todoUndoManager = new Y.UndoManager(this.operations);
   }
@@ -66,31 +65,6 @@ export class WebsocketProvider {
     //     done: false,
     //   },
     // ]);
-  }
-
-  deleteTodoItem(index: number) {
-    this.operations.delete(index, 1);
-  }
-
-  toggleTodoItemDone(index: number) {
-    // 下面的写法无法触发 observe
-    // const item = this.operations.get(index);
-    // item.done = !item.done;
-
-    // 下面的写法可以触发 observe
-    const item = this.operations.get(index);
-    this.operations.delete(index, 1);
-    // this.operations.insert(index, [
-    //   {
-    //     id: item.id,
-    //     text: item.text,
-    //     done: !item.done,
-    //   },
-    // ]);
-    // 或者可以用嵌套 Map 的写法
-  }
-  deleteAllTodoItems() {
-    this.operations.delete(0, this.operations.length);
   }
 
   undo() {

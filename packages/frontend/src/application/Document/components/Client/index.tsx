@@ -21,11 +21,38 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   const [formats, setFormats] = useState<string[]>([]);
   const [loading, setLoading] = useState<string>('true');
 
-  const [sharedType, provider] = useMemo(() => {
-    const provider = new WebsocketProvider(roomId, name);
-    const sharedType = provider.operations;
 
-    return [sharedType, provider];
+  const [sharedType, provider] = useMemo(() => {
+    const onSynced = (isSynced: boolean) => {
+      console.log('链接成功，初始值为', sharedType)
+
+      if (isSynced && sharedType.length === 0) {
+        console.log('初始值为空')
+        Transforms.insertNodes(
+          editor,
+          {
+            type: 'paragraph',
+            children: [{ text: '' }],
+          },
+          { at: [0] }
+        );
+      } else {
+
+      }
+
+      setLoading('false')
+    }
+
+    const onChange = (event: Y.YEvent<any>[], transaction: Y.Transaction) => {
+      console.log('数据发生改变', event);
+    }
+
+    const provider = new WebsocketProvider(roomId, name, {
+      onSynced: onSynced,
+      onChange: onChange,
+    });
+
+    return [provider.operations, provider];
   }, [roomId]);
 
   const editor = useMemo(() => {
@@ -44,44 +71,24 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     );
   }, [provider.awareness, provider.doc]);
 
+  // 链接
   useEffect(() => {
-    provider.onSync((isSynced: boolean) => {
-      console.log('链接成功，初始值为', sharedType)
-
-      if (isSynced && sharedType.length === 0) {
-        console.log('初始值为空')
-        Transforms.insertNodes(
-          editor,
-          {
-            type: 'paragraph',
-            children: [{ text: '' }],
-          },
-          { at: [0] }
-        );
-      } else {
-
-      }
-
-      setLoading('false')
-    })
-
     provider.connect();
-    // return () => {
-    //   provider.disconnect();
-    // };
-  }, [provider]);
-
-  useEffect(() => {
-    provider.onChange((event: Y.YEvent<any>[], transaction: Y.Transaction) => {
-      console.log('数据发生改变', event);
-
-      // setTodoItems(event.target.toArray());
-    });
-  }, [provider]);
+    return () => {
+      const status = provider.getStatus()
+      if (status.synced && status.wsconnected) {
+        console.log('连接被销毁', provider.getStatus())
+        provider.destroy();
+      }
+    };
+  }, [provider, provider.doc]);
 
   useEffect(() => {
     YjsEditor.connect(editor);
-    return () => YjsEditor.disconnect(editor);
+    return () => {
+      console.log('editor发生改变', JSON.stringify(editor))
+      YjsEditor.disconnect(editor);
+    }
   }, [editor]);
 
   const handleChange = (value: Descendant[]) => {

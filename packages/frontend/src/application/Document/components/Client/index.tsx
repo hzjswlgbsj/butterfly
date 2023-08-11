@@ -43,8 +43,10 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
       setLoading('false')
     }
 
-    const onChange = (event: Y.YEvent<any>[], transaction: Y.Transaction) => {
-      console.log('数据发生改变', roomId, event);
+    // origin参数，如果本次操作是自己产生的它的值是一个Symbol(slate-yjs-operation)，如果是接收到其他客户端的值
+    // 那它的值是改变产生的那个客户端的 WebsocketProvider实例
+    const onChange = (update: Uint8Array, origin: any, doc: Y.Doc, tr: Y.Transaction) => {
+      console.log("文档内容发生改变", update, origin, doc, tr);
     }
 
     const provider = new WebsocketProvider(roomId, name, {
@@ -91,7 +93,6 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   }, [editor]);
 
   const handleChange = (value: Descendant[]) => {
-    console.log('编辑器数据发生改变', value)
     setValue(value)
     updateActiveFormats()
   }

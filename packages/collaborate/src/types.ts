@@ -2,7 +2,12 @@ import * as Y from "yjs";
 
 export interface WebsocketProviderOptions {
   onSynced?: (isSynced: boolean) => void;
-  onChange?: (event: Y.YEvent<any>[], transaction: Y.Transaction) => void;
+  onChange?: (
+    update: Uint8Array,
+    origin: any,
+    doc: Y.Doc,
+    tr: Y.Transaction
+  ) => void;
 }
 
 export interface ProviderStatus {

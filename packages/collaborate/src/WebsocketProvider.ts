@@ -4,6 +4,7 @@ import { WEBSOCKET_URL } from "../config";
 import { Awareness } from "y-protocols/awareness.js";
 import { getRandomColor } from "@butterfly/utils";
 import { ProviderStatus, WebsocketProviderOptions } from "./types";
+import { Transaction } from "yjs";
 
 export class WebsocketProvider {
   roomId: string;
@@ -46,7 +47,7 @@ export class WebsocketProvider {
       }
 
       if (options.onChange) {
-        this.operations.observeDeep(options.onChange);
+        this.provider.doc.on("update", options.onChange);
       }
     }
   }
@@ -82,7 +83,7 @@ export class WebsocketProvider {
 
   destroy() {
     this.provider.destroy();
-    this.provider.doc.destroy();
+    this.doc.destroy();
   }
 
   connect() {

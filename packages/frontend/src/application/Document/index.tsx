@@ -1,7 +1,7 @@
 import { customAlphabet, nanoid } from 'nanoid';
 import React, { useState } from "react";
 import Client from "./components/Client";
-import { Documentrapper } from "./style";
+import { DocumentWrapper } from "./style";
 import { useParams } from 'react-router-dom';
 
 interface User {
@@ -18,12 +18,12 @@ const Document: React.FC<any> = () => {
   const user = createUser()
 
   return (
-    <Documentrapper>
+    <DocumentWrapper>
       <Client
         {...user}
         key={user.roomId}
       />
-    </Documentrapper>
+    </DocumentWrapper>
   );
 };
 

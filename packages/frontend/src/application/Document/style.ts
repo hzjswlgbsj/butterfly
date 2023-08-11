@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Documentrapper = styled.div`
+export const DocumentWrapper = styled.div`
   height: 100%;
 `;
 

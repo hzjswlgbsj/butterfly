@@ -82,6 +82,7 @@ export class WebsocketProvider {
 
   destroy() {
     this.provider.destroy();
+    this.provider.doc.destroy();
   }
 
   connect() {

@@ -44,7 +44,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     }
 
     const onChange = (event: Y.YEvent<any>[], transaction: Y.Transaction) => {
-      console.log('数据发生改变', event);
+      console.log('数据发生改变', roomId, event);
     }
 
     const provider = new WebsocketProvider(roomId, name, {
@@ -86,7 +86,6 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   useEffect(() => {
     YjsEditor.connect(editor);
     return () => {
-      console.log('editor发生改变', JSON.stringify(editor))
       YjsEditor.disconnect(editor);
     }
   }, [editor]);

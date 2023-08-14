@@ -1,10 +1,9 @@
 import * as Y from "yjs";
-import { WebsocketProvider as YWebsocketProvider } from "y-websocket"; // 这个包的类型有问题
+import { WebsocketProvider as YWebsocketProvider } from "y-websocket";
 import { WEBSOCKET_URL } from "../config";
 import { Awareness } from "y-protocols/awareness.js";
 import { getRandomColor } from "@butterfly/utils";
 import { ProviderStatus, WebsocketProviderOptions } from "./types";
-import { Transaction } from "yjs";
 
 export class WebsocketProvider {
   roomId: string;

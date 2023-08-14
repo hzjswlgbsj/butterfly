@@ -1,6 +1,6 @@
 ## 关于
 
-这是一个在线协同文档项目，基于 CRDT 方案来实现协同，使用了社区氛围比较好的 Yjs[https://github.com/yjs/yjs/tree/master]。
+这是一个在线协同文档项目，基于 CRDT 方案来实现协同，使用了社区氛围比较好的 [Yjs](https://github.com/yjs/yjs/tree/master)。
 
 项目以 `monorepo + pnpm` 的方式管理，包含了前端和服务端全流程。
 
@@ -46,7 +46,7 @@ npm run dev
 
 ## 服务端
 
-服务端我新开了一个[仓库](https://github.com/hzjswlgbsj/butterfly-service)，原因是后端是有很多方案的，我这边使用的是 Nodejs，方便我跑流程，实际上在真实的在线文档项目中，纯 Nodejs 是无法挑起这个重担的，必然是需要 Nodejs 做中间层，存储和计算等还是需要类似于 Java 这种语言。
+服务端我新开了一个 [仓库](https://github.com/hzjswlgbsj/butterfly-service)，原因是后端是有很多方案的，我这边使用的是 Nodejs，方便我跑流程，实际上在真实的在线文档项目中，纯 Nodejs 是无法挑起这个重担的，必然是需要 Nodejs 做中间层，存储和计算等还是需要类似于 Java 这种语言。
 
 开启 y-websocket
 

@@ -62,11 +62,11 @@ npm run start
 
 ## Todo
 
-[ ] 增加单元测试
-[ ] 补全腾讯文档风格的 Toolbar
-[ ] 增加协同部分 y-websocket 更多的 API 以供修改数据
-[ ] 优化 Nodejs 端数据处理，提高性能
-[ ] 增加文件管理
+- [ ] 增加单元测试
+- [ ] 补全腾讯文档风格的 Toolbar
+- [ ] 增加协同部分 y-websocket 更多的 API 以供修改数据
+- [ ] 优化 Nodejs 端数据处理，提高性能
+- [ ] 增加文件管理
 
 ## 最后
 

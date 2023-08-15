@@ -66,4 +66,4 @@ npm run start
 
 这里也有一些资料，可以供你参考: [在线文档](https://www.sixtyden.com/#/README?id=%f0%9f%8c%bf-%e5%9c%a8%e7%ba%bf%e6%96%87%e6%a1%a3)
 
-**如果该项目有帮助到你，请给个 start 鼓励一下！**
+**如果该项目有帮助到你，请给个 Star 鼓励一下！**

@@ -1,8 +1,8 @@
 ## 关于
 
-这是一个在线协同文档项目，基于 CRDT 方案来实现协同，使用了社区氛围比较好的 [Yjs](https://github.com/yjs/yjs/tree/master)。
+三年前使用 [OT](https://en.wikipedia.org/wiki/Operational_transformation) 方案实现过一个在线文档，虽然尝试在公司内部推广使用过，但是最后依然没有能全面使用起来，原因是多方面的，其中就包括几个协同 Bug 没有解决。因为 OT 的方案是需要一个中心服务端的，当时后端同学使用的是 PHP ，导致协同代码没办公使用一份代码，后端同学实现了一版 OT 算法，我再前端实现了一版，这中间出 BUG 后调试和修改起来真的很酸爽，以至于我后来比较排斥 OT 这种方案，后来我了解到了 CRDT 这种方案，本项目就是 CRDT 的一个完整跑通的示例项目。
 
-项目以 `monorepo + pnpm` 的方式管理，包含了前端和服务端全流程。
+本项目基于 CRDT 方案来实现协同，使用了社区氛围比较好的 [Yjs](https://github.com/yjs/yjs/tree/master)。以 `monorepo + pnpm` 的方式管理代码，包含了前端和服务端全流程。
 
 ## 前端
 
@@ -18,7 +18,7 @@
 └─util                  // 工具函数
 ```
 
-其中 `frontend` 的结构
+其中 `frontend` 的 src 结构
 
 ```
 ├─api                   // 网路请求代码、工具类函数和相关配置

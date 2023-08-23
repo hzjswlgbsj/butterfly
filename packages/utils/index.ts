@@ -26,46 +26,12 @@ export function randomCursorData(name?: string): CursorData {
   };
 }
 
-export function addAlpha(hexColor: string, opacity: number): string {
-  const normalized = Math.round(Math.min(Math.max(opacity, 0), 1) * 255);
-  return hexColor + normalized.toString(16).toUpperCase();
-}
-
-export const getCount = (count: number) => {
-  if (count < 0) return;
-  if (count < 10000) {
-    return count;
-  } else if (Math.floor(count / 10000) < 10000) {
-    return Math.floor(count / 10000) + "万";
-  } else {
-    return Math.floor(count / 10000000) / 10 + "亿";
-  }
-};
-
-// 防抖
-export const debounce = (func: () => any, delay: number) => {
-  let timer: number;
-  return function (...args: any) {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(() => {
-      func.apply(this, args);
-      clearTimeout(timer);
-    }, delay) as any;
-  };
-};
-
-//判断一个对象是否为空
-export const isEmptyObject = (obj: any) =>
-  !obj || Object.keys(obj).length === 0;
-
 // 给css3相关属性增加浏览器前缀，处理浏览器兼容性问题
 let elementStyle = document.createElement("div").style;
 
 let vendor = (() => {
   //首先通过transition属性判断是何种浏览器
-  let transformNames = {
+  let transformNames: any = {
     webkit: "webkitTransform",
     Moz: "MozTransform",
     O: "OTransfrom",
@@ -80,7 +46,7 @@ let vendor = (() => {
   return false;
 })();
 
-export function prefixStyle(style) {
+export function prefixStyle(style: string) {
   if (vendor === false) {
     return false;
   }

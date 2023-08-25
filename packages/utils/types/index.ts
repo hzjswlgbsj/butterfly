@@ -1,5 +1,8 @@
 import { AxiosRequestConfig } from "axios";
-
+export interface CursorData {
+  name: string;
+  color: string;
+}
 export interface CustomRequestConfig extends AxiosRequestConfig {
   traceCustom?: {
     [key: string]: string;

@@ -3,9 +3,14 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
   AxiosError,
+  AxiosHeaders,
 } from "axios";
 import { CustomRequestConfig, HttpHeaders } from "../types";
 import Auth from "../auth/Auth";
+import NetworkError from "./NetworkError";
+import { encode } from "../util";
+import qs from "qs";
+import _ from "lodash";
 
 const TAG = "@butterfly/utils/network/Api";
 
@@ -39,6 +44,69 @@ class Api {
   public static generateOptions(httpOptions?: HttpOptions): HttpOptions {
     const options = Object.assign({}, Api.DEFAULT_OPTIONS, httpOptions);
     return options;
+  }
+
+  /**
+   * Generates data 根据contentType生成data
+   * @param data
+   * @returns data
+   */
+  public static generateData(
+    data: {
+      [propName: string]: any;
+    },
+    contentType: string | number | true | AxiosHeaders | string[]
+  ): string | undefined | FormData {
+    if (contentType === ContentType.FORM_URLENCODED) {
+      return qs.stringify(data);
+    }
+
+    if (contentType === ContentType.MULTIPART_FORM_DATA) {
+      const formData = new FormData();
+      Api.makeFormData(data, formData);
+      return formData;
+    }
+
+    if (contentType === ContentType.APPLICATION_JSON) {
+      return JSON.stringify(data);
+    }
+  }
+
+  /**
+   * 生成FormData处理文件数据
+   * @param obj 对象数据
+   * @param formData FormData实例
+   */
+  public static makeFormData(obj: any, formData?: FormData) {
+    const data = [];
+    if (obj instanceof File) {
+      data.push({ key: "", value: obj });
+    } else if (obj instanceof Array) {
+      for (let j = 0, len = obj.length; j < len; j++) {
+        const arr: any = Api.makeFormData(obj[j]);
+        for (let k = 0, l = arr.length; k < l; k++) {
+          const key = !!formData ? j + arr[k].key : "[" + j + "]" + arr[k].key;
+          data.push({ key, value: arr[k].value });
+        }
+      }
+    } else if (typeof obj === "object") {
+      Object.keys(obj).forEach((j) => {
+        const arr: any = Api.makeFormData(obj[j]);
+        for (let k = 0, l = arr.length; k < l; k++) {
+          const key = !!formData ? j + arr[k].key : "[" + j + "]" + arr[k].key;
+          data.push({ key, value: arr[k].value });
+        }
+      });
+    } else {
+      data.push({ key: "", value: obj });
+    }
+    if (!!formData) {
+      for (let i = 0, len = data.length; i < len; i++) {
+        formData.append(data[i].key, data[i].value);
+      }
+    } else {
+      return data;
+    }
   }
 
   public contentType: ContentType = ContentType.FORM_URLENCODED;
@@ -79,6 +147,24 @@ class Api {
   }
 
   /**
+   * Requests api 发送请求
+   * @template R
+   * @param requestConfig
+   * @returns request
+   */
+  public request<R>(requestConfig: CustomRequestConfig): Promise<R> {
+    if (!requestConfig.baseURL) {
+      requestConfig.baseURL = this.httpOptions?.baseURL;
+    }
+
+    if (!requestConfig.baseURL) {
+      throw new Error("invalid baseURL");
+    }
+
+    return this.agent.request(requestConfig);
+  }
+
+  /**
    * 获取header
    */
   public getHeaders(): HttpHeaders {
@@ -91,6 +177,36 @@ class Api {
     }
 
     return headers;
+  }
+
+  /**
+   * 默认处理401、403、404
+   * @param error 请求错误
+   */
+  public errorHandler(error: AxiosError) {
+    if (error.response) {
+      if (error.response.status === 403) {
+        return Promise.reject(
+          new NetworkError(ERROR_RESPONSE_403, "403 NO ACCESS")
+        );
+      }
+      if (error.response.status === 401) {
+        return Promise.reject(
+          new NetworkError(ERROR_RESPONSE_401, "401 Unauthorized")
+        );
+      }
+      if (error.response.status === 404) {
+        return Promise.reject(
+          new NetworkError(ERROR_RESPONSE_404, "404 Not Found")
+        );
+      }
+      if (error.response.status === 503) {
+        return Promise.reject(
+          new NetworkError(ERROR_RESPONSE_404, "Service Unavailable")
+        );
+      }
+    }
+    return Promise.reject(new NetworkError(ERROR_NETWORK, "network error"));
   }
 
   /**
@@ -136,7 +252,7 @@ class Api {
     requestConfig: CustomRequestConfig,
     contentType: ContentType = ContentType.FORM_URLENCODED
   ): CustomRequestConfig {
-    const idgHeaders = this.getHeaders();
+    const headers = this.getHeaders();
     const traceCustom = requestConfig.traceCustom || {};
 
     const traceCustomStr = Object.keys(traceCustom)
@@ -157,8 +273,8 @@ class Api {
     }
 
     requestConfig.headers = Object.assign(
-      requestConfig.headers,
-      idgHeaders,
+      requestConfig.headers || {},
+      headers,
       customHeaders
     );
 

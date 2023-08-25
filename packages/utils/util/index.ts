@@ -5,6 +5,25 @@ export function getRandomColor() {
     "#" + ("00000" + ((Math.random() * 0x1000000) << 0).toString(16)).substr(-6)
   );
 }
+export function decode(origin?: string) {
+  if (!origin) {
+    return "";
+  }
+  return decodeURIComponent(escape(atob(origin)));
+}
+
+export function encode(origin?: string) {
+  if (!origin) {
+    return "";
+  }
+  try {
+    return btoa(unescape(encodeURIComponent(origin)));
+  } catch (error) {
+    console.log("encode error", origin);
+    throw error;
+  }
+}
+
 export function getUUID() {
   const s = [];
   const hexDigits = "0123456789abcdef";

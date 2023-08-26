@@ -3,6 +3,7 @@ import React from 'react';
 import { useRoutes } from "react-router-dom";
 import Layout from '../application/Layout';
 import Document from '../application/Document';
+import Home from '../application/Home';
 
 export const routes = [
   {
@@ -11,7 +12,7 @@ export const routes = [
     children: [
       {
         index: true,
-        element: <Document />
+        element: <Home />
       },
       {
         path: 'doc/:roomId',
@@ -22,6 +23,10 @@ export const routes = [
         //     element: <Album />
         //   }
         // ]
+      },
+      {
+        index: true,
+        element: <Home />
       },
     ]
   }

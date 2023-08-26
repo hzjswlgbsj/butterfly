@@ -2,10 +2,9 @@ import * as actionTypes from "./constants";
 import {
   getBannerRequest,
   getRecommendListRequest,
-} from "../../../apis/request";
+} from "../../../apis/TestApi";
 import { Dispatch } from "redux";
 import { IBannerList, IRecommendList } from "./reducer";
-import { AxiosResponse } from "axios";
 
 export const changeBannerList = (data: IBannerList) => ({
   type: actionTypes.CHANGE_BANNER,

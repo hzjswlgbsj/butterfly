@@ -8,3 +8,7 @@ export interface File {
 export interface GetFileListReq {
   id?: number;
 }
+export interface GetFileListRes {
+  items: File[];
+  total: number;
+}

@@ -221,7 +221,6 @@ class Api {
     }
 
     const res = response.data;
-    debugger;
     if (!res.hasOwnProperty("state") && !res.hasOwnProperty("ret")) {
       return Promise.reject(
         new NetworkError(

@@ -9,8 +9,8 @@ const Document: React.FC<any> = () => {
   useEffect(() => {
     const fetchFiles = async () => {
       try {
-        const res = await FileApi.getFileList({})
-        console.log(1111111111, res)
+        const { items } = await FileApi.getFileList({})
+        setFilles(items)
       } catch (error) {
         console.log(error)
       }
@@ -21,7 +21,11 @@ const Document: React.FC<any> = () => {
 
   return (
     <HomeWrapper>
-      dddd
+      {
+        files.map((file: File) => {
+          return <div>{file.name}</div>
+        })
+      }
     </HomeWrapper>
   );
 };

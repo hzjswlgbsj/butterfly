@@ -1,4 +1,2 @@
-import NetworkError from "./NetworkError";
-import Api from "./Api";
-
-export { NetworkError, Api };
+export { default as NetworkError } from "./NetworkError";
+export { default as Api } from "./Api";

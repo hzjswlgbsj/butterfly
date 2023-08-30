@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { FileItemWrapper, HomeWrapper } from "./style";
 import { File } from '../../types/home';
 import FileApi from '../../apis/FileApi';
+import RoomApi from '../../apis/RoomApi';
 import FileItem from './components/FileItem';
 import { useNavigate } from "react-router-dom";
+import { NetworkError } from "@butterfly/utils";
+
+const TAG = '@butterfly/frontend/src/application/Home';
 
 const Document: React.FC<any> = () => {
   const [files, setFilles] = useState<File[]>([])
@@ -17,8 +21,14 @@ const Document: React.FC<any> = () => {
       console.log(error)
     }
   }
-  const jumpFileDetail = (guid: string) => {
-    navigate(`doc/${guid}`)
+
+  const jumpFileDetail = async (guid: string) => {
+    try {
+      await RoomApi.entry(guid)
+      navigate(`doc/${guid}`)
+    } catch (error) {
+      console.log(TAG, '进入房间失败', error)
+    }
   }
 
   useEffect(() => {

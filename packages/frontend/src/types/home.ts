@@ -7,6 +7,8 @@ export interface File {
   deleted_at: string;
   type: string;
   updated_at: string;
+  author: string;
+  updater: string;
 }
 
 export interface GetFileListReq {

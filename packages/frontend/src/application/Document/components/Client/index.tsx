@@ -16,11 +16,12 @@ interface ClientProps {
   roomId: string;
 }
 
+const TAG = '@butterfly/frontend/src/application/Document/components/Client';
+
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   const [value, setValue] = useState<Descendant[]>([]);
   const [formats, setFormats] = useState<string[]>([]);
   const [loading, setLoading] = useState<string>('true');
-
 
   const [sharedType, provider] = useMemo(() => {
     const onSynced = (isSynced: boolean) => {
@@ -73,7 +74,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     );
   }, [provider.awareness, provider.doc]);
 
-  // 链接
+  // 连接
   useEffect(() => {
     provider.connect();
     return () => {

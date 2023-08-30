@@ -25,7 +25,7 @@ const FileItem: React.FC<ClientProps> = ({ file }) => {
         </FileItemDraggable>
       </FileItemTitle>
 
-      <FileItemUser>Sixty</FileItemUser>
+      <FileItemUser>{file.author}</FileItemUser>
 
       <FileItemDate>{file.updated_at}</FileItemDate>
     </FileItemWrapper>

@@ -33,7 +33,7 @@ export const GlobalStyle = createGlobalStyle`
 		/* background: #f2f3f4;; */
 	}
 	ol, ul {
-		/* list-style: none; */
+		list-style: none;
 	}
 	blockquote, q {
 		quotes: none;

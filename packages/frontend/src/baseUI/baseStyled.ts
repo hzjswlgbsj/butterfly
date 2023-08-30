@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Icon = styled.div``;
 
@@ -22,3 +22,22 @@ export const IconButton = styled(Button)((props: any) => ({
   border: "none",
   padding: 0,
 }));
+
+export const baseFlexStyle = css`
+  display: flex;
+  align-items: center;
+`;
+export const baseFlexCenterStyle = css`
+  ${baseFlexStyle}
+  justify-content: center;
+`;
+export const baseFlexStartStyle = css`
+  ${baseFlexStyle}
+  justify-content: start;
+`;
+
+export const ellipsis = css`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;

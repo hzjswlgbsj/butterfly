@@ -14,3 +14,10 @@ export interface HttpHeaders {
   SubOrgKey?: string;
   TargetSubOrgKey?: string;
 }
+
+export interface ILogger {
+  debug(TAG: string, ...args: any[]): void;
+  warn(TAG: string, ...args: any[]): void;
+  info(TAG: string, ...args: any[]): void;
+  error(TAG: string, ...args: any[]): void;
+}

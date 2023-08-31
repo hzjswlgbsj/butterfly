@@ -1,22 +1,5 @@
-import * as Sentry from '@sentry/vue';
-import { Integrations } from '@sentry/tracing';
-import Vue from 'vue';
-import { SentryOptions } from '../Interfaces';
-import VueRouter from 'vue-router';
+import { ILogger } from "../types";
 
-export interface ILogger {
-  debug(TAG: string, ...args: any[]): void;
-  warn(TAG: string, ...args: any[]): void;
-  info(TAG: string, ...args: any[]): void;
-  error(TAG: string, ...args: any[]): void;
-}
-
-interface Exception {
-  tag: string;
-  arguments: any[];
-}
-
-let inited = false;
 export class Logger implements ILogger {
   private _showDebug: boolean = true;
   constructor() {}
@@ -26,7 +9,7 @@ export class Logger implements ILogger {
   }
 
   public get showDebug() {
-    return this._showDebug
+    return this._showDebug;
   }
 
   public debug(TAG: string, ...args: any[]): void {
@@ -59,24 +42,9 @@ export class Logger implements ILogger {
     // tslint:disable-next-line:no-console
     console.log(...args);
   }
-
-  public initSentry(sentryOptions: SentryOptions, router: VueRouter) {
-    if (inited) {
-      return;
-    }
-
-    const tracingConfig: any = {}
-    if (sentryOptions.addRoutingInstrumentation) {
-      tracingConfig.routingInstrumentation = Sentry.vueRouterInstrumentation(router)
-    }
-
-    inited = true;
-    const { url } = sentryOptions
-    Sentry.init({
-      Vue,
-      dsn: url,
-      integrations: [new Integrations.BrowserTracing(tracingConfig)],
-      tracesSampleRate: 1.0,
-    });
-  }
 }
+
+const Log = new Logger();
+Log.showDebug = true;
+
+export default Log;

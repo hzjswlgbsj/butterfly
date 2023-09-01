@@ -1,17 +1,21 @@
 import React from "react";
-import { Button, Head, Title } from "./style";
+import { Head, Title } from "./style";
+import { File } from '../../../../types/home';
 
 interface TopbarProps {
-  name: string;
-  roomId: string;
+  detail: File | undefined;
 }
 
-const Topbar: React.FC<TopbarProps> = ({ roomId, name }) => {
+const Topbar: React.FC<TopbarProps> = ({ detail }) => {
+  if (!detail) {
+    return <div></div>
+  }
+
   return (
     <Title>
-      <Head>文章唯一标识: {roomId}</Head>
+      <Head>{detail.name}-{detail.guid}</Head>
       <div style={{ display: "flex", marginTop: 10, marginBottom: 10 }}>
-        <div>{name}</div>
+        <div>{detail.author}</div>
       </div>
     </Title>
   );

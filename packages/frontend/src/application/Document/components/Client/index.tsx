@@ -10,6 +10,8 @@ import { Instance } from './style';
 import Topbar from '../Topbar';
 import { Toolbar } from "@butterfly/toolbar";
 import EditorFrame from '../EditorFrame';
+import FileApi from '../../../../apis/FileApi';
+import { File } from '../../../../types/home';
 
 interface ClientProps {
   name: string;
@@ -21,6 +23,7 @@ const TAG = '@butterfly/frontend/src/application/Document/components/Client';
 const Client: React.FC<ClientProps> = ({ roomId, name }) => {
   const [value, setValue] = useState<Descendant[]>([]);
   const [formats, setFormats] = useState<string[]>([]);
+  const [detail, setDetail] = useState<File>();
   const [loading, setLoading] = useState<string>('true');
 
   const [sharedType, provider] = useMemo(() => {
@@ -93,6 +96,19 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     }
   }, [editor]);
 
+  useEffect(() => {
+    getDetail()
+  }, []);
+
+  const getDetail = async () => {
+    try {
+      const file = await FileApi.getFileDetailByGuid(roomId)
+      setDetail(file)
+    } catch (error) {
+      Log.debug(TAG, error)
+    }
+  }
+
   const handleChange = (value: Descendant[]) => {
     setValue(value)
     updateActiveFormats()
@@ -117,7 +133,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
 
   return (
     <Instance>
-      <Topbar roomId={roomId} name={name} />
+      <Topbar detail={detail} />
 
       <Toolbar editor={editor} formats={formats} />
 

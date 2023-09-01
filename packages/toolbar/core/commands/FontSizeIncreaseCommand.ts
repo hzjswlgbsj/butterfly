@@ -1,3 +1,4 @@
+import { Log } from "@butterfly/utils";
 import Command from "./Command";
 import { Editor, Text } from "slate";
 
@@ -10,7 +11,7 @@ export class FontSizeIncreaseCommand extends Command {
   execute() {
     const { editor } = this;
     const isActive = this.isActive();
-    console.log("开始执行增大字号命令", editor, isActive);
+    Log.debug("开始执行增大字号命令", editor, isActive);
     // if (isActive) {
     //   Editor.removeMark(editor, "bold");
     // } else {

@@ -1,6 +1,6 @@
 import Command from "./Command";
 import { Editor, Text } from "slate";
-
+import { Log } from "@butterfly/utils";
 export class FontSizeCommand extends Command {
   constructor(editor: any) {
     super(editor);
@@ -10,7 +10,7 @@ export class FontSizeCommand extends Command {
   execute(data: any) {
     const { editor } = this;
     const isActive = this.isActive();
-    console.log("开始执行更改字号的命令", editor, data, isActive);
+    Log.debug("开始执行更改字号的命令", editor, data, isActive);
     // if (isActive) {
     //   Editor.removeMark(editor, "bold");
     // } else {

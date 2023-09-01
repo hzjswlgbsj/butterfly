@@ -7,6 +7,7 @@ import ActionButton from "../ActionButton";
 import { ACTION_TYPE_BUTTON, ACTION_TYPE_DIVIDER, ACTION_TYPE_SELECT } from "../../consts";
 import { DividerWrapper } from "../ActionButton/style";
 import ActionSelect from "../ActionSelect";
+import { Log } from "@butterfly/utils";
 
 interface ToolbarProps {
   editor: any
@@ -55,7 +56,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor, formats }) => {
         break;
 
       default:
-        console.log('错误的toolbar按钮类型', item.actionType)
+        Log.debug('错误的toolbar按钮类型', item.actionType)
         break;
     }
     return comp;

@@ -11,6 +11,7 @@ import NetworkError from "./NetworkError";
 import { encode } from "../util";
 import qs from "qs";
 import _ from "lodash";
+import Log from "../log/Log";
 
 const TAG = "@butterfly/utils/network/Api";
 
@@ -133,7 +134,7 @@ class Api {
         return config;
       },
       (error) => {
-        console.log(TAG, error);
+        Log.debug(TAG, error);
       }
     );
     this.agent.interceptors.response.use(

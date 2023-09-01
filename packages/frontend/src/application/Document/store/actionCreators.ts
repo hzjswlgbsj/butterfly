@@ -5,6 +5,7 @@ import {
 } from "../../../apis/TestApi";
 import { Dispatch } from "redux";
 import { IBannerList, IRecommendList } from "./reducer";
+import { Log } from "@butterfly/utils";
 
 export const changeBannerList = (data: IBannerList) => ({
   type: actionTypes.CHANGE_BANNER,
@@ -28,7 +29,7 @@ export const getBannerList = () => {
         const action = changeBannerList(data.banners);
       })
       .catch((e) => {
-        console.log("轮播图数据传输错误", e);
+        Log.debug("轮播图数据传输错误", e);
       });
   };
 };
@@ -41,7 +42,7 @@ export const getRecommendList = () => {
         dispatch(changeEnterLoading(false));
       })
       .catch(() => {
-        console.log("推荐歌单数据传输错误");
+        Log.debug("推荐歌单数据传输错误");
       });
   };
 };

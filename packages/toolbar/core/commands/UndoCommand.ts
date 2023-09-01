@@ -1,5 +1,6 @@
 import Command from "./Command";
 import { Editor, Text } from "slate";
+import { Log } from "@butterfly/utils";
 
 export class UndoCommand extends Command {
   constructor(editor: any) {
@@ -10,7 +11,7 @@ export class UndoCommand extends Command {
   execute() {
     const { editor } = this;
     const isActive = this.isActive();
-    console.log("开始执行undo命令", editor, isActive);
+    Log.debug("开始执行undo命令", editor, isActive);
     // if (isActive) {
     //   Editor.removeMark(editor, "bold");
     // } else {

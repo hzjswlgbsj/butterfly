@@ -1,3 +1,4 @@
+import { Log } from "@butterfly/utils";
 import Command from "./Command";
 import { Editor, Text } from "slate";
 
@@ -10,7 +11,7 @@ export class ClearFormatCommand extends Command {
   execute() {
     const { editor } = this;
     const isActive = this.isActive();
-    console.log("开始执清除格式命令", editor, isActive);
+    Log.debug("开始执清除格式命令", editor, isActive);
     // if (isActive) {
     //   Editor.removeMark(editor, "bold");
     // } else {

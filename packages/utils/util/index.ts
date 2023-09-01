@@ -1,3 +1,4 @@
+import Log from "../log/Log";
 import { CursorData } from "../types";
 
 export function getRandomColor() {
@@ -19,7 +20,7 @@ export function encode(origin?: string) {
   try {
     return btoa(unescape(encodeURIComponent(origin)));
   } catch (error) {
-    console.log("encode error", origin);
+    Log.debug("encode error", origin);
     throw error;
   }
 }

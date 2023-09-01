@@ -5,7 +5,7 @@ import FileApi from '../../apis/FileApi';
 import RoomApi from '../../apis/RoomApi';
 import FileItem from './components/FileItem';
 import { useNavigate } from "react-router-dom";
-import { NetworkError } from "@butterfly/utils";
+import { Log, NetworkError } from "@butterfly/utils";
 
 const TAG = '@butterfly/frontend/src/application/Home';
 
@@ -18,7 +18,7 @@ const Document: React.FC<any> = () => {
       const { items } = await FileApi.getFileList({})
       setFilles(items)
     } catch (error) {
-      console.log(error)
+      Log.debug(error)
     }
   }
 
@@ -27,7 +27,7 @@ const Document: React.FC<any> = () => {
       await RoomApi.entry(guid)
       navigate(`doc/${guid}`)
     } catch (error) {
-      console.log(TAG, '进入房间失败', error)
+      Log.debug(TAG, '进入房间失败', error)
     }
   }
 

@@ -4,7 +4,7 @@ import { createEditor, Descendant, Editor, Node, Transforms } from 'slate';
 import { withReact } from 'slate-react';
 import * as Y from 'yjs';
 import { withMarkdown } from '@butterfly/editor';
-import { randomCursorData } from '@butterfly/utils';
+import { Log, randomCursorData } from '@butterfly/utils';
 import { WebsocketProvider } from "@butterfly/collaborate";
 import { Instance } from './style';
 import Topbar from '../Topbar';
@@ -25,10 +25,10 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
 
   const [sharedType, provider] = useMemo(() => {
     const onSynced = (isSynced: boolean) => {
-      console.log('链接成功，初始值为', sharedType)
+      Log.debug('链接成功，初始值为', sharedType)
 
       if (isSynced && sharedType.length === 0) {
-        console.log('初始值为空')
+        Log.debug('初始值为空')
         Transforms.insertNodes(
           editor,
           {
@@ -47,7 +47,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     // origin参数，如果本次操作是自己产生的它的值是一个Symbol(slate-yjs-operation)，如果是接收到其他客户端的值
     // 那它的值是改变产生的那个客户端的 WebsocketProvider实例
     const onChange = (update: Uint8Array, origin: any, doc: Y.Doc, tr: Y.Transaction) => {
-      console.log("文档内容发生改变", update, origin, doc, tr);
+      Log.debug("文档内容发生改变", update, origin, doc, tr);
     }
 
     const provider = new WebsocketProvider(roomId, name, {
@@ -80,7 +80,7 @@ const Client: React.FC<ClientProps> = ({ roomId, name }) => {
     return () => {
       const status = provider.getStatus()
       if (status.synced && status.wsconnected) {
-        console.log('连接被销毁', provider.getStatus())
+        Log.debug('连接被销毁', provider.getStatus())
         provider.destroy();
       }
     };

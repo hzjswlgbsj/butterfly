@@ -64,9 +64,9 @@ export const FileItemIconWrapper = styled.div`
 `;
 
 export const FileItemIcon = styled.div<{ type: string }>`
-  background: ${(props) => {
+  background-image: ${(props) => {
     if (props.type === "doc") {
-      return "background-image: url('./doc_icon.png')";
+      return "url(https://lib.sixtyden.com/butterfly-icon-file-doc.png)";
     }
   }};
   background-size: cover;
@@ -75,6 +75,7 @@ export const FileItemIcon = styled.div<{ type: string }>`
 `;
 
 export const FileItemName = styled.div`
+  margin-left: 8px;
   cursor: pointer;
   ${ellipsis}
 `;

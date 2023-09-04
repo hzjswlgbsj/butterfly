@@ -8,6 +8,7 @@ import UnderlineCommand from "./UnderlineCommand";
 import StrikeThroughCommand from "./StrikeThroughCommand";
 import FontSizeIncreaseCommand from "./FontSizeIncreaseCommand";
 import FontSizeDecreaseCommand from "./FontSizeDecreaseCommand";
+import QuoteCommand from "./QuoteCommand";
 
 export {
   UndoCommand,
@@ -20,4 +21,5 @@ export {
   StrikeThroughCommand,
   FontSizeIncreaseCommand,
   FontSizeDecreaseCommand,
+  QuoteCommand,
 };

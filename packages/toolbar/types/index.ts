@@ -12,6 +12,7 @@ export type FormatType =
   | "italic"
   | "underline"
   | "strikethrough"
+  | "quote"
   | "divider";
 
 export type ActionType =

@@ -12,6 +12,7 @@ import {
   FORMAT_TYPE_FONT_SIZE_DECREASE,
   FONT_SIZE_OPTIONS,
   FORMAT_TYPE_FONT_SIZE,
+  FORMAT_TYPE_QUOTE,
 } from "../../consts";
 import {
   UndoCommand,
@@ -24,6 +25,7 @@ import {
   StrikeThroughCommand,
   FontSizeIncreaseCommand,
   FontSizeDecreaseCommand,
+  QuoteCommand,
 } from "../commands";
 import FontSizeCommand from "../commands/FontSizeCommand";
 
@@ -85,6 +87,11 @@ export function register(action: Action) {
       FORMAT_TYPE_STRIKE_THROUGH,
       "删除线（⌘+⇧+X）",
       new StrikeThroughCommand(action.editor)
+    ),
+    Action.createActionButton(
+      FORMAT_TYPE_QUOTE,
+      "引用",
+      new QuoteCommand(action.editor)
     ),
   ]);
 }

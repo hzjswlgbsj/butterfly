@@ -91,7 +91,8 @@ export function register(action: Action) {
     Action.createActionButton(
       FORMAT_TYPE_QUOTE,
       "引用",
-      new QuoteCommand(action.editor)
+      new QuoteCommand(action.editor),
+      true
     ),
   ]);
 }

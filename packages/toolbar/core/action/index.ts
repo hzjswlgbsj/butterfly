@@ -58,13 +58,15 @@ class Action {
   public static createActionButton(
     type: FormatType,
     tooltip: string,
-    command: Command
+    command: Command,
+    disabled?: boolean
   ): ActionElement {
     return {
       type,
       actionType: ACTION_TYPE_BUTTON,
       label: "",
       tooltip,
+      disabled,
       command,
     };
   }

@@ -33,6 +33,7 @@ export interface ActionElement {
   tooltip: string;
   command?: Command;
   options?: OptionItem[];
+  disabled?: boolean;
 }
 export interface ActionProps {
   tooltip: string;

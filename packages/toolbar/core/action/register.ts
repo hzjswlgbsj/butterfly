@@ -34,17 +34,20 @@ export function register(action: Action) {
     Action.createActionButton(
       FORMAT_TYPE_UNDO,
       "撤销（⌘+Z）",
-      new UndoCommand(action.editor)
+      new UndoCommand(action.editor),
+      true
     ),
     Action.createActionButton(
       FORMAT_TYPE_REDO,
       "重做（⌘+Y）",
-      new RedoCommand(action.editor)
+      new RedoCommand(action.editor),
+      true
     ),
     Action.createActionButton(
       FORMAT_TYPE_FORMAT_PAINT,
       "格式刷",
-      new FormatPaintCommand(action.editor)
+      new FormatPaintCommand(action.editor),
+      true
     ),
     Action.createActionButton(
       FORMAT_TYPE_CLEAR_FORMAT,
@@ -61,12 +64,14 @@ export function register(action: Action) {
     Action.createActionButton(
       FORMAT_TYPE_FONT_SIZE_INCREASE,
       "增大字号（⌥+.）",
-      new FontSizeIncreaseCommand(action.editor)
+      new FontSizeIncreaseCommand(action.editor),
+      true
     ),
     Action.createActionButton(
       FORMAT_TYPE_FONT_SIZE_DECREASE,
-      "增大字号（⌥+.）",
-      new FontSizeDecreaseCommand(action.editor)
+      "减小字号（⌥+.）",
+      new FontSizeDecreaseCommand(action.editor),
+      true
     ),
     Action.createActionButton(
       FORMAT_TYPE_BOLD,

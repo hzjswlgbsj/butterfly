@@ -9,6 +9,7 @@ import StrikeThroughCommand from "./StrikeThroughCommand";
 import FontSizeIncreaseCommand from "./FontSizeIncreaseCommand";
 import FontSizeDecreaseCommand from "./FontSizeDecreaseCommand";
 import QuoteCommand from "./QuoteCommand";
+import SubCommand from "./SubCommand";
 
 export {
   UndoCommand,
@@ -22,4 +23,5 @@ export {
   FontSizeIncreaseCommand,
   FontSizeDecreaseCommand,
   QuoteCommand,
+  SubCommand,
 };

@@ -12,6 +12,7 @@ export type FormatType =
   | "italic"
   | "underline"
   | "strikethrough"
+  | "sub"
   | "quote"
   | "divider";
 

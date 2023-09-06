@@ -8,8 +8,8 @@ import {
 import { ContentWrapper, ScrollShadow, EditorContainer, ClientFrame, Code, EditorWrapper } from "./style";
 import { getRemoteCaretsOnLeaf, getRemoteCursorsOnLeaf, useDecorateRemoteCursors } from "@slate-yjs/react";
 import { CustomEditable } from "../../../../components/CustomEditable";
-import { CursorData } from "@butterfly/utils/types";
-import { generateRandomColor } from "@butterfly/utils";
+import { CursorData } from "@butterfly/pupa/types";
+import { generateRandomColor } from "@butterfly/pupa";
 import { Leaf, Caret } from '@butterfly/editor';
 
 

@@ -4,7 +4,7 @@ importers:
 
   .:
     specifiers:
-      '@butterfly/utils': workspace:^1.0.0
+      '@butterfly/pupa': workspace:^1.0.0
       '@types/lodash': ^4.14.195
       '@types/react': ^18.0.26
       '@types/styled-components': ^5.1.26
@@ -19,7 +19,7 @@ importers:
       y-websocket: ^1.5.0
       yjs: ^13.5.43
     dependencies:
-      '@butterfly/utils': link:packages/utils
+      '@butterfly/pupa': link:packages/pupa
       '@types/lodash': 4.14.195
       '@types/styled-components': 5.1.26
       lodash: 4.17.21
@@ -61,8 +61,8 @@ importers:
     specifiers:
       '@butterfly/collaborate': workspace:^1.0.0
       '@butterfly/editor': workspace:^1.0.0
+      '@butterfly/pupa': workspace:^1.0.0
       '@butterfly/toolbar': workspace:^1.0.0
-      '@butterfly/utils': workspace:^1.0.0
       '@slate-yjs/core': ^0.3.1
       '@slate-yjs/react': ^0.3.0
       '@types/is-url': ^1.2.30
@@ -101,8 +101,8 @@ importers:
     dependencies:
       '@butterfly/collaborate': link:../collaborate
       '@butterfly/editor': link:../editor
+      '@butterfly/pupa': link:../pupa
       '@butterfly/toolbar': link:../toolbar
-      '@butterfly/utils': link:../utils
       '@slate-yjs/core': 0.3.1_yjs@13.5.43
       '@slate-yjs/react': 0.3.0_gnuk2e6c72yyps3rjfrsgvdfzu
       '@types/is-url': 1.2.30
@@ -140,17 +140,7 @@ importers:
       typescript: 4.9.4
       vite: 4.0.1
 
-  packages/toolbar:
-    specifiers:
-      '@floating-ui/react': ^0.24.8
-      react-textarea-autosize: ^8.5.0
-      scriptjs: ^2.5.9
-    dependencies:
-      '@floating-ui/react': 0.24.8
-      react-textarea-autosize: 8.5.0
-      scriptjs: 2.5.9
-
-  packages/utils:
+  packages/pupa:
     specifiers:
       '@types/qs': ^6.9.7
       axios: ^1.2.1
@@ -162,6 +152,16 @@ importers:
       qs: 6.11.2
     devDependencies:
       '@types/qs': 6.9.7
+
+  packages/toolbar:
+    specifiers:
+      '@floating-ui/react': ^0.24.8
+      react-textarea-autosize: ^8.5.0
+      scriptjs: ^2.5.9
+    dependencies:
+      '@floating-ui/react': 0.24.8
+      react-textarea-autosize: 8.5.0
+      scriptjs: 2.5.9
 
 packages:
 
@@ -805,7 +805,7 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
 
   /@types/qs/6.9.7:
-    resolution: {integrity: sha1-Y7t9Bn2xB8weRXwwO8JdUR/r9ss=}
+    resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
     dev: true
 
   /@types/react-dom/18.0.9:
@@ -1356,7 +1356,7 @@ packages:
     dev: true
 
   /fsevents/2.3.2:
-    resolution: {integrity: sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=}
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
@@ -1426,7 +1426,7 @@ packages:
     optional: true
 
   /immediate/3.0.6:
-    resolution: {integrity: sha1-nbHb0Pr43m++D13V5Wu2BigN5ps=}
+    resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
     dev: false
 
   /immediate/3.3.0:
@@ -1614,7 +1614,7 @@ packages:
     dev: false
 
   /lie/3.1.1:
-    resolution: {integrity: sha1-mkNrLMd0bKWd56QfpGmz77dr2H4=}
+    resolution: {integrity: sha512-RiNhHysUjhrDQntfYSfY4MU24coXXdEOgw9WGcKHNeEwffDYbF//u87M1EWaMGzuFoSbqW0C9C6lEEhDOAswfw==}
     dependencies:
       immediate: 3.0.6
     dev: false
@@ -1625,7 +1625,7 @@ packages:
     dev: true
 
   /localforage/1.10.0:
-    resolution: {integrity: sha1-XEZdxfYrKAfDqEwMahsbMhJ4HdQ=}
+    resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==}
     dependencies:
       lie: 3.1.1
     dev: false
@@ -2044,7 +2044,7 @@ packages:
     resolution: {integrity: sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==}
 
   /side-channel/1.0.4:
-    resolution: {integrity: sha1-785cj9wQTudRslxY1CkAEfpeos8=}
+    resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
     dependencies:
       call-bind: 1.0.2
       get-intrinsic: 1.2.1
@@ -2590,7 +2590,7 @@ packages:
     dev: true
 
   /ws/6.2.2:
-    resolution: {integrity: sha1-3Vzb1XqZeZFgl2UtePHMX66gwy4=}
+    resolution: {integrity: sha512-zmhltoSR8u1cnDsD43TX59mzoMZsLKqUweyYBAIvTngR3shc0W6aOZylZmq/7hqyVxPdi+5Ud2QInblgyE72fw==}
     requiresBuild: true
     peerDependencies:
       bufferutil: ^4.0.1

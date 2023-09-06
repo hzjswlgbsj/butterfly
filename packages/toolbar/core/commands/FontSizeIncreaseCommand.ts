@@ -1,4 +1,4 @@
-import { Log } from "@butterfly/utils";
+import { Log } from "@butterfly/pupa";
 import Command from "./Command";
 import { Editor, Text } from "slate";
 

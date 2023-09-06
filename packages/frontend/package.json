@@ -12,7 +12,7 @@
     "@butterfly/collaborate": "workspace:^1.0.0",
     "@butterfly/editor": "workspace:^1.0.0",
     "@butterfly/toolbar": "workspace:^1.0.0",
-    "@butterfly/utils": "workspace:^1.0.0",
+    "@butterfly/pupa": "workspace:^1.0.0",
     "@slate-yjs/core": "^0.3.1",
     "@slate-yjs/react": "^0.3.0",
     "@types/is-url": "^1.2.30",

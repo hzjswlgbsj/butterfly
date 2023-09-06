@@ -2,7 +2,7 @@ import * as Y from "yjs";
 import { WebsocketProvider as YWebsocketProvider } from "y-websocket";
 import { WEBSOCKET_URL } from "../config";
 import { Awareness } from "y-protocols/awareness.js";
-import { getRandomColor } from "@butterfly/utils";
+import { getRandomColor } from "@butterfly/pupa";
 import { ProviderStatus, WebsocketProviderOptions } from "./types";
 
 export class WebsocketProvider {

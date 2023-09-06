@@ -5,7 +5,7 @@ import FileApi from '../../apis/FileApi';
 import RoomApi from '../../apis/RoomApi';
 import FileItem from './components/FileItem';
 import { useNavigate } from "react-router-dom";
-import { Log, NetworkError } from "@butterfly/utils";
+import { Log, NetworkError } from "@butterfly/pupa";
 
 const TAG = '@butterfly/frontend/src/application/Home';
 

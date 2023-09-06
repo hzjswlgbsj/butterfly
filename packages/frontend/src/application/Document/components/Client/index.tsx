@@ -4,7 +4,7 @@ import { createEditor, Descendant, Editor, Node, Transforms } from 'slate';
 import { withReact } from 'slate-react';
 import * as Y from 'yjs';
 import { withMarkdown } from '@butterfly/editor';
-import { Log, randomCursorData } from '@butterfly/utils';
+import { Log, randomCursorData } from '@butterfly/pupa';
 import { WebsocketProvider } from "@butterfly/collaborate";
 import { Instance } from './style';
 import Topbar from '../Topbar';

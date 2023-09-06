@@ -1,6 +1,6 @@
 import Command from "./Command";
 import { Editor, Text } from "slate";
-import { Log } from "@butterfly/utils";
+import { Log } from "@butterfly/pupa";
 
 export class QuoteCommand extends Command {
   constructor(editor: any) {

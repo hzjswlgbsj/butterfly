@@ -5,7 +5,7 @@ import {
 } from "../../../apis/TestApi";
 import { Dispatch } from "redux";
 import { IBannerList, IRecommendList } from "./reducer";
-import { Log } from "@butterfly/utils";
+import { Log } from "@butterfly/pupa";
 
 export const changeBannerList = (data: IBannerList) => ({
   type: actionTypes.CHANGE_BANNER,

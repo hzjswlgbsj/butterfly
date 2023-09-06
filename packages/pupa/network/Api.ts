@@ -13,7 +13,7 @@ import qs from "qs";
 import _ from "lodash";
 import Log from "../log/Log";
 
-const TAG = "@butterfly/utils/network/Api";
+const TAG = "@butterfly/pupa/network/Api";
 
 export const ERROR_RESPONSE_401 = 401;
 export const ERROR_RESPONSE_403 = 403;

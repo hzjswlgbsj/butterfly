@@ -7,7 +7,7 @@ import ActionButton from "../ActionButton";
 import { ACTION_TYPE_BUTTON, ACTION_TYPE_DIVIDER, ACTION_TYPE_SELECT } from "../../consts";
 import { DividerWrapper } from "../ActionButton/style";
 import ActionSelect from "../ActionSelect";
-import { Log } from "@butterfly/utils";
+import { Log } from "@butterfly/pupa";
 
 interface ToolbarProps {
   editor: any

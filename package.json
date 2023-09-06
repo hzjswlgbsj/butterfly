@@ -19,7 +19,7 @@
     "vitest": "^0.29.7"
   },
   "dependencies": {
-    "@butterfly/utils": "workspace:^1.0.0",
+    "@butterfly/pupa": "workspace:^1.0.0",
     "@types/lodash": "^4.14.195",
     "@types/styled-components": "^5.1.26",
     "lodash": "^4.17.21",

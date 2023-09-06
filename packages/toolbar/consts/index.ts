@@ -15,6 +15,7 @@ export const FORMAT_TYPE_SUB = "sub";
 export const FORMAT_TYPE_SUP = "sup";
 export const FORMAT_TYPE_DIVIDE = "divider";
 export const FORMAT_TYPE_QUOTE = "quote";
+export const FORMAT_TYPE_LIGHT_BLOCK = "light-block";
 
 export const ACTION_TYPE_DIVIDER = "divider";
 export const ACTION_TYPE_BUTTON = "button";

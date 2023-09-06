@@ -50,7 +50,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor, formats }) => {
           type={item.type}
           tooltip={item.tooltip}
           active={formats.includes(item.type)}
-          disabled={false}
+          disabled={item.disabled}
           onChange={(value: string) => handleAction(item.command, value)}
         />
         break;

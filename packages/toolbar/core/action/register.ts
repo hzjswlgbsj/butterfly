@@ -15,6 +15,7 @@ import {
   FORMAT_TYPE_QUOTE,
   FORMAT_TYPE_SUB,
   FORMAT_TYPE_SUP,
+  FORMAT_TYPE_LIGHT_BLOCK,
 } from "../../consts";
 import {
   UndoCommand,
@@ -30,8 +31,9 @@ import {
   QuoteCommand,
   SubCommand,
   SupCommand,
+  FontSizeCommand,
+  LightBlockCommand,
 } from "../commands";
-import FontSizeCommand from "../commands/FontSizeCommand";
 
 export function register(action: Action) {
   action.register([
@@ -56,14 +58,16 @@ export function register(action: Action) {
     Action.createActionButton(
       FORMAT_TYPE_CLEAR_FORMAT,
       "清除格式",
-      new ClearFormatCommand(action.editor)
+      new ClearFormatCommand(action.editor),
+      true
     ),
     Action.createDivider(),
     Action.createActionSelect(
       FORMAT_TYPE_FONT_SIZE,
       "字号",
       new FontSizeCommand(action.editor),
-      FONT_SIZE_OPTIONS
+      FONT_SIZE_OPTIONS,
+      true
     ),
     Action.createActionButton(
       FORMAT_TYPE_FONT_SIZE_INCREASE,
@@ -113,6 +117,12 @@ export function register(action: Action) {
       FORMAT_TYPE_QUOTE,
       "引用",
       new QuoteCommand(action.editor),
+      true
+    ),
+    Action.createActionButton(
+      FORMAT_TYPE_LIGHT_BLOCK,
+      "高亮块",
+      new LightBlockCommand(action.editor),
       true
     ),
   ]);

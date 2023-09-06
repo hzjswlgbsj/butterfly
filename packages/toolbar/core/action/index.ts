@@ -82,7 +82,8 @@ class Action {
     type: FormatType,
     tooltip: string,
     command: Command,
-    options: OptionItem[]
+    options: OptionItem[],
+    disabled?: boolean
   ): ActionElement {
     return {
       type,
@@ -91,6 +92,7 @@ class Action {
       tooltip,
       command,
       options,
+      disabled,
     };
   }
 

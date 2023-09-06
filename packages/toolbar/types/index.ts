@@ -15,6 +15,7 @@ export type FormatType =
   | "sub"
   | "sup"
   | "quote"
+  | "light-block"
   | "divider";
 
 export type ActionType =

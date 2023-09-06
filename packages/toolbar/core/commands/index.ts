@@ -11,6 +11,8 @@ import FontSizeDecreaseCommand from "./FontSizeDecreaseCommand";
 import QuoteCommand from "./QuoteCommand";
 import SubCommand from "./SubCommand";
 import SupCommand from "./SupCommand";
+import FontSizeCommand from "./FontSizeCommand";
+import LightBlockCommand from "./LightBlockCommand";
 
 export {
   UndoCommand,
@@ -26,4 +28,6 @@ export {
   QuoteCommand,
   SubCommand,
   SupCommand,
+  FontSizeCommand,
+  LightBlockCommand,
 };

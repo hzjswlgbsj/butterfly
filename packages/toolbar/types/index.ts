@@ -13,6 +13,7 @@ export type FormatType =
   | "underline"
   | "strikethrough"
   | "sub"
+  | "sup"
   | "quote"
   | "divider";
 

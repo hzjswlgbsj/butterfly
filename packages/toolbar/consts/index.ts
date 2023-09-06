@@ -12,6 +12,7 @@ export const FORMAT_TYPE_ITALIC = "italic";
 export const FORMAT_TYPE_UNDERLINE = "underline";
 export const FORMAT_TYPE_STRIKE_THROUGH = "strikethrough";
 export const FORMAT_TYPE_SUB = "sub";
+export const FORMAT_TYPE_SUP = "sup";
 export const FORMAT_TYPE_DIVIDE = "divider";
 export const FORMAT_TYPE_QUOTE = "quote";
 

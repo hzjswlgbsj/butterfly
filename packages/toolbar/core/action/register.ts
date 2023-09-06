@@ -14,6 +14,7 @@ import {
   FORMAT_TYPE_FONT_SIZE,
   FORMAT_TYPE_QUOTE,
   FORMAT_TYPE_SUB,
+  FORMAT_TYPE_SUP,
 } from "../../consts";
 import {
   UndoCommand,
@@ -28,6 +29,7 @@ import {
   FontSizeDecreaseCommand,
   QuoteCommand,
   SubCommand,
+  SupCommand,
 } from "../commands";
 import FontSizeCommand from "../commands/FontSizeCommand";
 
@@ -97,8 +99,14 @@ export function register(action: Action) {
     ),
     Action.createActionButton(
       FORMAT_TYPE_SUB,
-      "删除线（⌘+⇧+,）",
+      "下标（⌘+⇧+,）",
       new SubCommand(action.editor),
+      true
+    ),
+    Action.createActionButton(
+      FORMAT_TYPE_SUP,
+      "上标（⌘+⇧+.）",
+      new SupCommand(action.editor),
       true
     ),
     Action.createActionButton(

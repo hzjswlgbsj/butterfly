@@ -10,6 +10,7 @@ import FontSizeIncreaseCommand from "./FontSizeIncreaseCommand";
 import FontSizeDecreaseCommand from "./FontSizeDecreaseCommand";
 import QuoteCommand from "./QuoteCommand";
 import SubCommand from "./SubCommand";
+import SupCommand from "./SupCommand";
 
 export {
   UndoCommand,
@@ -24,4 +25,5 @@ export {
   FontSizeDecreaseCommand,
   QuoteCommand,
   SubCommand,
+  SupCommand,
 };

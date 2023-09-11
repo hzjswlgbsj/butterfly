@@ -21,9 +21,9 @@ interface SelectProps {
   value: any;
   options: OptionItem[];
   optionElement?: ReactNode;
-  placeholder?: string
-  labelWidth?: number
-  onChange?: (value: any) => void
+  placeholder?: string;
+  labelWidth?: number;
+  onChange?: (value: any) => void;
 }
 
 const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth = 46, value, onChange }) => {
@@ -105,6 +105,7 @@ const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth = 46, 
                         selected={item.value === selectedValue}
                         value={item.value}
                         label={item.label}
+                        description={item.description}
                         handleClick={(value: string) => handleSelect(value, i)}
                         handleKeydown={(value: string) => handleSelect(value, i)}
                       />

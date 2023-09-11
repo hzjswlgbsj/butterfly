@@ -28,6 +28,8 @@ export type ActionType =
 export interface OptionItem {
   value: number | string;
   label: string;
+  description?: string;
+  options?: OptionItem[];
 }
 export interface ActionElement {
   type: FormatType;

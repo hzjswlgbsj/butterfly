@@ -29,6 +29,16 @@ export const FONT_SIZE_OPTIONS: OptionItem[] = [
   {
     value: "9",
     label: "9",
+    options: [
+      {
+        value: "10",
+        label: "10",
+      },
+      {
+        value: "11",
+        label: "11",
+      },
+    ],
   },
   {
     value: "10",

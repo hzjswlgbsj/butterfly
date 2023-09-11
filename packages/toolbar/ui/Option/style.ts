@@ -5,7 +5,13 @@ import {
 } from "../../baseStyle";
 import styled from "styled-components";
 
-export const SelectedIconWrapper = styled.div`
+export const OptionItemBeforeIconWrapper = styled.div`
+  ${baseFlexCenterStyle}
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+`;
+export const OptionItemedAfterIconWrapper = styled.div`
   ${baseFlexCenterStyle}
   width: 16px;
   height: 16px;
@@ -35,6 +41,12 @@ export const OptionItemContainer = styled.li<{ disabled: boolean }>`
   transition: background-color 0.1s linear;
   box-sizing: content-box;
   position: relative;
-  padding: 8px 16px 8px 10px;
+  padding: 9px 28px 9px 10px;
   font-size: 12px;
+`;
+
+export const SelectedLabelDescription = styled.span`
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.4);
+  margin-left: 10px;
 `;

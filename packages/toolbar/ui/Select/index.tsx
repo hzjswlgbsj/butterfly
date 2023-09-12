@@ -30,7 +30,7 @@ const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth = 46, 
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
-  const [selectedValue, setSelectedValue] = React.useState<string | null>(value ? value : '');
+  const [selectedValue, setSelectedValue] = React.useState<number | string | null>(value ? value : '');
   const [selectedItemLabel, setSelectedItemLabel] = React.useState<string>(placeholder ? placeholder : 'select');
 
   const { refs, floatingStyles, context } = useFloating({
@@ -62,7 +62,7 @@ const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth = 46, 
     getItemProps
   } = useInteractions([dismiss, role, listNav, click]);
 
-  const handleSelect = (value: string, index: number) => {
+  const handleSelect = (value: number | string, index: number) => {
     setSelectedIndex(index);
     setSelectedValue(value);
     setIsOpen(false);
@@ -106,8 +106,9 @@ const Select: React.FC<SelectProps> = ({ options, placeholder, labelWidth = 46, 
                         value={item.value}
                         label={item.label}
                         description={item.description}
-                        handleClick={(value: string) => handleSelect(value, i)}
-                        handleKeydown={(value: string) => handleSelect(value, i)}
+                        options={item.options}
+                        handleClick={(value: number | string) => handleSelect(value, i)}
+                        handleKeydown={(value: number | string) => handleSelect(value, i)}
                       />
                     </div>
                   ))

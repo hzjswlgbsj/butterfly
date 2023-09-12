@@ -8,6 +8,7 @@ import { ACTION_TYPE_BUTTON, ACTION_TYPE_DIVIDER, ACTION_TYPE_SELECT } from "../
 import { DividerWrapper } from "../ActionButton/style";
 import ActionSelect from "../ActionSelect";
 import { Log } from "@butterfly/pupa";
+import ToolbarInsert from "../ToolbarInsert";
 
 interface ToolbarProps {
   editor: any
@@ -64,6 +65,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor, formats }) => {
 
   return (
     <ToolbarWrapper>
+      <ToolbarInsert />
       {
         actions.map((item: ActionElement) =>
           // <div key={item.type} onClick={() => handleAction(item.command)}>

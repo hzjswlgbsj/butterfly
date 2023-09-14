@@ -5,22 +5,21 @@ import {
 } from "../../baseStyle";
 import styled from "styled-components";
 
-export const OptionItemBeforeIconWrapper = styled.div`
+export const DropdownItemBeforeIconWrapper = styled.div`
   ${baseFlexCenterStyle}
   width: 16px;
   height: 16px;
   margin-right: 8px;
 `;
-export const OptionItemedAfterIconWrapper = styled.div`
+export const DropdownItemedAfterIconWrapper = styled.div`
   position: absolute;
   right: 9px;
 `;
-export const SelectedLabelWrapper = styled.div`
+export const DropdownLabelWrapper = styled.div`
   ${ellipsis}
 `;
-export const OptionWrapper = styled.div<{
+export const DropdownWrapper = styled.div<{
   disabled: boolean;
-  selected: boolean;
 }>`
   opacity: ${(props) => (props.disabled ? 0.4 : 1)};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
@@ -30,7 +29,7 @@ export const OptionWrapper = styled.div<{
   }
 `;
 
-export const OptionItemContainer = styled.li<{ disabled: boolean }>`
+export const DropdownItemContainer = styled.li<{ disabled: boolean }>`
   ${baseFlexStartStyle}
   flex-flow: row nowrap;
   opacity: ${(props) => (props.disabled ? 0.4 : 1)};
@@ -43,7 +42,7 @@ export const OptionItemContainer = styled.li<{ disabled: boolean }>`
   font-size: 12px;
 `;
 
-export const SelectedLabelDescription = styled.span`
+export const DropdownLabelDescription = styled.span`
   font-size: 12px;
   color: rgba(0, 0, 0, 0.4);
   margin-left: 10px;

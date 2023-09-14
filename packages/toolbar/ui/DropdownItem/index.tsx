@@ -1,29 +1,11 @@
 import {
-  autoUpdate,
-  flip,
-  FloatingFocusManager,
-  FloatingList,
-  FloatingNode,
-  FloatingPortal,
-  FloatingTree,
-  offset,
-  safePolygon,
-  shift,
-  useClick,
-  useDismiss,
-  useFloating,
-  useFloatingNodeId,
-  useFloatingParentNodeId,
   useFloatingTree,
-  useHover,
-  useInteractions,
   useListItem,
-  useListNavigation,
   useMergeRefs,
-  useRole,
-  useTypeahead
 } from "@floating-ui/react";
 import * as React from "react";
+import { DropdownItemBeforeIconWrapper, DropdownItemContainer, DropdownItemedAfterIconWrapper, DropdownLabelDescription, DropdownLabelWrapper, DropdownWrapper } from "./style";
+import { useEffect } from "react";
 
 const MenuContext = React.createContext<{
   getItemProps: (
@@ -41,194 +23,42 @@ const MenuContext = React.createContext<{
   isOpen: false
 });
 
-interface MenuProps {
-  label: string;
-  nested?: boolean;
-  children?: React.ReactNode;
-  renderLabel?: React.ReactNode;
-}
-
-export const MenuComponent = React.forwardRef<
-  HTMLButtonElement,
-  MenuProps & React.HTMLProps<HTMLButtonElement>
->(({ children, label, renderLabel, ...props }, forwardedRef) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [hasFocusInside, setHasFocusInside] = React.useState(false);
-  const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
-
-  const elementsRef = React.useRef<Array<HTMLButtonElement | null>>([]);
-  const labelsRef = React.useRef<Array<string | null>>([]);
-  const parent = React.useContext(MenuContext);
-
-  const tree = useFloatingTree();
-  const nodeId = useFloatingNodeId();
-  const parentId = useFloatingParentNodeId();
-  const item = useListItem();
-
-  const isNested = parentId != null;
-
-  const { floatingStyles, refs, context } = useFloating<HTMLButtonElement>({
-    nodeId,
-    open: isOpen,
-    onOpenChange: setIsOpen,
-    placement: isNested ? "right-start" : "bottom-start",
-    middleware: [
-      offset({ mainAxis: isNested ? 0 : 4, alignmentAxis: isNested ? -4 : 0 }),
-      flip(),
-      shift()
-    ],
-    whileElementsMounted: autoUpdate
-  });
-
-  const hover = useHover(context, {
-    enabled: isNested,
-    delay: { open: 75 },
-    handleClose: safePolygon({ blockPointerEvents: true })
-  });
-  const click = useClick(context, {
-    event: "mousedown",
-    toggle: !isNested,
-    ignoreMouse: isNested
-  });
-  const role = useRole(context, { role: "menu" });
-  const dismiss = useDismiss(context, { bubbles: true });
-  const listNavigation = useListNavigation(context, {
-    listRef: elementsRef,
-    activeIndex,
-    nested: isNested,
-    onNavigate: setActiveIndex
-  });
-  const typeahead = useTypeahead(context, {
-    listRef: labelsRef,
-    onMatch: isOpen ? setActiveIndex : undefined,
-    activeIndex
-  });
-
-  const {
-    getReferenceProps,
-    getFloatingProps,
-    getItemProps
-  } = useInteractions([hover, click, role, dismiss, listNavigation, typeahead]);
-
-  // Event emitter allows you to communicate across tree components.
-  // This effect closes all menus when an item gets clicked anywhere
-  // in the tree.
-  React.useEffect(() => {
-    if (!tree) return;
-
-    function handleTreeClick() {
-      setIsOpen(false);
-    }
-
-    function onSubMenuOpen(event: { nodeId: string; parentId: string }) {
-      if (event.nodeId !== nodeId && event.parentId === parentId) {
-        setIsOpen(false);
-      }
-    }
-
-    tree.events.on("click", handleTreeClick);
-    tree.events.on("menuopen", onSubMenuOpen);
-
-    return () => {
-      tree.events.off("click", handleTreeClick);
-      tree.events.off("menuopen", onSubMenuOpen);
-    };
-  }, [tree, nodeId, parentId]);
-
-  React.useEffect(() => {
-    if (isOpen && tree) {
-      tree.events.emit("menuopen", { parentId, nodeId });
-    }
-  }, [tree, isOpen, nodeId, parentId]);
-
-  return (
-    <FloatingNode id={nodeId}>
-      <div
-        ref={useMergeRefs([refs.setReference, item.ref, forwardedRef])}
-        tabIndex={
-          !isNested ? undefined : parent.activeIndex === item.index ? 0 : -1
-        }
-        role={isNested ? "menuitem" : undefined}
-        data-open={isOpen ? "" : undefined}
-        data-nested={isNested ? "" : undefined}
-        data-focus-inside={hasFocusInside ? "" : undefined}
-        className={isNested ? "MenuItem" : "RootMenu"}
-        {...getReferenceProps(
-          parent.getItemProps({
-            ...props,
-            onFocus(event: React.FocusEvent<HTMLButtonElement>) {
-              props.onFocus?.(event);
-              setHasFocusInside(false);
-              parent.setHasFocusInside(true);
-            }
-          })
-        )}
-      >
-
-        {renderLabel ? renderLabel : label}
-
-        {isNested && (
-          <span aria-hidden style={{ marginLeft: 10, fontSize: 10 }}>
-            {`>`}
-          </span>
-        )}
-      </div>
-      <MenuContext.Provider
-        value={{
-          activeIndex,
-          setActiveIndex,
-          getItemProps,
-          setHasFocusInside,
-          isOpen
-        }}
-      >
-        <FloatingList elementsRef={elementsRef} labelsRef={labelsRef}>
-          {isOpen && (
-            <FloatingPortal>
-              <FloatingFocusManager
-                context={context}
-                modal={false}
-                initialFocus={isNested ? -1 : 0}
-                returnFocus={!isNested}
-              >
-                <div
-                  ref={refs.setFloating}
-                  className="Menu"
-                  style={floatingStyles}
-                  {...getFloatingProps()}
-                >
-                  {children}
-                </div>
-              </FloatingFocusManager>
-            </FloatingPortal>
-          )}
-        </FloatingList>
-      </MenuContext.Provider>
-    </FloatingNode>
-  );
-});
-
 interface MenuItemProps {
-  label: string;
+  value?: string | number;
+  label?: string | number;
+  handleClick?: (value: number | string) => void;
+  handleKeydown?: (value: number | string) => void;
+  selected?: boolean;
   disabled?: boolean;
+  itemElement?: React.ReactNode;
+  description?: string;
 }
 
-export const MenuItem = React.forwardRef<
+export const DropdownItem = React.forwardRef<
   HTMLButtonElement,
   MenuItemProps & React.ButtonHTMLAttributes<HTMLButtonElement>
->(({ label, disabled, ...props }, forwardedRef) => {
+>(({ value, label, disabled, selected, description, handleKeydown, itemElement, handleClick, children, ...props }, forwardedRef) => {
   const menu = React.useContext(MenuContext);
   const item = useListItem({ label: disabled ? null : label });
   const tree = useFloatingTree();
   const isActive = item.index === menu.activeIndex;
 
+  useEffect(() => {
+    if (!value) {
+      value = label ? label : typeof children === 'string' ? children : ''
+    }
+
+    if (!label) {
+      label = value
+    }
+  }, [value])
+
   return (
-    <button
+    <div
       {...props}
       ref={useMergeRefs([item.ref, forwardedRef])}
       type="button"
       role="menuitem"
-      className="MenuItem"
       tabIndex={isActive ? 0 : -1}
       disabled={disabled}
       {...menu.getItemProps({
@@ -242,26 +72,52 @@ export const MenuItem = React.forwardRef<
         }
       })}
     >
-      {label}
-    </button>
+      <DropdownWrapper disabled={!!disabled}>
+        <DropdownItemContainer
+          disabled={!!disabled}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              handleKeydown && handleKeydown(value);
+            }
+          }}
+          onClick={() => handleClick && handleClick(value)}
+        >
+          {itemElement && itemElement}
+          {
+            !itemElement &&
+            <>
+              <DropdownItemBeforeIconWrapper>
+                {
+                  !!selected &&
+                  <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'>
+                    <path d='M12.5 3l1.5.944L5.671 13l-.885-.957L2 9l1.5-1 2.215 2.22z' fill='#1e6fff' fillRule='evenodd' />
+                  </svg>
+                }
+              </DropdownItemBeforeIconWrapper>
+
+              <DropdownLabelWrapper data-value={value}>
+                {label}
+                <DropdownLabelDescription>
+                  {description}
+                </DropdownLabelDescription>
+              </DropdownLabelWrapper>
+
+              <DropdownItemedAfterIconWrapper>
+                {
+                  children && typeof children === 'object' &&
+                  <svg xmlns='http://www.w3.org/2000/svg' width='4' height='6'>
+                    <path d='M3.936 3.123L.374 5.95a.261.261 0 01-.31 0A.158.158 0 010 5.826V.174C0 .078.098 0 .22 0a.25.25 0 01.154.05l3.562 2.827a.15.15 0 010 .246z' opacity='.4'></path>
+                  </svg>
+                }
+              </DropdownItemedAfterIconWrapper>
+            </>
+          }
+
+        </DropdownItemContainer>
+      </DropdownWrapper>
+    </div>
   );
 });
 
-const Dropdown = React.forwardRef<
-  HTMLButtonElement,
-  MenuProps & React.HTMLProps<HTMLButtonElement>
->((props, ref) => {
-  const parentId = useFloatingParentNodeId();
-  if (parentId === null) {
-    return (
-      <FloatingTree>
-        <MenuComponent {...props} ref={ref} />
-      </FloatingTree>
-    );
-  }
-
-  return <MenuComponent {...props} ref={ref} />;
-});
-
-
-export default Dropdown
+export default DropdownItem

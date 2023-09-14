@@ -51,7 +51,7 @@ export const SelectedIcon = styled.div`
   margin: 10px 0 0 0;
 `;
 
-export const SelectItemContainerWrapper = styled.ul<{ transfer?: boolean }>`
+export const DropdownItemContainerWrapper = styled.ul<{ transfer?: boolean }>`
   z-index: ${(props) => (props.transfer ? 999 : "auto")};
   overflow: auto;
   max-height: 1110px;

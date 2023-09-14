@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ToolbarWrapper } from "./style";
 import { Log } from "@butterfly/pupa";
-import { Dropdown, MenuItem } from '../../ui';
+import { Dropdown, DropdownItem } from '../../ui';
 
 interface ToolbarInsertProps {
 
@@ -16,23 +16,23 @@ const ToolbarInsert: React.FC<ToolbarInsertProps> = () => {
   return (
     <ToolbarWrapper>
       <Dropdown label="Edit" renderLabel={renderLabel()}>
-        <MenuItem label="Undo" onClick={() => console.log("Undo")} />
-        <MenuItem label="Redo" disabled />
-        <MenuItem label="Cut" />
+        <DropdownItem label="Undo" onClick={() => console.log("Undo")} />
+        <DropdownItem label="Redo" disabled />
+        <DropdownItem label="Cut" >Cut</DropdownItem>
         <Dropdown label="Copy as">
-          <MenuItem label="Text" />
-          <MenuItem label="Video" />
+          <DropdownItem label="Text" />
+          <DropdownItem label="Video" />
           <Dropdown label="Image">
-            <MenuItem label=".png" />
-            <MenuItem label=".jpg" />
-            <MenuItem label=".svg" />
-            <MenuItem label=".gif" />
+            <DropdownItem label=".png" />
+            <DropdownItem label=".jpg" />
+            <DropdownItem label=".svg" />
+            <DropdownItem label=".gif" />
           </Dropdown>
-          <MenuItem label="Audio" />
+          <DropdownItem label="Audio" />
         </Dropdown>
         <Dropdown label="Share">
-          <MenuItem label="Mail" />
-          <MenuItem label="Instagram" />
+          <DropdownItem label="Mail" />
+          <DropdownItem label="Instagram" />
         </Dropdown>
       </Dropdown>
     </ToolbarWrapper>

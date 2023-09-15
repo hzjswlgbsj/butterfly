@@ -45,7 +45,7 @@ const MenuContext = React.createContext<{
 });
 
 interface MenuProps {
-  label: string;
+  label?: string;
   nested?: boolean;
   children?: React.ReactNode;
   renderLabel?: React.ReactNode;
@@ -166,16 +166,13 @@ export const MenuComponent = React.forwardRef<
           })
         )}
       >
-        {/* {renderLabel ? renderLabel : label} */}
-        <DropdownItem value={label} label={label}>
-          {isNested && (
-            <span aria-hidden style={{ marginLeft: 10, fontSize: 10 }}>
-              {`>`}
-            </span>
-          )}
-        </DropdownItem>
+        {renderLabel && renderLabel}
 
-
+        {
+          !renderLabel && <DropdownItem value={label} label={label}>
+            {isNested && <span></span>}
+          </DropdownItem>
+        }
       </div>
 
       <MenuContext.Provider

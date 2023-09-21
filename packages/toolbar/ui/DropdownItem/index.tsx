@@ -58,7 +58,7 @@ export const DropdownItem = React.forwardRef<
       {...props}
       ref={useMergeRefs([item.ref, forwardedRef])}
       type="button"
-      role="menuitem"
+      // role="menuitem"
       tabIndex={isActive ? 0 : -1}
       disabled={disabled}
       {...menu.getItemProps({

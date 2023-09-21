@@ -151,7 +151,7 @@ export const MenuComponent = React.forwardRef<
         tabIndex={
           !isNested ? undefined : parent.activeIndex === item.index ? 0 : -1
         }
-        role={isNested ? "menuitem" : undefined}
+        // role={isNested ? "menuitem" : undefined}
         data-open={isOpen ? "" : undefined}
         data-nested={isNested ? "" : undefined}
         data-focus-inside={hasFocusInside ? "" : undefined}

@@ -1,28 +1,23 @@
 import { baseFlexCenterStyle, ellipsis } from "../../baseStyle";
 import styled from "styled-components";
 
-export const InsertLabelWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  height: 24px;
-  padding: 2px 8px;
-`;
-export const SelectedLabelWrapper = styled.div<{ width?: string }>`
+export const InsertLabelWrapper = styled.div<{ width?: string }>`
   width: ${(props) => (props.width ? props.width : "auto")};
   color: rgba(0, 0, 0, 0.7);
   cursor: default;
+  padding: 0 2px;
   ${ellipsis};
   ${baseFlexCenterStyle};
 `;
-export const SelectedLabel = styled.div`
+export const InsertLabel = styled.div`
   padding-right: 0px;
-  width: 28px;
+  width: 26px;
   height: 24px;
   overflow: hidden;
   margin: auto;
   white-space: nowrap;
   box-sizing: content-box;
-  padding: 0 4px;
+  padding-left: 2px;
   text-align: center;
   font-weight: normal;
   background: transparent;
@@ -32,12 +27,10 @@ export const SelectedLabel = styled.div`
   text-decoration: none;
   cursor: default;
   display: inline-block;
-  margin-right: 2px;
 `;
-export const SelectedIconWrapper = styled.div`
+export const InsertRightIconWrapper = styled.div`
   vertical-align: middle;
-  float: right;
-  padding: 0 3px;
+  padding: 0 4px;
   text-align: center;
   height: 24px;
   box-sizing: border-box;
@@ -46,13 +39,13 @@ export const SelectedIconWrapper = styled.div`
   pointer-events: none;
   margin: 10px 0 0 0;
 `;
-export const SelectedIcon = styled.div`
-  background-color: #464d5a;
-  float: right;
-  padding: 0;
+export const InsertLeftIconWrapper = styled.div`
   vertical-align: middle;
-  width: 6px;
-  height: 4px;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  display: flex;
+  vertical-align: middle;
   pointer-events: none;
-  margin: 10px 0 0 0;
 `;

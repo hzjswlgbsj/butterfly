@@ -25,7 +25,7 @@ const MenuContext = React.createContext<{
 
 interface MenuItemProps {
   value?: string | number;
-  label?: string | number;
+  label?: string;
   handleClick?: (value: number | string) => void;
   handleKeydown?: (value: number | string) => void;
   selected?: boolean;

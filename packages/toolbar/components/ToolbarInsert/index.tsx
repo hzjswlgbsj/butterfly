@@ -10,8 +10,8 @@ interface ToolbarInsertProps {
 
 const ToolbarInsert: React.FC<ToolbarInsertProps> = () => {
   return (
-    <Dropdown renderLabel={ToolbarInsertLabel()}>
-      <DropdownItem label="Undo" onClick={() => console.log("Undo")} />
+    <Dropdown renderLabel={ToolbarInsertLabel()} onClick={() => console.log("Undo")}>
+      <DropdownItem label="Undo" description="这里是重做的描述" />
       <DropdownItem label="Redo" disabled />
       <DropdownItem label="Cut" >Cut</DropdownItem>
       <Dropdown label="Copy as">

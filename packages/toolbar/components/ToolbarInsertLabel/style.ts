@@ -1,8 +1,9 @@
 import { baseFlexCenterStyle, ellipsis } from "../../baseStyle";
 import styled from "styled-components";
 
-export const InsertLabelWrapper = styled.div<{ width?: string }>`
-  width: ${(props) => (props.width ? props.width : "auto")};
+export const InsertLabelWrapper = styled.div<{ width?: number }>`
+  width: ${(props) => (props.width ? `${props.width}px` : "auto")};
+  height: 24px;
   color: rgba(0, 0, 0, 0.7);
   cursor: default;
   padding: 0 2px;

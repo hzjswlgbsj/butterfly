@@ -14,7 +14,7 @@ const Button: React.FC<SelectProps> = ({ label, labelWidth }) => {
       }}
     >
       <IconActive active={false} disabled={false}>
-        <InsertLabelWrapper width={`${labelWidth}px`} >
+        <InsertLabelWrapper width={labelWidth} >
           <InsertLeftIconWrapper>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="8.375" stroke="#454D5A" stroke-width="1.25"></circle>

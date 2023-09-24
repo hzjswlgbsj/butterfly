@@ -4,7 +4,7 @@ import {
   useMergeRefs,
 } from "@floating-ui/react";
 import * as React from "react";
-import { DropdownItemBeforeIconWrapper, DropdownItemContainer, DropdownItemedAfterIconWrapper, DropdownLabelDescription, DropdownLabelWrapper, DropdownWrapper } from "./style";
+import { CustomButton, DropdownItemBeforeIconWrapper, DropdownItemContainer, DropdownItemedAfterIconWrapper, DropdownLabelDescription, DropdownLabelWrapper, DropdownWrapper } from "./style";
 import { useEffect } from "react";
 
 const MenuContext = React.createContext<{
@@ -23,21 +23,21 @@ const MenuContext = React.createContext<{
   isOpen: false
 });
 
-interface MenuItemProps {
+export interface MenuItem {
   value?: string | number;
   label?: string;
-  handleClick?: (value: number | string) => void;
-  handleKeydown?: (value: number | string) => void;
-  selected?: boolean;
+  handleClick?: (value: any) => void;
+  handleKeydown?: (value: any) => void;
   disabled?: boolean;
   itemElement?: React.ReactNode;
   description?: string;
+  icon?: any;
 }
 
 export const DropdownItem = React.forwardRef<
   HTMLButtonElement,
-  MenuItemProps & React.ButtonHTMLAttributes<HTMLButtonElement>
->(({ value, label, disabled, selected, description, handleKeydown, itemElement, handleClick, children, ...props }, forwardedRef) => {
+  MenuItem & React.ButtonHTMLAttributes<HTMLButtonElement>
+>(({ value, label, disabled, icon, description, handleKeydown, itemElement, handleClick, children, ...props }, forwardedRef) => {
   const menu = React.useContext(MenuContext);
   const item = useListItem({ label: disabled ? null : label });
   const tree = useFloatingTree();
@@ -49,18 +49,15 @@ export const DropdownItem = React.forwardRef<
     }
 
     if (!label) {
-      label = value
+      label = String(value)
     }
   }, [value])
 
   return (
-    <div
+    <CustomButton
       {...props}
-      ref={useMergeRefs([item.ref, forwardedRef])}
-      type="button"
-      // role="menuitem"
+      ref={useMergeRefs([item.ref, forwardedRef]) as any}
       tabIndex={isActive ? 0 : -1}
-      disabled={disabled}
       {...menu.getItemProps({
         onClick(event: React.MouseEvent<HTMLButtonElement>) {
           props.onClick?.(event);
@@ -87,14 +84,13 @@ export const DropdownItem = React.forwardRef<
           {
             !itemElement &&
             <>
-              <DropdownItemBeforeIconWrapper>
-                {
-                  !!selected &&
-                  <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'>
-                    <path d='M12.5 3l1.5.944L5.671 13l-.885-.957L2 9l1.5-1 2.215 2.22z' fill='#1e6fff' fillRule='evenodd' />
-                  </svg>
-                }
-              </DropdownItemBeforeIconWrapper>
+              {
+                !!icon &&
+                <DropdownItemBeforeIconWrapper>
+                  {icon}
+                </DropdownItemBeforeIconWrapper>
+              }
+
 
               <DropdownLabelWrapper data-value={value}>
                 {label}
@@ -116,7 +112,7 @@ export const DropdownItem = React.forwardRef<
 
         </DropdownItemContainer>
       </DropdownWrapper>
-    </div>
+    </CustomButton>
   );
 });
 

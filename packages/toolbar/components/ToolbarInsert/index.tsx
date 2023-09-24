@@ -1,18 +1,22 @@
 import React from "react";
 import { Dropdown, DropdownItem } from '../../ui';
 import ToolbarInsertLabel from "../ToolbarInsertLabel";
+import { ToolbarMenuItem } from "../../consts";
+import { MenuItem } from "../../ui/DropdownItem";
 
 interface ToolbarInsertProps {
 
 }
 
-
-
 const ToolbarInsert: React.FC<ToolbarInsertProps> = () => {
   return (
-    <Dropdown renderLabel={ToolbarInsertLabel()} onClick={() => console.log("Undo")}>
-      <DropdownItem label="Undo" description="这里是重做的描述" />
-      <DropdownItem label="Redo" disabled />
+    <Dropdown renderLabel={ToolbarInsertLabel()} onClick={() => console.log("点击")}>
+      {
+        ToolbarMenuItem.map((item: MenuItem) => {
+          return <DropdownItem value={item.value} label={item.label} icon={item.icon} description={item.description} />
+        })
+      }
+      {/* <DropdownItem description="这里是撤销的描述" label="Redo" />
       <DropdownItem label="Cut" >Cut</DropdownItem>
       <Dropdown label="Copy as">
         <DropdownItem label="Text" />
@@ -28,7 +32,7 @@ const ToolbarInsert: React.FC<ToolbarInsertProps> = () => {
       <Dropdown label="Share">
         <DropdownItem label="Mail" />
         <DropdownItem label="Instagram" />
-      </Dropdown>
+      </Dropdown> */}
     </Dropdown>
 
   );

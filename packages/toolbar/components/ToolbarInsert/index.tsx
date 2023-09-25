@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown, DropdownItem } from '../../ui';
 import ToolbarInsertLabel from "../ToolbarInsertLabel";
-import { ToolbarMenuItem } from "../../consts";
+import { FORMAT_TYPE_DIVIDER, ToolbarMenuItem } from "../../consts";
 import { MenuItem } from "../../ui/DropdownItem";
 
 interface ToolbarInsertProps {
@@ -13,7 +13,19 @@ const ToolbarInsert: React.FC<ToolbarInsertProps> = () => {
     <Dropdown renderLabel={ToolbarInsertLabel()} onClick={() => console.log("点击")}>
       {
         ToolbarMenuItem.map((item: MenuItem) => {
-          return <DropdownItem value={item.value} label={item.label} icon={item.icon} description={item.description} />
+          if (item.value === FORMAT_TYPE_DIVIDER) {
+
+          } else {
+            return (
+              <DropdownItem
+                value={item.value}
+                label={item.label}
+                icon={item.icon}
+                description={item.description}
+              />
+            )
+          }
+
         })
       }
       {/* <DropdownItem description="这里是撤销的描述" label="Redo" />

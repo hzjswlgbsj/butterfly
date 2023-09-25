@@ -7,8 +7,8 @@ import styled from "styled-components";
 
 export const DropdownItemBeforeIconWrapper = styled.div`
   ${baseFlexCenterStyle}
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   margin-right: 8px;
 `;
 export const DropdownItemedAfterIconWrapper = styled.div`

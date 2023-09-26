@@ -66,6 +66,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor, formats }) => {
   return (
     <ToolbarWrapper>
       <ToolbarInsert />
+
       {
         actions.map((item: ActionElement) =>
           // <div key={item.type} onClick={() => handleAction(item.command)}>

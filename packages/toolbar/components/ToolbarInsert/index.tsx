@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown, DropdownItem } from '../../ui';
+import { Divider, Dropdown, DropdownItem } from '../../ui';
 import ToolbarInsertLabel from "../ToolbarInsertLabel";
 import { FORMAT_TYPE_DIVIDER, ToolbarMenuItem } from "../../consts";
 import { MenuItem } from "../../ui/DropdownItem";
@@ -14,7 +14,7 @@ const ToolbarInsert: React.FC<ToolbarInsertProps> = () => {
       {
         ToolbarMenuItem.map((item: MenuItem) => {
           if (item.value === FORMAT_TYPE_DIVIDER) {
-
+            return <Divider />
           } else {
             return (
               <DropdownItem
